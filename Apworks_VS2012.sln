@@ -114,10 +114,6 @@ EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Apworks.Setup", "Deploy\Apworks.Setup\Apworks.Setup.wixproj", "{D5DBFC73-5471-4511-8283-EF450E24C3FE}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CoreDebugDeployment|Any CPU = CoreDebugDeployment|Any CPU
 		CoreDebugDeployment|Mixed Platforms = CoreDebugDeployment|Mixed Platforms
@@ -183,8 +179,8 @@ Global
 		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.CoreReleaseDeployment|x86.Build.0 = CoreReleaseDeployment|x86
 		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Debug|x86.ActiveCfg = Debug|x86
 		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}.Release|Any CPU.Build.0 = Release|Any CPU
