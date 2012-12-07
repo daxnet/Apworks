@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="apworksConfiguration" type="Apworks.Config.ApworksConfigHandler, Apworks"/>
+    <section name="hibernate-configuration" type="NHibernate.Cfg.ConfigurationSectionHandler, NHibernate"/>
+    <section name="unityConfiguration" type="Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration"/>
+  </configSections>
+
+  <apworksConfiguration>
+    <application bootStrapper="Apworks.Application.BootStrapper, Apworks"/>
+    <objectContainer provider="Apworks.ObjectContainers.Unity.UnityContainer, Apworks.ObjectContainers.Unity" section="unityConfiguration"/>
+    
+    <generators>
+      <generator name="defaultIdentityGenerator" kind="Identity" type="Apworks.Generators.SequentialIdentityGenerator, Apworks"/>
+      <generator name="defaultSequenceGenerator" kind="Sequence" type="Apworks.Generators.SequentialIdentityGenerator, Apworks"/>
+    </generators>
+
+    <handlers>
+      <handler name="TinyLibraryCommandHandlers"
+               kind="Command"
+               sourceType="Assembly"
+               source="Apworks.Tests"/>
+    </handlers>
+    
+    <exceptions>
+      <exception type="System.InvalidOperationException, mscorlib">
+        <handlers>
+          <handler type="Apworks.Tests.InvalidOperationExceptionHandler, Apworks.Tests"/>
+        </handlers>
+      </exception>
+
+      <exception type="System.ArgumentNullException, mscorlib" behavior="Direct"/>
+
+      <exception type="System.ArgumentException, mscorlib" behavior="Forward"/>
+
+      <exception type="System.SystemException, mscorlib">
+        <handlers>
+          <handler type="Apworks.Tests.SystemExceptionHandler, Apworks.Tests"/>
+        </handlers>
+      </exception>
+      
+    </exceptions>
+
+  </apworksConfiguration>
+
+  <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+    <session-factory>
+      <property name="connection.driver_class">
+        NHibernate.Driver.SqlClientDriver
+      </property>
+      <property name="connection.provider">
+        NHibernate.Connection.DriverConnectionProvider
+      </property>
+      <property name="connection.connection_string">
+        Data Source=(local)\SQLEXPRESS;Initial Catalog=ApworksTest;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;
+      </property>
+      <property name="dialect">
+        NHibernate.Dialect.MsSql2008Dialect
+      </property>
+      <property name='proxyfactory.factory_class'>
+        NHibernate.ByteCode.LinFu.ProxyFactoryFactory, NHibernate.ByteCode.LinFu
+      </property>
+      <mapping assembly="Apworks.Tests.Common"/>
+    </session-factory>
+  </hibernate-configuration>
+
+  <unityConfiguration>
+      <container>
+        <register type="Apworks.Repositories.IRepositoryContext, Apworks"
+              mapTo="Apworks.Repositories.NHibernate.NHibernateContext, Apworks.Repositories.NHibernate">
+        </register>
+
+        <register type="Apworks.Events.Serialization.IDomainEventSerializer, Apworks"
+              mapTo="Apworks.Events.Serialization.DomainEventXmlSerializer, Apworks">
+        </register>
+
+        <register type="Apworks.Snapshots.Serialization.ISnapshotSerializer, Apworks"
+                  mapTo="Apworks.Snapshots.Serialization.SnapshotBinarySerializer, Apworks">
+        </register>
+
+        <register type="Apworks.Storage.IStorageMappingResolver, Apworks"
+                  mapTo="Apworks.Storage.XmlStorageMappingResolver, Apworks"
+                  name="DomainEventStorageMappingResolver">
+          <constructor>
+            <param name="fileName" value="StorageMappings.xml"/>
+          </constructor>
+        </register>
+        
+        <register type="Apworks.Events.Storage.IDomainEventStorage, Apworks" 
+                  mapTo="Apworks.Events.Storage.General.SqlDomainEventStorage, Apworks.Events.Storage.General">
+          <constructor>
+            <param name="connectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=ApworksEvents;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;"/>
+            <param name="mappingResolver">
+              <dependency type="Apworks.Storage.IStorageMappingResolver, Apworks" name="DomainEventStorageMappingResolver"/>
+            </param>
+          </constructor>
+        </register>
+        
+        <register type="Apworks.Bus.ICommandBus, Apworks" mapTo="Apworks.Bus.DirectBus.DirectCommandBus, Apworks.Bus.DirectBus">
+          <constructor>
+            <param name="dispatcher">
+              <dependency type="Apworks.Bus.IMessageDispatcher, Apworks"/>
+            </param>
+          </constructor>
+          <lifetime type="ContainerControlledLifetimeManager"/>
+        </register>
+
+        <register type="Apworks.Bus.IEventBus, Apworks" mapTo="Apworks.Bus.DirectBus.DirectEventBus, Apworks.Bus.DirectBus">
+          <constructor>
+            <param name="dispatcher">
+              <dependency type="Apworks.Bus.IMessageDispatcher, Apworks"/>
+            </param>
+          </constructor>
+          <lifetime type="ContainerControlledLifetimeManager"/>
+        </register>
+        
+        <register type="Apworks.Bus.IMessageDispatcher, Apworks" mapTo="Apworks.Bus.DirectBus.DirectMessageDispatcher, Apworks.Bus.DirectBus">
+          <lifetime type="ContainerControlledLifetimeManager"/>
+        </register>
+        
+        <register type="Apworks.Repositories.IDomainRepository, Apworks" mapTo="Apworks.Repositories.DomainRepository, Apworks">
+          <constructor>
+            <param name="storage">
+              <dependency type="Apworks.Events.Storage.IDomainEventStorage, Apworks"/>
+            </param>
+            <param name="eventBus">
+              <dependency type="Apworks.Bus.IEventBus, Apworks"/>
+            </param>
+          </constructor>
+          
+        </register>
+
+        <register type="Apworks.Storage.IStorageMappingResolver, Apworks"
+                  mapTo="Apworks.Storage.XmlStorageMappingResolver, Apworks"
+                  name="QueryStorageMappingResolver">
+          <constructor>
+            <param name="fileName" value="StorageMappings.xml"/>
+          </constructor>
+        </register>
+
+        <register type="Apworks.Queries.Storage.IQueryObjectStorage, Apworks"
+                  mapTo="Apworks.Queries.Storage.General.SqlQueryObjectStorage, Apworks.Queries.Storage.General">
+          <constructor>
+            <param name="connectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=ApworksTest;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;"/>
+            <param name="mappingResolver">
+              <dependency type="Apworks.Storage.IStorageMappingResolver, Apworks" name="QueryStorageMappingResolver"/>
+            </param>
+          </constructor>
+        </register>
+      </container>
+  </unityConfiguration>
+</configuration>

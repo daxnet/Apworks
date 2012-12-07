@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StorageMappingSchema>
+  <DataTypes>
+    <DataType FullName="Apworks.Snapshots.SnapshotDataObject" MapTo="Snapshots">
+      <Properties>
+        <Property Name="ID" MapTo="Id" Identity="true" AutoGenerate="false"/>
+      </Properties>
+    </DataType>
+  </DataTypes>
+</StorageMappingSchema>

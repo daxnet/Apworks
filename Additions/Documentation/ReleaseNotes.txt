@@ -1,0 +1,95 @@
+=== 2012/06/30 Apworks Application Development Framework version 2.5.4563.21309 ===
+Installation Prerequisites:
+1. Microsoft .NET Framework 4.0 SP1
+2. Microsoft Visual Studio 2010 SP1
+3. Other required libraries & assemblies are now included in the installation package
+   so no more prerequisites needed
+
+Functional Updates:
+1. Refactor the identity field of the IEntity interface from 'Id' to 'ID'
+2. Changed the MySql Storage to use the MySql NetConnector version 6.4.4.
+3. Implemented the paging support for the repositories.
+4. Added the Eager Loading Property specification to repository interface 
+   to support eager loading of navigation properties in some 3rd party repository implementation.
+5. Updated the 3rd party assembly references to their latest version.
+6. Added the EntityFramework repository implementation.
+7. Changed the type of the ID of entities from System.Long to System.Guid.
+8. WcfPerRequestLifetimeManager added to the Unity object container.
+9. Added the NHibernateApplicationConfiguration class
+10. Project templates available for Visual Studio 2010
+11. New DataTransferObject type available in the new Apworks.Services.ApplicationServices namespace
+
+Hotfixes:
+1. try_catch block should be used on the transaction rollback action to prevent the exception 
+   from being dropped in NHibernateContext.
+2. NHibernate Session should be cleared when exception occurs.
+3. Fixed the XML document for the repository class.
+
+
+=== 2011/09/15 Apworks Application Development Framework version 2.5.4563.21309 ===
+Installation Prerequisites:
+1. Microsoft .NET Framework 4.0 SP1
+2. Microsoft Visual Studio 2010 SP1
+3. Other required libraries & assemblies are now included in the installation package
+   so no more prerequisites needed
+
+Functional Updates:
+1. Fixed lots of bugs exist in the previous version of Apworks.
+2. Messaging and Dispatching now supports both DirectBus and MSMQ. Using MSMQ as event bus along
+   with Microsoft SQL Server will gain the benefit of Distributed Transaction Coordination (Requires
+   Windows system starts the MS-DTC service).
+3. Event Store now supports either SQL Server or MySQL databases. In order to avoid the 2PC (Two-Phase-Commit)
+   failure, we suggest use SQL Server as your event store since MySQL is not supported by the MS-DTC.
+4. Flexible Event Snapshot mechanism. Developers are able to customize and configure the snapshot providers
+   so that different snapshot strategies could be applied on the domain repositories.
+5. Supports different types of domain repositories.
+6. Supports the latest version of NHibernate (3.2.0GA) framework. This improves the performance when getting
+   a list of matching domain objects.
+7. IStorage interface now supports the ISpecification interface instead of the PropertyBag object to
+   implement the filtering. This means that complex search conditions could be applied on the storages
+   when retrieving objects.
+8. Fixed the issue of the Lambda Expression on the ISpecification implementation to support Microsoft
+   ADO.NET Entity Framework.
+9. Different configuration approaches. Developers can use either configuration file (app/web.config)
+   or inline code to provide configuration information for Apworks framework. Inline code configuration provides
+   strongly-typed, intellisense-supported coding styles whereas configuration file provides more
+   flexible configuration after the application has been deployed to the production environment.
+10. Interceptions and Exception Handling mechanism is introduced in this version of Apworks.
+11. New application bootstrapper. 
+
+=== 2010/12/27 Apworks/CQRS framework (Alpha) version 1.0.4016.23016 ===
+Installation Prerequisites
+1. Install .NET Framework 3.5 SP1
+2. Install Visual Studio 2010 (with SQL Express)
+3. Install EntLib 5: http://msdn.microsoft.com/en-us/library/ff632023.aspx
+4. Microsoft SQL Server (Express) 2005 or above
+
+Functional Checkpoints:
+1. Messaging and Dispatching with DirectBus - The Command side and Query side should resides within
+   the same server environment since the current version of Apworks only supports the Direct In-memory
+   message bus.
+2. Event Store and Snapshots - Currently only supports SQL Server as the back store of the events and
+   snapshots. However developers could extend the framework to support other storage devices. Further 
+   development will include the support of various RDBMS and NoSQL solutions.
+3. Query Data Storage - Currently only supports SQL Server. However developers could extend the framework
+   to support other storage devices. Further development will include the support of various RDBMS and NoSQL
+   solutions.
+4. Object Containers - Only supports Unity Framework in Microsoft Patterns & Practices EntLib 5.0. Apworks
+   provides a proxy library on decoupling and accessing the Unity Framework.
+5. Snapshot Strategies - Currently the snapshot strategy is defined as a simple CanCreateOrUpdateSnapshot
+   method under the IDomainEventStorage interface, and the current strategy is that, for every 1000 events
+   of an aggregate, the snapshot will be taken. As the current version of Apworks uses the SqlDomainEventStorage
+   class as the concrete class of IDomainEventStorage interface, so by overriding the CanCreateOrUpdateSnapshot
+   method you could define your own snapshot strategy.
+6. The PropertyBag only supports the 'equals' and 'AND' semantics. Will be enhanced in later versions.
+
+
+=== 2010/12/10 Apworks/CQRS framework (Pre-Alpha/Preview) ===
+Installation Prerequistes
+1. Install .NET Framework 3.5 SP1
+2. Install Visual Studio 2010 (with SQL Express)
+3. Install EntLib 5: http://msdn.microsoft.com/en-us/library/ff632023.aspx
+4. Create databases under .\SQLEXPRESS: ApworksEvents, ApworksTest, TinyLibraryEventDB, TinyLibraryQueryDB
+5. Execute sql scripts under Additions directory: ApworksEventsSchema.sql, TinyLibraryEventDB, TinyLibraryQueryDB
+6. Compile the solution
+7. Run test cases

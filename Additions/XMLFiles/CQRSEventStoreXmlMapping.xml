@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StorageMappingSchema>
+  <DataTypes>
+    <DataType FullName="Apworks.Events.Storage.DomainEventDataObject" MapTo="DomainEvents">
+      <Properties>
+        <Property Name="Id" MapTo="Id" Identity="true" AutoGenerate="true"/>
+      </Properties>
+    </DataType>
+    <DataType FullName="Apworks.Events.Storage.SnapshotDataObject" MapTo="Snapshots">
+      <Properties>
+        <Property Name="Id" MapTo="Id" Identity="true" AutoGenerate="true"/>
+      </Properties>
+    </DataType>
+  </DataTypes>
+</StorageMappingSchema>

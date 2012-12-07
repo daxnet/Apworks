@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EX_ADD_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Failed to add the aggregate(s) to the repository.</value>
+  </data>
+  <data name="EX_BEGIN_TRANS_DOMAIN_REPOSITORY_FAIL" xml:space="preserve">
+    <value>Failed to begin the transaction for the domain repository.</value>
+  </data>
+  <data name="EX_BEGIN_TRANS_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to begin transaction with the isolation level {0}.</value>
+  </data>
+  <data name="EX_BUILD_FIELD_NAME_FAIL" xml:space="preserve">
+    <value>The where clause builder failed to build the field name for member {0}.</value>
+  </data>
+  <data name="EX_CHECK_EXIST_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Failed to check the existance of the aggregate.</value>
+  </data>
+  <data name="EX_CLOSE_CONN_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to close the connection.</value>
+  </data>
+  <data name="EX_COMMIT_DOMAIN_REPOSITORY_CONTEXT_FAIL" xml:space="preserve">
+    <value>Failed to commit the domain repository Unit of Work.</value>
+  </data>
+  <data name="EX_COMMIT_ROLLBACK_WHEN_DISPOSE_STORAGE_FAIL" xml:space="preserve">
+    <value>Either commit or rollback fails when disposing the storage device object.</value>
+  </data>
+  <data name="EX_COMMIT_TRANS_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to commit the transaction.</value>
+  </data>
+  <data name="EX_DELETE_FROM_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to delete the object from storage for type {0}, with the criteria {1}.</value>
+  </data>
+  <data name="EX_DESERIALIZE_FAIL" xml:space="preserve">
+    <value>Failed to deserialize the object.</value>
+  </data>
+  <data name="EX_DISPOSE_DOMAIN_REPOSITORY_FAIL" xml:space="preserve">
+    <value>Failed to dispose the domain repository.</value>
+  </data>
+  <data name="EX_DOMAINEVENTSTORE_INVALID_CONNSTR" xml:space="preserve">
+    <value>Database connection string was not specified as it must be used by LINQ to SQL Domain Event Store. Check the configuration file to make sure the configuration section for event storage was defined and the connection string was provided properly.</value>
+  </data>
+  <data name="EX_DOMAINEVENTSTORE_INVALID_MAPPING" xml:space="preserve">
+    <value>LINQ to SQL mapping xml was not defined as it must be used by the LINQ to SQL Domain Event Store. Check the configuration file to make sure the configuration section for event storage was defined and the mapping xml was specified property.</value>
+  </data>
+  <data name="EX_DOMAINEVENTSTORE_INVALID_TYPE" xml:space="preserve">
+    <value>The type of the configuration section is not valid as required. Required: {0}, Actual: {1}.</value>
+  </data>
+  <data name="EX_EXPRESSION_NODE_TYPE_NOT_SUPPORT" xml:space="preserve">
+    <value>The expression type {0} is not supported by current version of Apworks.</value>
+  </data>
+  <data name="EX_FINDALL_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Failed to find all the aggregates.</value>
+  </data>
+  <data name="EX_FIND_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Error occurs when trying to find the aggregate(s) from the repository.</value>
+  </data>
+  <data name="EX_GENERATE_UID_FAIL" xml:space="preserve">
+    <value>General error occurs when generating the unique identifier.</value>
+  </data>
+  <data name="EX_GENERATE_WHERE_CLAUSE_FAIL" xml:space="preserve">
+    <value>The where clause builder failed to generate the where clause for the expression {0}.</value>
+  </data>
+  <data name="EX_GENERATE_WHERE_NOT_SUPPORT" xml:space="preserve">
+    <value>There are some unsupported operations when generating where clause for the expression {0}.</value>
+  </data>
+  <data name="EX_GETALL_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Failed to get all the aggregates from the repository.</value>
+  </data>
+  <data name="EX_GET_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Error occurs when trying to get the aggregate(s) from the repository.</value>
+  </data>
+  <data name="EX_GET_IDENTITY_GENERATOR_FAIL" xml:space="preserve">
+    <value>Unable to get the identity generator.</value>
+  </data>
+  <data name="EX_INIT_RDBMS_DOMAIN_EVENT_STORAGE_FAIL" xml:space="preserve">
+    <value>Unable to create the Relational Database Management System Domain Event Storage with the provided type {0}.</value>
+  </data>
+  <data name="EX_INIT_RDBMS_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to initialize the RDBMS storage device.</value>
+  </data>
+  <data name="EX_INIT_XML_STORAGE_MAPPING_FAIL" xml:space="preserve">
+    <value>Failed to initialize the XML mapping resolver with the given file {0}.</value>
+  </data>
+  <data name="EX_INSERT_INTO_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to insert the data object into the storage with the data {0}.</value>
+  </data>
+  <data name="EX_INVALID_CONFIG_ELEMENT" xml:space="preserve">
+    <value>Configuration element {0}, which is required by Apworks, was not configured properly.</value>
+  </data>
+  <data name="EX_INVALID_HANDLER_SIGNATURE" xml:space="preserve">
+    <value>The method {0} going to be used as domain event handler doesn't have a correct signature.</value>
+  </data>
+  <data name="EX_INVALID_METHOD_CALL_ARGUMENT_NUMBER" xml:space="preserve">
+    <value>Number of the arguments used by the method call should only be one.</value>
+  </data>
+  <data name="EX_LOAD_OBJ_CONTAINER_FAIL" xml:space="preserve">
+    <value>Failed to initialize and load the object container.</value>
+  </data>
+  <data name="EX_MEMBER_TYPE_NOT_SUPPORT" xml:space="preserve">
+    <value>Only the property member of the given data object and the field member is supported. Current member type is {0}.</value>
+  </data>
+  <data name="EX_METHOD_CALL_ARGUMENT_TYPE_NOT_SUPPORT" xml:space="preserve">
+    <value>The type of the argument that used by the method should be either Constant or Member. Currently it is {0}.</value>
+  </data>
+  <data name="EX_METHOD_NOT_SUPPORT" xml:space="preserve">
+    <value>Only the StartsWith, EndsWith and Equals methods are supported. Currently it is {0}.</value>
+  </data>
+  <data name="EX_PROCESS_NODE_NOT_SUPPORT" xml:space="preserve">
+    <value>The process of the expression type {0} is not supported.</value>
+  </data>
+  <data name="EX_REMOVE_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Failed to remove the aggregate from the repository.</value>
+  </data>
+  <data name="EX_ROLLBACK_TRANS_DOMAIN_REPOSITORY_FAIL" xml:space="preserve">
+    <value>Failed to rollback the transaction from the domain repository.</value>
+  </data>
+  <data name="EX_ROLLBACK_TRANS_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to rollback the transaction.</value>
+  </data>
+  <data name="EX_SELECT_FIRSTONLY_FAIL" xml:space="preserve">
+    <value>Failed to select the first only object for data type {0} with the property bag {1}.</value>
+  </data>
+  <data name="EX_SELECT_FROM_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to select data objects from the storage for data type {0}, with the criteria {1}, sorting fields {2} and sort order {3}.</value>
+  </data>
+  <data name="EX_SERIALIZE_FAIL" xml:space="preserve">
+    <value>Failed to serialize the object.</value>
+  </data>
+  <data name="EX_STORAGE_TRANS_COMPLETED" xml:space="preserve">
+    <value>The transaction has already completed.</value>
+  </data>
+  <data name="EX_UPDATE_AGGREGATE_FAIL" xml:space="preserve">
+    <value>Failed to update the aggregate in the repository.</value>
+  </data>
+  <data name="EX_UPDATE_FROM_STORAGE_FAIL" xml:space="preserve">
+    <value>Failed to update the data object of type {0} from the storage, with the new values {1} and the selection criteria {2}.</value>
+  </data>
+  <data name="EX_VISIT_CONSTANT_FAIL" xml:space="preserve">
+    <value>Failed to process the constant expression {0}.</value>
+  </data>
+  <data name="EX_VISIT_MEMBER_FAIL" xml:space="preserve">
+    <value>Failed to process the member expression {0}.</value>
+  </data>
+  <data name="EX_VISIT_METHOD_CALL_FAIL" xml:space="preserve">
+    <value>Failed to process the method call expression {0}.</value>
+  </data>
+</root>

@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Apworks</RootNamespace>
+    <AssemblyName>Apworks</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Apworks.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CoreDebugDeployment|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\CoreDebugDeployment\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Apworks.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <DocumentationFile>..\CoreDebugDeployment\Apworks.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CoreReleaseDeployment|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\CoreReleaseDeployment\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\CoreReleaseDeployment\Apworks.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Apworks.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Core.3.1.0\lib\net35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AggregateRoot.cs" />
+    <Compile Include="Config\ApworksConfiguration.csd.cs">
+      <DependentUpon>ApworksConfiguration.csd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Repositories\RepositoryContext.cs" />
+    <Compile Include="Services\ApplicationServices\DataTransferObject.cs" />
+    <Compile Include="Application\AppInitEventArgs.cs" />
+    <Compile Include="Application\App.cs" />
+    <Compile Include="Application\AppRuntime.cs" />
+    <Compile Include="Application\IApp.cs" />
+    <Compile Include="Bus\BusException.cs" />
+    <Compile Include="Bus\MessageDispatchEventArgs.cs" />
+    <Compile Include="Bus\DispatchingException.cs" />
+    <Compile Include="Bus\MessageDispatcher.cs" />
+    <Compile Include="Bus\RegisterDispatchAttribute.cs" />
+    <Compile Include="Config\AppConfigSource.cs" />
+    <Compile Include="Config\ApworksConfiguration.Partial.cs" />
+    <Compile Include="Config\ConfigException.cs" />
+    <Compile Include="Config\IConfigSource.cs" />
+    <Compile Include="Config\RegularConfigSource.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="Events\HandlesAttribute.cs" />
+    <Compile Include="Events\Storage\RdbmsDomainEventStorage.cs" />
+    <Compile Include="Interception\AdditionalInterfaceToProxyAttribute.cs" />
+    <Compile Include="Interception\BaseTypeForInterfaceProxyAttribute.cs" />
+    <Compile Include="Interception\ExceptionHandlingInterceptor.cs" />
+    <Compile Include="Interception\InterceptorSelector.cs" />
+    <Compile Include="ObjectContainer.cs" />
+    <Compile Include="Repositories\EventPublisherDomainRepository.cs" />
+    <Compile Include="Repositories\RegularDomainRepository.cs" />
+    <Compile Include="Repositories\RegularEventPublisherDomainRepository.cs" />
+    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Snapshots\Providers\EventNumberSnapshotProvider.cs" />
+    <Compile Include="Snapshots\Providers\ISnapshotProvider.cs" />
+    <Compile Include="Snapshots\Providers\SuppressedSnapshotProvider.cs" />
+    <Compile Include="Snapshots\Providers\SnapshotProvider.cs" />
+    <Compile Include="Snapshots\Providers\SnapshotProviderOption.cs" />
+    <Compile Include="Snapshots\Providers\StorageBasedSnapshotProvider.cs" />
+    <Compile Include="Snapshots\SnapshotDataObject.cs" />
+    <Compile Include="Exceptions\ExceptionHandler.cs" />
+    <Compile Include="Exceptions\ExceptionManager.cs" />
+    <Compile Include="Exceptions\IExceptionHandler.cs" />
+    <Compile Include="Repositories\SnapshotDomainRepository.cs" />
+    <Compile Include="Repositories\EventSourcedDomainRepository.cs" />
+    <Compile Include="Snapshots\ISnapshot.cs" />
+    <Compile Include="InfrastructureException.cs" />
+    <Compile Include="Snapshots\ISnapshotOrignator.cs" />
+    <Compile Include="Serialization\SerializationException.cs" />
+    <Compile Include="Snapshots\Serialization\ISnapshotSerializer.cs" />
+    <Compile Include="Snapshots\Serialization\SnapshotBinarySerializer.cs" />
+    <Compile Include="Snapshots\Serialization\SnapshotDataContractSerializer.cs" />
+    <Compile Include="Snapshots\Serialization\SnapshotJsonSerializer.cs" />
+    <Compile Include="Snapshots\Serialization\SnapshotXmlSerializer.cs" />
+    <Compile Include="Snapshots\Snapshot.cs" />
+    <Compile Include="ApworksException.cs" />
+    <Compile Include="Bus\IBus.cs" />
+    <Compile Include="Bus\ICommandBus.cs" />
+    <Compile Include="Bus\IEventBus.cs" />
+    <Compile Include="Bus\IMessageDispatcher.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DomainException.cs" />
+    <Compile Include="ExpressionParser.cs" />
+    <Compile Include="Specifications\ExpressionFuncExtender.cs" />
+    <Compile Include="Specifications\ParameterRebinder.cs" />
+    <Compile Include="Storage\Builders\WhereClauseBuilder.cs" />
+    <Compile Include="Storage\Builders\IWhereClauseBuilder.cs" />
+    <Compile Include="Storage\Builders\WhereClauseBuildResult.cs" />
+    <Compile Include="Storage\SortOrder.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\EventHandler.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IDomainEventHandler.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\InlineDomainEventHandler.cs" />
+    <Compile Include="Events\Serialization\DomainEventBinarySerializer.cs" />
+    <Compile Include="Events\Serialization\DomainEventDataContractSerializer.cs" />
+    <Compile Include="Events\Serialization\DomainEventJsonSerializer.cs" />
+    <Compile Include="Events\Serialization\DomainEventXmlSerializer.cs" />
+    <Compile Include="Events\Serialization\IDomainEventSerializer.cs" />
+    <Compile Include="Events\Storage\DomainEventDataObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\Storage\IDomainEventStorage.cs" />
+    <Compile Include="Generators\SequenceGenerator.cs" />
+    <Compile Include="IAggregateRoot.cs" />
+    <Compile Include="Generators\ISequenceGenerator.cs" />
+    <Compile Include="Generators\SequentialIdentityGenerator.cs" />
+    <Compile Include="Generators\IdentityGenerator.cs" />
+    <Compile Include="Generators\IIdentityGenerator.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="IHandler.cs" />
+    <Compile Include="IObjectContainer.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Repositories\DomainRepository.cs" />
+    <Compile Include="Repositories\IDomainRepository.cs" />
+    <Compile Include="Serialization\ObjectBinarySerializer.cs" />
+    <Compile Include="Serialization\IObjectSerializer.cs" />
+    <Compile Include="ISourcedAggregateRoot.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IRepositoryContext.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RepositoryException.cs" />
+    <Compile Include="Serialization\ObjectDataContractSerializer.cs" />
+    <Compile Include="Serialization\ObjectJsonSerializer.cs" />
+    <Compile Include="Serialization\ObjectXmlSerializer.cs" />
+    <Compile Include="SourcedAggregateRoot.cs" />
+    <Compile Include="Specifications\AnySpecification.cs" />
+    <Compile Include="Specifications\AndNotSpecification.cs" />
+    <Compile Include="Specifications\AndSpecification.cs" />
+    <Compile Include="Specifications\CompositeSpecification.cs" />
+    <Compile Include="Specifications\ExpressionSpecification.cs" />
+    <Compile Include="Specifications\ICompositeSpecification.cs" />
+    <Compile Include="Specifications\ISpecification.cs" />
+    <Compile Include="Specifications\ISpecificationParser.cs" />
+    <Compile Include="Specifications\NoneSpecification.cs" />
+    <Compile Include="Specifications\NotSpecification.cs" />
+    <Compile Include="Specifications\OrSpecification.cs" />
+    <Compile Include="Specifications\Specification.cs" />
+    <Compile Include="Specifications\SpecificationException.cs" />
+    <Compile Include="Storage\IStorage.cs" />
+    <Compile Include="Storage\IStorageMappingResolver.cs" />
+    <Compile Include="Storage\PropertyBag.cs" />
+    <Compile Include="Storage\RdbmsStorage.cs" />
+    <Compile Include="Storage\StorageException.cs" />
+    <Compile Include="Storage\StorageMappingSchema.cs">
+      <DependentUpon>StorageMappingSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\XmlStorageMappingResolver.cs" />
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\ApworksConfiguration.csd">
+      <Generator>CsdFileGenerator</Generator>
+      <LastGenOutput>ApworksConfiguration.csd.cs</LastGenOutput>
+    </None>
+    <None Include="Config\ApworksConfiguration.csd.config">
+      <DependentUpon>ApworksConfiguration.csd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Config\ApworksConfiguration.csd.diagram">
+      <DependentUpon>ApworksConfiguration.csd</DependentUpon>
+    </None>
+    <None Include="Config\ApworksConfiguration.csd.xsd">
+      <DependentUpon>ApworksConfiguration.csd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="key.snk" />
+    <None Include="packages.config" />
+    <None Include="Storage\StorageMappingSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 (http://www.altova.com) by Administrator (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="ConfigProject">
+		<xs:annotation>
+			<xs:documentation>Represents the settings for the configuration project.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="EnumerationTypes"/>
+				<xs:element ref="ConfigElements"/>
+				<xs:element ref="ConfigElementCollections"/>
+				<xs:element ref="ConfigSection"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EnumVal" nillable="false">
+		<xs:annotation>
+			<xs:documentation>Represents an enumeration value in the enumeration.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="EnumValType">
+					<xs:attribute name="Assign" type="xs:int" use="optional"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Enumeration">
+		<xs:annotation>
+			<xs:documentation>Represents the enumeration that needs to be defined within the configuration.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="EnumVal"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EnumerationTypes">
+		<xs:annotation>
+			<xs:documentation>Represents the element that contains a series of enumeration definitions.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="Enumeration"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ConfigPropertyType">
+		<xs:annotation>
+			<xs:documentation>Represents the Property complex type.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+		<xs:attribute name="ConfigName" type="xs:string" use="optional"/>
+		<xs:attribute name="CLRType" type="xs:string" use="optional"/>
+		<xs:attribute name="EnumType" type="xs:string" use="optional"/>
+		<xs:attribute name="ElementType" type="xs:string" use="optional"/>
+		<xs:attribute name="CollectionType" type="xs:string" use="optional"/>
+		<xs:attribute name="IsKey" type="xs:boolean" use="optional"/>
+		<xs:attribute name="IsRequired" type="xs:boolean" use="optional"/>
+		<xs:attribute name="DefaultValue" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:element name="Property" type="ConfigPropertyType">
+		<xs:annotation>
+			<xs:documentation>Represents the property element in the configuration project.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Element">
+		<xs:annotation>
+			<xs:documentation>Represents a single configuration element definition in the configuration project.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="Property"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConfigElements">
+		<xs:annotation>
+			<xs:documentation>Represents the element that contains a series of configuration element definitions.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="Element"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ConfigCollectionType">
+		<xs:annotation>
+			<xs:documentation>Represents the Collection complex type.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+		<xs:attribute name="ElementName" type="xs:string" use="required"/>
+		<xs:attribute name="AddItemName" type="xs:string" use="required"/>
+		<xs:attribute name="CollectionType" type="xs:string" use="required"/>
+		<xs:attribute name="RemoveItemName" type="xs:string" use="optional"/>
+		<xs:attribute name="ClearItemName" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:element name="Collection">
+		<xs:annotation>
+			<xs:documentation>Represents a single collection element definition in the configuration project.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="ConfigCollectionType">
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="Property"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConfigElementCollections">
+		<xs:annotation>
+			<xs:documentation>Represents the element that contains a series of collection element definitions.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="Collection"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConfigSection">
+		<xs:annotation>
+			<xs:documentation>Represents the configuration section.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="Property"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="ConfigName" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="EnumValType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+</xs:schema>

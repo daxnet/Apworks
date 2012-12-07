@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="44b60025-0fea-40d2-8af9-6dab15939425" name="DomainRepositories" linkedPackageId="df1fab06-0255-4998-a4e2-46e96c5f47a2" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="e9354c03-ea56-4e65-8235-aed4640dbd96">
+      <profileInstance Id="7ed4bd12-15c6-4109-9b99-645e921baa90" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="c6088213-7411-4bd5-ae54-fdaae2eebbf7">
+      <profileInstance Id="e87ee21b-dea2-4299-9b85-0fb0d5d92a92" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="ef7af7c6-0543-464e-b74d-23c4cf33042d" name="IDomainRepository" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b0e37a1e-0868-4670-9b6a-41957a2a9197" />
+        <ownedOperations>
+          <operation Id="ba3030fb-b31e-44d6-a952-9f3ddd13aa38" name="Get&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="42683cde-705d-4546-bc92-6b678dcffccf" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="31c6db64-6565-4162-9466-b3467a795b8f" name="long id" direction="In" isUnique="false">
+                  <elementDefinition Id="e91bfcf0-72a9-4a33-83ac-9c4f7c738e4c" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="80c0f5ba-f414-4065-8d2e-aca2727ca216" name="Save&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="eaac472d-5d52-432e-babd-21d9450f8f17" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="167a8ca4-9577-4cd2-b730-e40ecae3b50e" name="TAggregateRoot aggregateRoot" direction="In" isUnique="false">
+                  <elementDefinition Id="a57f6ba7-6644-4718-9a12-d60a9eec7b1b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a0f4128d-5ca4-4a39-8e3a-9d712af24e19" name="DomainRepository" isAbstract="true" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="a4a520b7-3b02-4a88-a130-cefc34ae5bc1" />
+        <suppliersInternal>
+          <interfaceRealization Id="74a8fa03-5791-41e6-aab7-2d879a284d48">
+            <interfaceMoniker Id="ef7af7c6-0543-464e-b74d-23c4cf33042d" LastKnownName="IDomainRepository" />
+            <elementDefinition Id="44d6c5be-8ef5-402a-938c-833270fc09bd" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation Id="b7942f23-5816-4a0c-a142-bb9884e76a32" name="Get&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c6558c84-81ce-4eff-89bb-a651fe907afc" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f92a22c9-45fd-4c43-b984-a8c4af438a8c" name="long id" direction="In" isUnique="false">
+                  <elementDefinition Id="ec1e10d0-1fac-46e7-9621-4962ccc1a795" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="10effa90-1501-4e2f-9a4e-122cffd383b1" name="Save&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="82bc23bc-8510-4afa-a721-5b6386c2cefd" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6bd35756-dc0e-4c04-910e-a4aab93db6a5" name="TAggregateRoot aggregateRoot" direction="In" isUnique="false">
+                  <elementDefinition Id="5b736237-23ac-4730-b96c-c0c5a169e5dc" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="f20fed4b-9dca-4c75-92ab-38818e83d4a1" name="RegularDomainRepository" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e68619be-c998-48a7-a3ac-415f625e065f" />
+        <generalsInternal>
+          <generalization Id="655ff438-7e76-46c3-8147-ff2e7c8cb3ef" isSubstitutable="false">
+            <classMoniker Id="a0f4128d-5ca4-4a39-8e3a-9d712af24e19" LastKnownName="DomainRepository" />
+            <elementDefinition Id="b89a6d97-8fb3-4643-b658-bea8a6463ed3" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation Id="85f72377-be3d-47da-a5b5-e872919c288d" name="Get&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b09f6974-16b3-46d5-bb7e-44d94a981459" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="41fe96bf-ff29-4f1e-993c-e77cfee7e65c" name="long id" direction="In" isUnique="false">
+                  <elementDefinition Id="6450f355-8eda-4490-9aee-5b9d883384cd" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="5fe7a79c-2be8-455b-b4d9-dbc64a1b8888" name="Save&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="d98a1170-e81c-4bd7-81e5-b9a40b5d9212" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ba41f0c4-2b4b-4d64-8d28-84c154525584" name="TAggregateRoot aggregateRoot" direction="In" isUnique="false">
+                  <elementDefinition Id="069a1024-58f0-4307-a30b-acad1e9b09ea" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="fe5c1ef4-372a-43ff-8215-3135d2ccbfef" name="EventPublisherDomainRepository" isAbstract="true" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7fd5a7e2-32b1-44bb-a7a9-3662958b9c74" />
+        <generalsInternal>
+          <generalization Id="2a733f09-f4da-43e0-b4d9-d33ea2d9545e" isSubstitutable="false">
+            <classMoniker Id="a0f4128d-5ca4-4a39-8e3a-9d712af24e19" LastKnownName="DomainRepository" />
+            <elementDefinition Id="a5d015ef-a690-410e-9f5b-84a78766fa7c" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="cbbc3d97-fc53-4fd4-8185-9c3dfb699372" name="EventSourcedDomainRepository" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="464ffd5a-1210-49c6-8176-83d97caa0cf8" />
+        <generalsInternal>
+          <generalization Id="f1f93878-97ed-42ed-8c34-3c081acd269e" isSubstitutable="false">
+            <classMoniker Id="fe5c1ef4-372a-43ff-8215-3135d2ccbfef" LastKnownName="EventPublisherDomainRepository" />
+            <elementDefinition Id="da9fbfc5-c7df-4955-8659-1c7d50b9ccf1" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation Id="dbca0307-dba9-4a45-aa1e-7a28748d6e73" name="Get&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="3e27d9ca-3eef-4c21-93df-ffb358a89f46" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c532b528-57a5-4592-978b-139276ce6626" name="long id" direction="In" isUnique="false">
+                  <elementDefinition Id="aea2935c-943c-400f-878b-715bbce6051f" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7286ef7e-8fde-49ce-8e5c-1cc76ec34dbe" name="SnapshotDomainRepository" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d046316b-c777-442a-b39d-d5bd80c12c10" />
+        <generalsInternal>
+          <generalization Id="18d6b50c-f161-412d-bee7-0379bb5725a5" isSubstitutable="false">
+            <classMoniker Id="fe5c1ef4-372a-43ff-8215-3135d2ccbfef" LastKnownName="EventPublisherDomainRepository" />
+            <elementDefinition Id="6c738b16-7ad8-4624-9033-c825704c4931" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation Id="9a1c11ae-655b-4cb9-820d-b1e8bc8fcf6b" name="Get&lt;TAggregateRoot&gt;" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="30b65aa8-2241-4a6f-ae7f-9aa39223efa5" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4c011c71-2b91-428d-a351-fd2c9fb3e44d" name="long id" direction="In" isUnique="false">
+                  <elementDefinition Id="b8f7f7b3-22b2-4f50-8c25-49dca226473b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="df1fab06-0255-4998-a4e2-46e96c5f47a2" name="Apworks.Design">
+    <elementDefinition Id="81172929-885a-493b-a2d5-0be7063a50f7" />
+  </package>
+</logicalClassDesignerModel>

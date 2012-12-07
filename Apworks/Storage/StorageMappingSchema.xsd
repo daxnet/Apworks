@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 (http://www.altova.com) by Administrator (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="StorageMappingSchema">
+		<xs:annotation>
+			<xs:documentation>Represents the schema for storage mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element ref="DataTypes"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DataTypes">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="DataType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DataType">
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element ref="Properties"/>
+			</xs:sequence>
+			<xs:attribute name="FullName" type="xs:string" use="required"/>
+			<xs:attribute name="MapTo" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Properties">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Property"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Property">
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="MapTo" type="xs:string" use="required"/>
+			<xs:attribute name="Identity" type="xs:boolean" use="optional"/>
+			<xs:attribute name="AutoGenerate" type="xs:boolean" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

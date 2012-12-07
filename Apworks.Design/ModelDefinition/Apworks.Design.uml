@@ -1,0 +1,2050 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="81172929-885a-493b-a2d5-0be7063a50f7"
+  name="Apworks.Design" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="398d3ffc-e0e7-4bdf-8f80-bcd986e0114f"
+        name="Class1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="a5ec27d9-415f-4d1e-a1c1-3a6817ae50bb"
+        name="DomainEventHandling"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification
+            Id="d3893e16-7420-4943-b5ce-c810e98c157d"
+            name="BehaviorExecutionSpecification1">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="b67f6dc5-1071-4e21-8165-098518f8a84f"
+                LastKnownName="ExecutionOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="3f9c1ca5-2401-4347-be40-1745e80ed882"
+                LastKnownName="ExecutionOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="d5ddab3b-b6f3-4633-97e9-f1823fc66f79"
+                LastKnownName="MessageOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="84f904e2-e808-468a-a7a6-bc7557505d94"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="8dee290e-7cad-4934-a1ec-a7d0dd498646"
+                LastKnownName="ExecutionOccurrenceSpecification9"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="58c2744d-f3e5-4e1a-9759-4461e9499639"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="bc7b167f-b611-4a03-a540-9b79038a3c1c"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="3f9c1ca5-2401-4347-be40-1745e80ed882"
+            name="ExecutionOccurrenceSpecification1">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="7ddbe882-d8bd-432e-89bb-32c6e9906b28"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d5ddab3b-b6f3-4633-97e9-f1823fc66f79"
+            name="MessageOccurrenceSpecification2">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4deb98e0-cee1-4718-a29e-4781f4b43abc"
+            name="MessageOccurrenceSpecification1">
+            <covered>
+              <lifelineMoniker
+                Id="6d58318e-bccc-40fc-a6ed-d9c9c74890b7"
+                LastKnownName="Client"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="84f904e2-e808-468a-a7a6-bc7557505d94"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="58fec156-0289-4f58-ba85-8974895bb5d0"
+            name="BehaviorExecutionSpecification5">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="58c2744d-f3e5-4e1a-9759-4461e9499639"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="8dee290e-7cad-4934-a1ec-a7d0dd498646"
+                LastKnownName="ExecutionOccurrenceSpecification9"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="6b7c183e-0986-44aa-98b1-96812c21e466"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="4ab31b95-ba71-45c7-bba4-0bfec66b4d00"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="8ecfb974-f922-43ee-993a-476758a419e5"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="cfa74b6e-1df1-43ba-ad32-e3cc2e5e80f1"
+                LastKnownName="MessageOccurrenceSpecification21"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="3051520f-43ba-4632-b8fc-5cea4e0b3c8a"
+                LastKnownName="MessageOccurrenceSpecification24"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="8dee290e-7cad-4934-a1ec-a7d0dd498646"
+            name="ExecutionOccurrenceSpecification9">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="e70c9de0-f89e-45bf-b429-e98f7d593505"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6b7c183e-0986-44aa-98b1-96812c21e466"
+            name="MessageOccurrenceSpecification16">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="48d41490-5981-4f3b-b4fd-48825ded7e6e"
+            name="BehaviorExecutionSpecification6">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="dd7f71f8-9966-4186-89b3-a289fbb7df0c"
+                LastKnownName="Domain Event Handler Container"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="3d1bf12f-6354-4c6d-b539-37e1da41dc56"
+                LastKnownName="ExecutionOccurrenceSpecification12"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="7336e3af-65d4-450e-b81d-5627bac96cd8"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="83eadc20-ba6f-4f33-8b0a-3dc6db798cdd"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="4553140a-09c1-4f3a-a60c-7fbe830fce68"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="7336e3af-65d4-450e-b81d-5627bac96cd8"
+            name="ExecutionOccurrenceSpecification11">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="4b936314-921d-4fb5-ad26-5bb1885a36fd"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="dd7f71f8-9966-4186-89b3-a289fbb7df0c"
+                LastKnownName="Domain Event Handler Container"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="83eadc20-ba6f-4f33-8b0a-3dc6db798cdd"
+            name="MessageOccurrenceSpecification18">
+            <covered>
+              <lifelineMoniker
+                Id="dd7f71f8-9966-4186-89b3-a289fbb7df0c"
+                LastKnownName="Domain Event Handler Container"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4ab31b95-ba71-45c7-bba4-0bfec66b4d00"
+            name="MessageOccurrenceSpecification17">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8ecfb974-f922-43ee-993a-476758a419e5"
+            name="MessageOccurrenceSpecification20">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4553140a-09c1-4f3a-a60c-7fbe830fce68"
+            name="MessageOccurrenceSpecification19">
+            <covered>
+              <lifelineMoniker
+                Id="dd7f71f8-9966-4186-89b3-a289fbb7df0c"
+                LastKnownName="Domain Event Handler Container"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="3d1bf12f-6354-4c6d-b539-37e1da41dc56"
+            name="ExecutionOccurrenceSpecification12">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="a1f48817-dcb9-4485-9bef-8918c0f75ca0"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="dd7f71f8-9966-4186-89b3-a289fbb7df0c"
+                LastKnownName="Domain Event Handler Container"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="978831a3-70a1-44d2-a24d-abd3bc2f2c76"
+            name="BehaviorExecutionSpecification7">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="3b8f3318-adc6-4cb5-b4b2-6b3d88bdd4c1"
+                LastKnownName="Concrete Internal Event Handlers"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="33653f48-121b-4be4-a6a9-fba2a16b0c0f"
+                LastKnownName="ExecutionOccurrenceSpecification14"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="98be05db-79c0-4e1c-a356-e46c8a807624"
+                LastKnownName="ExecutionOccurrenceSpecification13"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="769ca9e3-1cdc-47ea-bc14-78315e6710b7"
+                LastKnownName="MessageOccurrenceSpecification22"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="28e485b4-8d3e-4439-abe0-963a314e0595"
+                LastKnownName="MessageOccurrenceSpecification23"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="98be05db-79c0-4e1c-a356-e46c8a807624"
+            name="ExecutionOccurrenceSpecification13">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="408b1f98-b7f2-4ad4-855e-8272d626ce12"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="3b8f3318-adc6-4cb5-b4b2-6b3d88bdd4c1"
+                LastKnownName="Concrete Internal Event Handlers"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="769ca9e3-1cdc-47ea-bc14-78315e6710b7"
+            name="MessageOccurrenceSpecification22">
+            <covered>
+              <lifelineMoniker
+                Id="3b8f3318-adc6-4cb5-b4b2-6b3d88bdd4c1"
+                LastKnownName="Concrete Internal Event Handlers"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="cfa74b6e-1df1-43ba-ad32-e3cc2e5e80f1"
+            name="MessageOccurrenceSpecification21">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="28e485b4-8d3e-4439-abe0-963a314e0595"
+            name="MessageOccurrenceSpecification23">
+            <covered>
+              <lifelineMoniker
+                Id="3b8f3318-adc6-4cb5-b4b2-6b3d88bdd4c1"
+                LastKnownName="Concrete Internal Event Handlers"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3051520f-43ba-4632-b8fc-5cea4e0b3c8a"
+            name="MessageOccurrenceSpecification24">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="33653f48-121b-4be4-a6a9-fba2a16b0c0f"
+            name="ExecutionOccurrenceSpecification14">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="f23c250c-54bd-4363-8cf5-26ad969c8cf9"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="3b8f3318-adc6-4cb5-b4b2-6b3d88bdd4c1"
+                LastKnownName="Concrete Internal Event Handlers"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="58c2744d-f3e5-4e1a-9759-4461e9499639"
+            name="ExecutionOccurrenceSpecification10">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="59fee3bf-3b2f-4e74-8412-a37638bf1031"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="bc7b167f-b611-4a03-a540-9b79038a3c1c"
+            name="MessageOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="e87b2c3e-bc10-43ff-87a3-f1c29a0b561f"
+            name="MessageOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="6d58318e-bccc-40fc-a6ed-d9c9c74890b7"
+                LastKnownName="Client"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="b67f6dc5-1071-4e21-8165-098518f8a84f"
+            name="ExecutionOccurrenceSpecification2">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="eed4071c-ecd8-4a88-b75d-b8e24bca03d3"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="6d58318e-bccc-40fc-a6ed-d9c9c74890b7"
+            name="Client"
+            isActor="false"
+            lifelineDisplayName="Client">
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="4deb98e0-cee1-4718-a29e-4781f4b43abc"
+                LastKnownName="MessageOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="e87b2c3e-bc10-43ff-87a3-f1c29a0b561f"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="79c12ad5-5a98-4432-a848-0d4713baafe7"
+            name="Sourced Aggregate Root"
+            isActor="false"
+            lifelineDisplayName="Sourced Aggregate Root">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="3f9c1ca5-2401-4347-be40-1745e80ed882"
+                LastKnownName="ExecutionOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="b67f6dc5-1071-4e21-8165-098518f8a84f"
+                LastKnownName="ExecutionOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="dd7f71f8-9966-4186-89b3-a289fbb7df0c"
+            name="Domain Event Handler Container"
+            isActor="false"
+            lifelineDisplayName="Domain Event Handler Container">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="7336e3af-65d4-450e-b81d-5627bac96cd8"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="3d1bf12f-6354-4c6d-b539-37e1da41dc56"
+                LastKnownName="ExecutionOccurrenceSpecification12"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="3b8f3318-adc6-4cb5-b4b2-6b3d88bdd4c1"
+            name="Concrete Internal Event Handlers"
+            isActor="false"
+            lifelineDisplayName="Concrete Internal Event Handlers">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="98be05db-79c0-4e1c-a356-e46c8a807624"
+                LastKnownName="ExecutionOccurrenceSpecification13"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="33653f48-121b-4be4-a6a9-fba2a16b0c0f"
+                LastKnownName="ExecutionOccurrenceSpecification14"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="3ab66761-c028-42e6-b011-a844250642a2"
+            name="DoSomething()"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="4deb98e0-cee1-4718-a29e-4781f4b43abc"
+                LastKnownName="MessageOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="d5ddab3b-b6f3-4633-97e9-f1823fc66f79"
+                LastKnownName="MessageOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="aa8ba2b6-b82a-4f61-9274-835d2ddca438"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="bc7b167f-b611-4a03-a540-9b79038a3c1c"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="e87b2c3e-bc10-43ff-87a3-f1c29a0b561f"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="95f06b27-4a0a-42ba-95e4-bee92296a303"
+            name="Raise Event"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="84f904e2-e808-468a-a7a6-bc7557505d94"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="6b7c183e-0986-44aa-98b1-96812c21e466"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="22037c96-1c6f-4429-9a80-51412447aa40"
+            name="Get Event Handlers"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="4ab31b95-ba71-45c7-bba4-0bfec66b4d00"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="83eadc20-ba6f-4f33-8b0a-3dc6db798cdd"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="ce39f665-26d5-4395-a886-430f94e5aa2f"
+            name="Event Handlers"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="4553140a-09c1-4f3a-a60c-7fbe830fce68"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="8ecfb974-f922-43ee-993a-476758a419e5"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="87bf5027-89ca-4b29-8b84-296ebcda04e6"
+            name="Handle Event"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="cfa74b6e-1df1-43ba-ad32-e3cc2e5e80f1"
+                LastKnownName="MessageOccurrenceSpecification21"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="769ca9e3-1cdc-47ea-bc14-78315e6710b7"
+                LastKnownName="MessageOccurrenceSpecification22"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="2cd1c391-cd4d-43c4-9622-6f3a84aa935f"
+            name="Changed states"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="28e485b4-8d3e-4439-abe0-963a314e0595"
+                LastKnownName="MessageOccurrenceSpecification23"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="3051520f-43ba-4632-b8fc-5cea4e0b3c8a"
+                LastKnownName="MessageOccurrenceSpecification24"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="7ddbe882-d8bd-432e-89bb-32c6e9906b28"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="eed4071c-ecd8-4a88-b75d-b8e24bca03d3"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="e70c9de0-f89e-45bf-b429-e98f7d593505"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="59fee3bf-3b2f-4e74-8412-a37638bf1031"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="4b936314-921d-4fb5-ad26-5bb1885a36fd"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="a1f48817-dcb9-4485-9bef-8918c0f75ca0"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="408b1f98-b7f2-4ad4-855e-8272d626ce12"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="f23c250c-54bd-4363-8cf5-26ad969c8cf9"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="44d6e6cb-23b4-4a7e-84ab-133bdc70a8ac"
+        name="SourcedAggregateRootSaving"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification
+            Id="39702410-0500-49d3-80a0-bc1ec9025b44"
+            name="BehaviorExecutionSpecification1">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="ee8d0b30-a685-43dc-824f-59691e6bf635"
+                LastKnownName="ExecutionOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="ff695c35-1c9c-4e57-9634-825bfde04a53"
+                LastKnownName="ExecutionOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="79ecf2d4-8691-413e-b89d-2c8324a663df"
+                LastKnownName="MessageOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="48c1ac52-3382-47c9-98c4-28f9cea4863a"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="3bf20fdc-6905-42c7-8236-d916bc8cc7bb"
+                LastKnownName="MessageOccurrenceSpecification8"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="0cd7763c-f601-4098-80f9-ee2b4416c706"
+                LastKnownName="MessageOccurrenceSpecification9"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="38e2b652-a3ae-4919-a902-2476884773fb"
+                LastKnownName="MessageOccurrenceSpecification12"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="fda09ed8-0083-4be4-b7fc-efd2581b4af1"
+                LastKnownName="MessageOccurrenceSpecification13"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="1d82a1c8-642c-46b4-93af-e1dce21dfd20"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="daef6f4b-e8ed-4fa8-9f1d-acd3e83b60db"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="b7afb117-dc37-4ad6-9850-267ec614fdd7"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="1d4a9573-1015-41b4-8949-67ff82cf9100"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="ff695c35-1c9c-4e57-9634-825bfde04a53"
+            name="ExecutionOccurrenceSpecification1">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="d97d4656-6362-4828-8986-bfa701f00774"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="79ecf2d4-8691-413e-b89d-2c8324a663df"
+            name="MessageOccurrenceSpecification2">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="19f87ba3-6740-406d-aa11-74af440bd575"
+            name="MessageOccurrenceSpecification1">
+            <covered>
+              <lifelineMoniker
+                Id="81a018ad-dcd7-4e8e-b6f3-9a55f41f12df"
+                LastKnownName="Client"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="83e3e4b8-56ff-4519-9e39-18f1a2f46ffe"
+            name="BehaviorExecutionSpecification2">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="af38f1ce-a3f0-46dc-ac97-053a9c992272"
+                LastKnownName="ExecutionOccurrenceSpecification4"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="f96affd1-b003-4c4d-a5e8-12f7398ea1ce"
+                LastKnownName="ExecutionOccurrenceSpecification3"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="621b9d68-dffa-4ec3-92d4-cf5dd04dbce3"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="9e21d1ec-9817-40d6-bbc0-be4372dd7d50"
+                LastKnownName="MessageOccurrenceSpecification7"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="f96affd1-b003-4c4d-a5e8-12f7398ea1ce"
+            name="ExecutionOccurrenceSpecification3">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="02118fc4-c8c6-4c26-b5dc-fcb08f9fddd0"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="48c1ac52-3382-47c9-98c4-28f9cea4863a"
+            name="MessageOccurrenceSpecification5">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="621b9d68-dffa-4ec3-92d4-cf5dd04dbce3"
+            name="MessageOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3bf20fdc-6905-42c7-8236-d916bc8cc7bb"
+            name="MessageOccurrenceSpecification8">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9e21d1ec-9817-40d6-bbc0-be4372dd7d50"
+            name="MessageOccurrenceSpecification7">
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="af38f1ce-a3f0-46dc-ac97-053a9c992272"
+            name="ExecutionOccurrenceSpecification4">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="21548bf9-cd87-4129-b901-2b92a7ba1939"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="20788d30-07ab-4d4b-bc88-21d2f2a77cb6"
+            name="BehaviorExecutionSpecification3">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="2edabd65-fc0f-4049-b34d-1789e2ac6107"
+                LastKnownName="Event Store"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="24300e0b-5c34-4048-9c8d-6f2adc388349"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="03893133-7a86-4f13-bccf-952ef2a4ed39"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="bfce824f-7e8d-4beb-8484-9bf7c223ba3f"
+                LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="2996c62e-a0da-4df8-9a56-485d544e3586"
+                LastKnownName="MessageOccurrenceSpecification11"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="03893133-7a86-4f13-bccf-952ef2a4ed39"
+            name="ExecutionOccurrenceSpecification5">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="f811fd50-dcf1-48bd-b707-4d6cc3e84342"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="2edabd65-fc0f-4049-b34d-1789e2ac6107"
+                LastKnownName="Event Store"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="0cd7763c-f601-4098-80f9-ee2b4416c706"
+            name="MessageOccurrenceSpecification9">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="bfce824f-7e8d-4beb-8484-9bf7c223ba3f"
+            name="MessageOccurrenceSpecification10">
+            <covered>
+              <lifelineMoniker
+                Id="2edabd65-fc0f-4049-b34d-1789e2ac6107"
+                LastKnownName="Event Store"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="38e2b652-a3ae-4919-a902-2476884773fb"
+            name="MessageOccurrenceSpecification12">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2996c62e-a0da-4df8-9a56-485d544e3586"
+            name="MessageOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="2edabd65-fc0f-4049-b34d-1789e2ac6107"
+                LastKnownName="Event Store"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="24300e0b-5c34-4048-9c8d-6f2adc388349"
+            name="ExecutionOccurrenceSpecification6">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="9e5fa4e7-aa40-4c4d-b713-2543b16e4f4e"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="2edabd65-fc0f-4049-b34d-1789e2ac6107"
+                LastKnownName="Event Store"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="6a495cbf-7b99-40b8-9641-575e74eeb62b"
+            name="BehaviorExecutionSpecification4">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="04016868-df41-4f14-b3e5-129bfaf6fc68"
+                LastKnownName="ExecutionOccurrenceSpecification8"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="09fe1845-6326-4738-9a34-7540d39dce7e"
+                LastKnownName="ExecutionOccurrenceSpecification7"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="8f83df40-e798-48ea-b1c9-3c631f06c023"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="68d546b7-8abc-42b3-be17-8574065fca4e"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="09fe1845-6326-4738-9a34-7540d39dce7e"
+            name="ExecutionOccurrenceSpecification7">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="81df9be9-7ac5-4c3a-9655-52cc3560d1a7"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fda09ed8-0083-4be4-b7fc-efd2581b4af1"
+            name="MessageOccurrenceSpecification13">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8f83df40-e798-48ea-b1c9-3c631f06c023"
+            name="MessageOccurrenceSpecification14">
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="1d82a1c8-642c-46b4-93af-e1dce21dfd20"
+            name="MessageOccurrenceSpecification16">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="68d546b7-8abc-42b3-be17-8574065fca4e"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="04016868-df41-4f14-b3e5-129bfaf6fc68"
+            name="ExecutionOccurrenceSpecification8">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="8fdf19fb-6367-486b-91a0-37f4f70b0fb0"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+                LastKnownName="Sourced Aggregate Root"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="429aad17-a7ec-463e-a89e-9d817f33bd8c"
+            name="BehaviorExecutionSpecification5">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="f181fb1f-a7c1-4cb5-8269-f232f48a2cc6"
+                LastKnownName="Event Dispatcher"
+                LastKnownLocation="Apworks.Design.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="426054f3-6e18-443a-a919-d225f5244a60"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Apworks.Design.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="03bb7770-5fac-4bdc-a09a-ed2c94edfbec"
+                LastKnownName="ExecutionOccurrenceSpecification9"
+                LastKnownLocation="Apworks.Design.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="b67baa0b-75ea-4538-bea0-57165b71256f"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="ebfd740c-9306-467e-ac4a-2262303daa73"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="Apworks.Design.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="03bb7770-5fac-4bdc-a09a-ed2c94edfbec"
+            name="ExecutionOccurrenceSpecification9">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="dcba3491-c97b-4b21-954a-148b927bf371"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="f181fb1f-a7c1-4cb5-8269-f232f48a2cc6"
+                LastKnownName="Event Dispatcher"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="daef6f4b-e8ed-4fa8-9f1d-acd3e83b60db"
+            name="MessageOccurrenceSpecification17">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b67baa0b-75ea-4538-bea0-57165b71256f"
+            name="MessageOccurrenceSpecification18">
+            <covered>
+              <lifelineMoniker
+                Id="f181fb1f-a7c1-4cb5-8269-f232f48a2cc6"
+                LastKnownName="Event Dispatcher"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b7afb117-dc37-4ad6-9850-267ec614fdd7"
+            name="MessageOccurrenceSpecification20">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ebfd740c-9306-467e-ac4a-2262303daa73"
+            name="MessageOccurrenceSpecification19">
+            <covered>
+              <lifelineMoniker
+                Id="f181fb1f-a7c1-4cb5-8269-f232f48a2cc6"
+                LastKnownName="Event Dispatcher"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="426054f3-6e18-443a-a919-d225f5244a60"
+            name="ExecutionOccurrenceSpecification10">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="0ff9cdd5-49b4-4955-930f-58b2bac5bfa7"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="f181fb1f-a7c1-4cb5-8269-f232f48a2cc6"
+                LastKnownName="Event Dispatcher"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="27a42cac-f88d-4084-8126-8f4bd3be2d2c"
+            name="MessageOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="81a018ad-dcd7-4e8e-b6f3-9a55f41f12df"
+                LastKnownName="Client"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="1d4a9573-1015-41b4-8949-67ff82cf9100"
+            name="MessageOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="ee8d0b30-a685-43dc-824f-59691e6bf635"
+            name="ExecutionOccurrenceSpecification2">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="0953b52f-7785-419d-aef2-86c4d19ee18a"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Apworks.Design.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+                LastKnownName="Domain Repository"
+                LastKnownLocation="Apworks.Design.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="81a018ad-dcd7-4e8e-b6f3-9a55f41f12df"
+            name="Client"
+            isActor="false"
+            lifelineDisplayName="Client">
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="19f87ba3-6740-406d-aa11-74af440bd575"
+                LastKnownName="MessageOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="27a42cac-f88d-4084-8126-8f4bd3be2d2c"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="8dabbf5d-10c2-4ac5-8458-d8e25d0e4d8e"
+            name="Domain Repository"
+            isActor="false"
+            lifelineDisplayName="Domain Repository">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="ff695c35-1c9c-4e57-9634-825bfde04a53"
+                LastKnownName="ExecutionOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="ee8d0b30-a685-43dc-824f-59691e6bf635"
+                LastKnownName="ExecutionOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="8b3373cf-0257-4779-8f92-1a4ddfa366bd"
+            name="Sourced Aggregate Root"
+            isActor="false"
+            lifelineDisplayName="Sourced Aggregate Root">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="f96affd1-b003-4c4d-a5e8-12f7398ea1ce"
+                LastKnownName="ExecutionOccurrenceSpecification3"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="af38f1ce-a3f0-46dc-ac97-053a9c992272"
+                LastKnownName="ExecutionOccurrenceSpecification4"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="09fe1845-6326-4738-9a34-7540d39dce7e"
+                LastKnownName="ExecutionOccurrenceSpecification7"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="04016868-df41-4f14-b3e5-129bfaf6fc68"
+                LastKnownName="ExecutionOccurrenceSpecification8"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="2edabd65-fc0f-4049-b34d-1789e2ac6107"
+            name="Event Store"
+            isActor="false"
+            lifelineDisplayName="Event Store">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="03893133-7a86-4f13-bccf-952ef2a4ed39"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="24300e0b-5c34-4048-9c8d-6f2adc388349"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="f181fb1f-a7c1-4cb5-8269-f232f48a2cc6"
+            name="Event Dispatcher"
+            isActor="false"
+            lifelineDisplayName="Event Dispatcher">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="03bb7770-5fac-4bdc-a09a-ed2c94edfbec"
+                LastKnownName="ExecutionOccurrenceSpecification9"
+                LastKnownLocation="Apworks.Design.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="426054f3-6e18-443a-a919-d225f5244a60"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Apworks.Design.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="2b9d1f1a-e3c8-4e7f-8500-84bcb1a27f4a"
+            name="Save()"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="19f87ba3-6740-406d-aa11-74af440bd575"
+                LastKnownName="MessageOccurrenceSpecification1"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="79ecf2d4-8691-413e-b89d-2c8324a663df"
+                LastKnownName="MessageOccurrenceSpecification2"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="8a880e0e-f60b-4f68-aaf6-b8b1354fd404"
+            name="Save Result"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="1d4a9573-1015-41b4-8949-67ff82cf9100"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="27a42cac-f88d-4084-8126-8f4bd3be2d2c"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="fe7cc92a-0d6c-435f-b490-35e015c15829"
+            name="Get Uncommitted Events"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="48c1ac52-3382-47c9-98c4-28f9cea4863a"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="621b9d68-dffa-4ec3-92d4-cf5dd04dbce3"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="15b76b71-4266-4e9d-9223-f4ae9718ee8c"
+            name="Uncommitted Events"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="9e21d1ec-9817-40d6-bbc0-be4372dd7d50"
+                LastKnownName="MessageOccurrenceSpecification7"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="3bf20fdc-6905-42c7-8236-d916bc8cc7bb"
+                LastKnownName="MessageOccurrenceSpecification8"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="779fc242-c854-4e4f-8fa8-f95183f6b6e3"
+            name="Save()"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="0cd7763c-f601-4098-80f9-ee2b4416c706"
+                LastKnownName="MessageOccurrenceSpecification9"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="bfce824f-7e8d-4beb-8484-9bf7c223ba3f"
+                LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="fd0ee50d-5746-4c6b-a92f-4f1cfe19155f"
+            name="Save Result"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="2996c62e-a0da-4df8-9a56-485d544e3586"
+                LastKnownName="MessageOccurrenceSpecification11"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="38e2b652-a3ae-4919-a902-2476884773fb"
+                LastKnownName="MessageOccurrenceSpecification12"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="e54907aa-7b26-47d0-928d-4826e07292a7"
+            name="Accept Changes"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="fda09ed8-0083-4be4-b7fc-efd2581b4af1"
+                LastKnownName="MessageOccurrenceSpecification13"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="8f83df40-e798-48ea-b1c9-3c631f06c023"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="0bf5f98f-b333-4a85-b4f5-039cf780552d"
+            name="Accepted"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="68d546b7-8abc-42b3-be17-8574065fca4e"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="1d82a1c8-642c-46b4-93af-e1dce21dfd20"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="82e1d3ac-72d0-413d-bda6-c7ee90c52761"
+            name="Dispatch Events"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="daef6f4b-e8ed-4fa8-9f1d-acd3e83b60db"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b67baa0b-75ea-4538-bea0-57165b71256f"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="7e300cd2-3fe2-4492-8600-30be3bee0fea"
+            name="Dispatch Result"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="ebfd740c-9306-467e-ac4a-2262303daa73"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="Apworks.Design.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b7afb117-dc37-4ad6-9850-267ec614fdd7"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="Apworks.Design.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="d97d4656-6362-4828-8986-bfa701f00774"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="0953b52f-7785-419d-aef2-86c4d19ee18a"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="02118fc4-c8c6-4c26-b5dc-fcb08f9fddd0"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="21548bf9-cd87-4129-b901-2b92a7ba1939"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="f811fd50-dcf1-48bd-b707-4d6cc3e84342"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="9e5fa4e7-aa40-4c4d-b713-2543b16e4f4e"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="81df9be9-7ac5-4c3a-9655-52cc3560d1a7"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="8fdf19fb-6367-486b-91a0-37f4f70b0fb0"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="dcba3491-c97b-4b21-954a-148b927bf371"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="0ff9cdd5-49b4-4955-930f-58b2bac5bfa7"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="c8bfc6ed-6b65-4115-8cb1-477fa5baf89b"
+        name="IDomainRepository"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="7c1244fd-a2e9-4eee-b96b-32e99ad755df"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="01aeb065-2421-4754-a0ee-c2ba7ba991c6"
+              LastKnownName="IDisposable"
+              LastKnownLocation="Apworks.Design.uml" />
+          </generalization>
+          <generalization
+            Id="504d075e-8c9b-4495-88a9-ccb870cf5f35"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="8fc1a84c-6a77-4f77-b9d7-d2f60b8474b4"
+              LastKnownName="IUnitOfWork"
+              LastKnownLocation="Apworks.Design.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedRedefinableTemplateSignatureInternal>
+          <redefinableTemplateSignature
+            Id="4f253b91-acec-4142-a7fb-30304238d16d"
+            parameters=""
+            isLeaf="false">
+            <ownedParameters>
+              <classifierTemplateParameter
+                Id="4345a725-5b59-45b8-9803-244587449cb9">
+                <ownedParameterableElement>
+                  <class
+                    Id="ff749c83-968d-492b-bd10-300f2a079b3f"
+                    name="T"
+                    isAbstract="false"
+                    isLeaf="false"
+                    isActiveClass="false" />
+                </ownedParameterableElement>
+                <constrainingClassifier>
+                  <classMoniker
+                    Id="398d3ffc-e0e7-4bdf-8f80-bcd986e0114f"
+                    LastKnownName="Class1"
+                    LastKnownLocation="Apworks.Design.uml" />
+                </constrainingClassifier>
+              </classifierTemplateParameter>
+            </ownedParameters>
+          </redefinableTemplateSignature>
+        </ownedRedefinableTemplateSignatureInternal>
+        <ownedOperations>
+          <operation
+            Id="d52b5d2d-4912-41e7-8e90-d1e860a5d5ab"
+            name="Get"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="8fc1a84c-6a77-4f77-b9d7-d2f60b8474b4"
+        name="IUnitOfWork"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedAttributes>
+          <property
+            Id="89e41370-9c13-47d3-a4f4-189f53fbec65"
+            name="DTCompatible"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="ada991a3-1195-4208-ab40-d95e799d0a1a"
+            name="Committed"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributes>
+        <ownedOperations>
+          <operation
+            Id="18c730aa-992e-4ebd-a258-bb09859e15a7"
+            name="Commit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="1acd796a-341e-49e7-82f4-3d59b88271c0"
+            name="Rollback"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="0134e409-7ef9-411e-b287-5c0978abe958"
+        name="Interface2"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="01aeb065-2421-4754-a0ee-c2ba7ba991c6"
+        name="IDisposable"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="8e24b78d-3c1e-4e12-ad43-a30734f17460"
+            name="Dispose"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="b0e37a1e-0868-4670-9b6a-41957a2a9197"
+        name="IDomainRepository"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="42683cde-705d-4546-bc92-6b678dcffccf"
+            name="Get&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e91bfcf0-72a9-4a33-83ac-9c4f7c738e4c"
+                  name="long id"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="eaac472d-5d52-432e-babd-21d9450f8f17"
+            name="Save&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a57f6ba7-6644-4718-9a12-d60a9eec7b1b"
+                  name="TAggregateRoot aggregateRoot"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a4a520b7-3b02-4a88-a130-cefc34ae5bc1"
+        name="DomainRepository"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="44d6c5be-8ef5-402a-938c-833270fc09bd">
+            <interfaceMoniker
+              Id="b0e37a1e-0868-4670-9b6a-41957a2a9197"
+              LastKnownName="IDomainRepository"
+              LastKnownLocation="Apworks.Design.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="c6558c84-81ce-4eff-89bb-a651fe907afc"
+            name="Get&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ec1e10d0-1fac-46e7-9621-4962ccc1a795"
+                  name="long id"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="82bc23bc-8510-4afa-a721-5b6386c2cefd"
+            name="Save&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5b736237-23ac-4730-b96c-c0c5a169e5dc"
+                  name="TAggregateRoot aggregateRoot"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="e68619be-c998-48a7-a3ac-415f625e065f"
+        name="RegularDomainRepository"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="b89a6d97-8fb3-4643-b658-bea8a6463ed3"
+            isSubstitutable="false">
+            <classMoniker
+              Id="a4a520b7-3b02-4a88-a130-cefc34ae5bc1"
+              LastKnownName="DomainRepository"
+              LastKnownLocation="Apworks.Design.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="b09f6974-16b3-46d5-bb7e-44d94a981459"
+            name="Get&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6450f355-8eda-4490-9aee-5b9d883384cd"
+                  name="long id"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="d98a1170-e81c-4bd7-81e5-b9a40b5d9212"
+            name="Save&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="069a1024-58f0-4307-a30b-acad1e9b09ea"
+                  name="TAggregateRoot aggregateRoot"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="7fd5a7e2-32b1-44bb-a7a9-3662958b9c74"
+        name="EventPublisherDomainRepository"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="a5d015ef-a690-410e-9f5b-84a78766fa7c"
+            isSubstitutable="false">
+            <classMoniker
+              Id="a4a520b7-3b02-4a88-a130-cefc34ae5bc1"
+              LastKnownName="DomainRepository"
+              LastKnownLocation="Apworks.Design.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="464ffd5a-1210-49c6-8176-83d97caa0cf8"
+        name="EventSourcedDomainRepository"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="da9fbfc5-c7df-4955-8659-1c7d50b9ccf1"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7fd5a7e2-32b1-44bb-a7a9-3662958b9c74"
+              LastKnownName="EventPublisherDomainRepository"
+              LastKnownLocation="Apworks.Design.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="3e27d9ca-3eef-4c21-93df-ffb358a89f46"
+            name="Get&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="aea2935c-943c-400f-878b-715bbce6051f"
+                  name="long id"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="d046316b-c777-442a-b39d-d5bd80c12c10"
+        name="SnapshotDomainRepository"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="6c738b16-7ad8-4624-9033-c825704c4931"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7fd5a7e2-32b1-44bb-a7a9-3662958b9c74"
+              LastKnownName="EventPublisherDomainRepository"
+              LastKnownLocation="Apworks.Design.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="30b65aa8-2241-4a6f-ae7f-9aa39223efa5"
+            name="Get&lt;TAggregateRoot&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b8f7f7b3-22b2-4f50-8c25-49dca226473b"
+                  name="long id"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Apworks.Tests.Common.AggregateRoots.Customer, Apworks.Tests.Common" lazy="true">
+    <id name="ID">
+      
+    </id>
+    <property name="Username"/>
+    <property name="Password"/>
+    <property name="FirstName"/>
+    <property name="LastName"/>
+    <property name="Email"/>
+    <property name="Birth"/>
+    <property name="Sequence"/>
+  </class>
+</hibernate-mapping>
