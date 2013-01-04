@@ -144,8 +144,7 @@ namespace Apworks
         {
             @event.ID = (Guid)IdentityGenerator.Instance.Generate();
             @event.Version = ++eventVersion;
-            @event.SourceID = this.ID;
-            @event.AssemblyQualifiedSourceType = this.GetType().AssemblyQualifiedName;
+            @event.Source = this;
             @event.AssemblyQualifiedEventType = typeof(TEvent).AssemblyQualifiedName;
             @event.Branch = Constants.ApplicationRuntime.DefaultBranch;
             @event.Timestamp = DateTime.UtcNow;

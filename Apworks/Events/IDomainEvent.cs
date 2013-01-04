@@ -25,6 +25,7 @@
 // ==================================================================================================================
 
 using System;
+using System.Xml.Serialization;
 namespace Apworks.Events
 {
     /// <summary>
@@ -36,11 +37,12 @@ namespace Apworks.Events
         /// <summary>
         /// Gets or sets the assembly qualified name of the type of the aggregate root.
         /// </summary>
-        string AssemblyQualifiedSourceType { get; set; }
+        // string AssemblyQualifiedSourceType { get; set; }
         /// <summary>
         /// Gets or sets the identifier of the aggregate root.
         /// </summary>
-        Guid SourceID { get; set; }
+        //Guid SourceID { get; set; }
+        IEntity Source { get; set; }
         /// <summary>
         /// Gets or sets the version of the domain event.
         /// </summary>

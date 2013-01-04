@@ -67,6 +67,9 @@ namespace Apworks.Tests.Common
         #region Sample Data
         public static CreateCustomerDomainEvent[] CreateCreateCustomerDomainEvents()
         {
+            var sourcedCustomer1 = new SourcedCustomer { ID = AggregateRootId1 };
+            var sourcedCustomer2 = new SourcedCustomer { ID = AggregateRootId2 };
+            var sourcedCustomer3 = new SourcedCustomer { ID = AggregateRootId3 };
             var createCustomerEvents = new CreateCustomerDomainEvent[]
             {
                 new CreateCustomerDomainEvent()
@@ -76,8 +79,7 @@ namespace Apworks.Tests.Common
                     Username = "sunny chen",
                     Timestamp = DateTime.Now,
                     Version = 3,
-                    SourceID = AggregateRootId1,
-                    AssemblyQualifiedSourceType = typeof(Customer).AssemblyQualifiedName
+                    Source = sourcedCustomer1
                 },
                 new CreateCustomerDomainEvent()
                 {
@@ -86,8 +88,7 @@ namespace Apworks.Tests.Common
                     Username = "daxnet",
                     Timestamp = DateTime.Now,
                     Version = 1,
-                    SourceID = AggregateRootId2,
-                    AssemblyQualifiedSourceType = typeof(Customer).AssemblyQualifiedName
+                    Source = sourcedCustomer2
                 },
                 new CreateCustomerDomainEvent()
                 {
@@ -96,8 +97,7 @@ namespace Apworks.Tests.Common
                     Username = "acqy",
                     Timestamp = DateTime.Now,
                     Version = 2,
-                    SourceID = AggregateRootId3,
-                    AssemblyQualifiedSourceType = typeof(Customer).AssemblyQualifiedName
+                    Source = sourcedCustomer3
                 }
             };
             return createCustomerEvents;

@@ -25,6 +25,8 @@
 // ==================================================================================================================
 
 using System;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Apworks.Events
 {
@@ -39,6 +41,11 @@ namespace Apworks.Events
         /// Initializes a new instance of <c>DomainEvent</c> class.
         /// </summary>
         public DomainEvent() { }
+
+        public DomainEvent(IEntity source)
+        {
+            this.Source = source;
+        }
         #endregion
 
         #region Public Methods
@@ -48,8 +55,7 @@ namespace Apworks.Events
         /// <returns>The calculated hash code for the current domain event.</returns>
         public override int GetHashCode()
         {
-            return Utils.GetHashCode(this.SourceID.GetHashCode(),
-                this.AssemblyQualifiedSourceType.GetHashCode(),
+            return Utils.GetHashCode(this.Source.GetHashCode(),
                 this.Branch.GetHashCode(),
                 this.ID.GetHashCode(),
                 this.Timestamp.GetHashCode(),
@@ -77,11 +83,19 @@ namespace Apworks.Events
         /// <summary>
         /// Gets or sets the identifier of the aggregate root.
         /// </summary>
-        public virtual Guid SourceID { get; set; }
+        // public virtual Guid SourceID { get; set; }
         /// <summary>
         /// Gets or sets the assembly qualified name of the type of the aggregate root.
         /// </summary>
-        public virtual string AssemblyQualifiedSourceType { get; set; }
+        // public virtual string AssemblyQualifiedSourceType { get; set; }
+        [XmlIgnore]
+        [SoapIgnore]
+        [IgnoreDataMember]
+        public IEntity Source
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// Gets or sets the version of the domain event.
         /// </summary>

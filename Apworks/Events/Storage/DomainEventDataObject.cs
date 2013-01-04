@@ -43,7 +43,7 @@ namespace Apworks.Events.Storage
     [Serializable]
     [XmlRoot]
     [DataContract]
-    public class DomainEventDataObject : DomainEvent
+    public class DomainEventDataObject
     {
         #region Private Fields
         private readonly IDomainEventSerializer serializer;
@@ -72,32 +72,20 @@ namespace Apworks.Events.Storage
         /// </summary>
         [XmlElement]
         [DataMember]
-        public override string AssemblyQualifiedEventType
+        public string AssemblyQualifiedEventType
         {
-            get
-            {
-                return base.AssemblyQualifiedEventType;
-            }
-            set
-            {
-                base.AssemblyQualifiedEventType = value;
-            }
+            get;
+            set;
         }
         /// <summary>
         /// Gets or sets the branch on which domain event data object exists.
         /// </summary>
         [XmlElement]
         [DataMember]
-        public override long Branch
+        public long Branch
         {
-            get
-            {
-                return base.Branch;
-            }
-            set
-            {
-                base.Branch = value;
-            }
+            get;
+            set;
         }
         /// <summary>
         /// Gets or sets the identifier of the domain event.
@@ -107,16 +95,10 @@ namespace Apworks.Events.Storage
         /// can also be considered to be the identifier for the <c>DomainEventDataObject</c> instance.</remarks>
         [XmlElement]
         [DataMember]
-        public override Guid ID
+        public Guid ID
         {
-            get
-            {
-                return base.ID;
-            }
-            set
-            {
-                base.ID = value;
-            }
+            get;
+            set;
         }
         /// <summary>
         /// Gets or sets the identifier of the aggregate root which holds the instance
@@ -124,32 +106,20 @@ namespace Apworks.Events.Storage
         /// </summary>
         [XmlElement]
         [DataMember]
-        public override Guid SourceID
+        public Guid SourceID
         {
-            get
-            {
-                return base.SourceID;
-            }
-            set
-            {
-                base.SourceID = value;
-            }
+            get;
+            set;
         }
         /// <summary>
         /// Gets or sets the assembly qualified name of the type of the aggregate root.
         /// </summary>
         [XmlElement]
         [DataMember]
-        public override string AssemblyQualifiedSourceType
+        public string AssemblyQualifiedSourceType
         {
-            get
-            {
-                return base.AssemblyQualifiedSourceType;
-            }
-            set
-            {
-                base.AssemblyQualifiedSourceType = value;
-            }
+            get;
+            set;
         }
         /// <summary>
         /// Gets or sets the date and time on which the event was produced.
@@ -159,32 +129,20 @@ namespace Apworks.Events.Storage
         /// UTC date/time format.</remarks>
         [XmlElement]
         [DataMember]
-        public override DateTime Timestamp
+        public DateTime Timestamp
         {
-            get
-            {
-                return base.Timestamp;
-            }
-            set
-            {
-                base.Timestamp = value;
-            }
+            get;
+            set;
         }
         /// <summary>
         /// Gets or sets the version of the domain event data object.
         /// </summary>
         [XmlElement]
         [DataMember]
-        public override long Version
+        public long Version
         {
-            get
-            {
-                return base.Version;
-            }
-            set
-            {
-                base.Version = value;
-            }
+            get;
+            set;
         }
         #endregion
 
@@ -236,8 +194,8 @@ namespace Apworks.Events.Storage
                 obj.AssemblyQualifiedEventType = entity.AssemblyQualifiedEventType;
             obj.Timestamp = entity.Timestamp;
             obj.Version = entity.Version;
-            obj.SourceID = entity.SourceID;
-            obj.AssemblyQualifiedSourceType = entity.AssemblyQualifiedSourceType;
+            obj.SourceID = entity.Source.ID;
+            obj.AssemblyQualifiedSourceType = entity.Source.GetType().AssemblyQualifiedName;
             return obj;
         }
         /// <summary>

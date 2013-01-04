@@ -105,9 +105,9 @@ namespace Apworks.Tests.EventStore.SqlExpress
             }
             using (IDomainEventStorage eventStore = application.ObjectContainer.GetService<IDomainEventStorage>())
             {
-                var p = eventStore.LoadEvents(typeof(Customer), Helper.AggregateRootId1);
-                var q = eventStore.LoadEvents(typeof(Customer), Helper.AggregateRootId2);
-                var r = eventStore.LoadEvents(typeof(Customer), Helper.AggregateRootId3);
+                var p = eventStore.LoadEvents(typeof(SourcedCustomer), Helper.AggregateRootId1);
+                var q = eventStore.LoadEvents(typeof(SourcedCustomer), Helper.AggregateRootId2);
+                var r = eventStore.LoadEvents(typeof(SourcedCustomer), Helper.AggregateRootId3);
                 Assert.IsNotNull(p);
                 Assert.IsNotNull(q);
                 Assert.IsNotNull(r);

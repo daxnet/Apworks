@@ -88,11 +88,11 @@ namespace Apworks.Tests.DomainEvents
         public void AggregateRootVersionTests_BuildFromHistoryTest()
         {
             var aggregateRootId = Guid.NewGuid();
+            SourcedCustomer sourcedCustomer = new SourcedCustomer { ID = aggregateRootId };
             List<IDomainEvent> historicalEvents = new List<IDomainEvent>();
             historicalEvents.Add(new CreateCustomerDomainEvent
             {
-                SourceID = aggregateRootId,
-                AssemblyQualifiedSourceType = typeof(SourcedCustomer).AssemblyQualifiedName,
+                Source = sourcedCustomer,
                 Branch = 0,
                 FirstName = "Sunny",
                 ID = Helper.AggregateRootId1,
@@ -103,8 +103,7 @@ namespace Apworks.Tests.DomainEvents
             });
             historicalEvents.Add(new ChangeCustomerNameDomainEvent
             {
-                SourceID = aggregateRootId,
-                AssemblyQualifiedSourceType = typeof(SourcedCustomer).AssemblyQualifiedName,
+                Source = sourcedCustomer,
                 Branch = 0,
                 FirstName = "Qingyang",
                 ID = Helper.AggregateRootId2,
@@ -114,8 +113,7 @@ namespace Apworks.Tests.DomainEvents
             });
             historicalEvents.Add(new ChangeEmailDomainEvent
             {
-                SourceID = aggregateRootId,
-                AssemblyQualifiedSourceType = typeof(SourcedCustomer).AssemblyQualifiedName,
+                Source = sourcedCustomer,
                 Branch = 0,
                 ID = Helper.AggregateRootId3,
                 Timestamp = DateTime.UtcNow,
