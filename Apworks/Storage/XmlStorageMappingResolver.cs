@@ -38,7 +38,7 @@ namespace Apworks.Storage
     {
         #region Private Fields
         private readonly string fileName;
-        private readonly IObjectSerializer<StorageMappingSchema> serializer = new ObjectXmlSerializer<StorageMappingSchema>();
+        private readonly IObjectSerializer serializer = new ObjectXmlSerializer();
         private readonly StorageMappingSchema mappingSchema;
         #endregion
 
@@ -54,7 +54,7 @@ namespace Apworks.Storage
             {
                 byte[] bytes = new byte[fileStream.Length];
                 fileStream.Read(bytes, 0, Convert.ToInt32(fileStream.Length));
-                mappingSchema = serializer.Deserialize(typeof(StorageMappingSchema), bytes);
+                mappingSchema = serializer.Deserialize<StorageMappingSchema>(bytes);
                 fileStream.Close();
             }
         }

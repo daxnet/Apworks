@@ -31,7 +31,7 @@ namespace Apworks
     /// <summary>
     /// Represents that the implemented classes are object containers.
     /// </summary>
-    internal interface IObjectContainer : IServiceProvider
+    public interface IObjectContainer : IServiceLocator, IServiceRegister
     {
         /// <summary>
         /// Initializes the object container by using the application/web config file.
@@ -45,41 +45,5 @@ namespace Apworks
         /// <typeparam name="T">The type of the wrapped container.</typeparam>
         /// <returns>The instance of the wrapped container.</returns>
         T GetWrappedContainer<T>();
-        /// <summary>
-        /// Gets the service object of the specified type.
-        /// </summary>
-        /// <typeparam name="T">The type of the service object.</typeparam>
-        /// <returns>The instance of the service object.</returns>
-        T GetService<T>() where T : class;
-        /// <summary>
-        /// Gets the service object of the specified type, with overrided
-        /// arguments provided.
-        /// </summary>
-        /// <typeparam name="T">The type of the service object.</typeparam>
-        /// <param name="overridedArguments">The overrided arguments to be used when getting the service.</param>
-        /// <returns>The instance of the service object.</returns>
-        T GetService<T>(object overridedArguments) where T : class;
-        /// <summary>
-        /// Gets the service object of the specified type, with overrided
-        /// arguments provided.
-        /// </summary>
-        /// <param name="serviceType">The type of the service to get.</param>
-        /// <param name="overridedArguments">The overrided arguments to be used when getting the service.</param>
-        /// <returns>The instance of the service object.</returns>
-        object GetService(Type serviceType, object overridedArguments);
-        /// <summary>
-        /// Resolves all the objects from the specified type.
-        /// </summary>
-        /// <param name="serviceType">The type of the objects to be resolved.</param>
-        /// <returns>A <see cref="System.Array"/> object which contains all the objects resolved.</returns>
-        Array ResolveAll(Type serviceType);
-        /// <summary>
-        /// Resolves all the objects from the specified type.
-        /// </summary>
-        /// <typeparam name="T">The type of the objects to be resolved.</typeparam>
-        /// <returns>A <see cref="System.Array"/> object which contains all the objects resolved.</returns>
-        T[] ResolveAll<T>() where T : class;
-
-
     }
 }

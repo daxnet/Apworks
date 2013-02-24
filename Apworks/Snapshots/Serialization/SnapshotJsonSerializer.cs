@@ -31,7 +31,7 @@ namespace Apworks.Snapshots.Serialization
     /// <summary>
     /// Represents the Json snapshot serializer.
     /// </summary>
-    public class SnapshotJsonSerializer : ObjectJsonSerializer<ISnapshot>, ISnapshotSerializer
+    public class SnapshotJsonSerializer : ObjectJsonSerializer, ISnapshotSerializer
     {
     }
 }

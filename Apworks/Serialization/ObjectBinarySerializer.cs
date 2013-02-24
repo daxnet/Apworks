@@ -34,19 +34,19 @@ namespace Apworks.Serialization
     /// Represents the binary serializer.
     /// </summary>
     /// <typeparam name="TObject">The type of the object which needs to be serialized/deserialized.</typeparam>
-    public class ObjectBinarySerializer<TObject> : IObjectSerializer<TObject>
+    public class ObjectBinarySerializer : IObjectSerializer
     {
         #region Private Fields
         private readonly BinaryFormatter binaryFormatter = new BinaryFormatter();
         #endregion
 
-        #region IObjectSerializer<TObject> Members
+        #region IObjectSerializer Members
         /// <summary>
         /// Serializes an object into a byte stream.
         /// </summary>
         /// <param name="obj">The object to be serialized.</param>
         /// <returns>The byte stream which contains the serialized data.</returns>
-        public virtual byte[] Serialize(TObject obj)
+        public virtual byte[] Serialize<TObject>(TObject obj)
         {
             byte[] ret = null;
             using (MemoryStream ms = new MemoryStream())
@@ -63,7 +63,7 @@ namespace Apworks.Serialization
         /// <param name="destType">The destination type of the object being deserialized.</param>
         /// <param name="stream">The byte stream which contains the serialized data of the object.</param>
         /// <returns>The deserialized object.</returns>
-        public virtual TObject Deserialize(Type destType, byte[] stream)
+        public virtual TObject Deserialize<TObject>(byte[] stream)
         {
             using (MemoryStream ms = new MemoryStream(stream))
             {

@@ -101,6 +101,47 @@ namespace Apworks.ObjectContainers.Unity
             throw new InfrastructureException("The wrapped container type provided by the current object container should be '{0}'.", typeof(UnityContainer));
         }
         
+        public override IServiceRegister RegisterServiceType(Type from, Type to, LifetimeStyle lifetimeStyle)
+        {
+            switch (lifetimeStyle)
+            {
+                case LifetimeStyle.Transient:
+                    container.RegisterType(from, to, new TransientLifetimeManager());
+                    break;
+                case LifetimeStyle.Singleton:
+                    container.RegisterType(from, to, new ContainerControlledLifetimeManager());
+                    break;
+                case LifetimeStyle.PerWebRequest:
+                case LifetimeStyle.PerWcfSession:
+                case LifetimeStyle.PerWcfRequest:
+                    container.RegisterType(from, to, new WcfPerRequestLifetimeManager());
+                    break;
+                default:
+                    break;
+            }
+            return this;
+        }
+
+        public override IServiceRegister RegisterServiceType(Type from, Type to, string name, LifetimeStyle lifetimeStyle)
+        {
+            switch (lifetimeStyle)
+            {
+                case LifetimeStyle.Transient:
+                    container.RegisterType(from, to, name, new TransientLifetimeManager());
+                    break;
+                case LifetimeStyle.Singleton:
+                    container.RegisterType(from, to, name, new ContainerControlledLifetimeManager());
+                    break;
+                case LifetimeStyle.PerWebRequest:
+                case LifetimeStyle.PerWcfSession:
+                case LifetimeStyle.PerWcfRequest:
+                    container.RegisterType(from, to, name, new WcfPerRequestLifetimeManager());
+                    break;
+                default:
+                    break;
+            }
+            return this;
+        }
         #endregion
     }
 }

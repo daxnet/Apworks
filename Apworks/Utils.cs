@@ -25,6 +25,7 @@
 // ================================================================================================================== 
 
 
+using Apworks.Serialization;
 using System;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -42,7 +43,7 @@ namespace Apworks
         private const int FactorPrime = 29;
         #endregion
 
-        #region Internal Extension Methods
+        #region Extension Methods
         /// <summary>
         /// Gets the signature string.
         /// </summary>
@@ -120,6 +121,18 @@ namespace Apworks
             }
             sb.Append(")");
             return sb.ToString();
+        }
+        /// <summary>
+        /// Deserializes an object from the given byte stream.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="type">The type of the object to be deserialized.</param>
+        /// <param name="stream">The byte stream that contains the data of the object.</param>
+        /// <returns>The deserialized object.</returns>
+        public static object Deserialize(this IObjectSerializer serializer, Type type, byte[] stream)
+        {
+            var deserializeMethodInfo = serializer.GetType().GetMethod("Deserialize");
+            return deserializeMethodInfo.MakeGenericMethod(type).Invoke(serializer, new object[] { stream });
         }
         #endregion
 

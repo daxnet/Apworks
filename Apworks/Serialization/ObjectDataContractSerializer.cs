@@ -34,7 +34,7 @@ namespace Apworks.Serialization
     /// Represents the data contract serializer.
     /// </summary>
     /// <typeparam name="TObject">The type of the object which needs to be serialized/deserialized.</typeparam>
-    public class ObjectDataContractSerializer<TObject> : IObjectSerializer<TObject>
+    public class ObjectDataContractSerializer : IObjectSerializer
     {
         #region IObjectSerializer<TObject> Members
         /// <summary>
@@ -42,7 +42,7 @@ namespace Apworks.Serialization
         /// </summary>
         /// <param name="obj">The object to be serialized.</param>
         /// <returns>The byte stream which contains the serialized data.</returns>
-        public virtual byte[] Serialize(TObject obj)
+        public virtual byte[] Serialize<TObject>(TObject obj)
         {
             Type graphType = obj.GetType();
             DataContractSerializer js = new DataContractSerializer(graphType);
@@ -61,9 +61,9 @@ namespace Apworks.Serialization
         /// <param name="destType">The destination type of the object being deserialized.</param>
         /// <param name="stream">The byte stream which contains the serialized data of the object.</param>
         /// <returns>The deserialized object.</returns>
-        public virtual TObject Deserialize(Type destType, byte[] stream)
+        public virtual TObject Deserialize<TObject>(byte[] stream)
         {
-            DataContractSerializer js = new DataContractSerializer(destType);
+            DataContractSerializer js = new DataContractSerializer(typeof(TObject));
             using (MemoryStream ms = new MemoryStream(stream))
             {
                 TObject ret = (TObject)js.ReadObject(ms);

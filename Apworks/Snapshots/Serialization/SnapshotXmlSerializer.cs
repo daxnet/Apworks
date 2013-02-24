@@ -31,7 +31,7 @@ namespace Apworks.Snapshots.Serialization
     /// <summary>
     /// Represents the XML snapshot serializer.
     /// </summary>
-    public class SnapshotXmlSerializer : ObjectXmlSerializer<ISnapshot>, ISnapshotSerializer
+    public class SnapshotXmlSerializer : ObjectXmlSerializer, ISnapshotSerializer
     {
     }
 }

@@ -6,7 +6,7 @@ namespace Apworks
     /// <summary>
     /// Represents the service locator which locates a service with the given type.
     /// </summary>
-    public sealed class ServiceLocator : ObjectContainer
+    public sealed class ServiceLocator : IServiceLocator
     {
         #region Private Fields
         private readonly IObjectContainer objectContainer = AppRuntime.Instance.CurrentApplication.ObjectContainer;
@@ -30,58 +30,42 @@ namespace Apworks
         }
         #endregion
 
-        #region Protected Methods
-        /// <summary>
-        /// Gets the service object of the specified type.
-        /// </summary>
-        /// <param name="serviceType">An object that specifies the type of service object to get.</param>
-        /// <returns>A service object of type serviceType.-or- null if there is no service object
-        /// of type serviceType.</returns>
-        protected override object DoGetService(Type serviceType)
+        #region IServiceLocator Members
+
+        public T GetService<T>() where T : class
         {
-            return objectContainer.GetService(serviceType);
+            return objectContainer.GetService<T>();
         }
-        /// <summary>
-        /// Gets the service object of the specified type, with overrided
-        /// arguments provided.
-        /// </summary>
-        /// <param name="serviceType">The type of the service to get.</param>
-        /// <param name="overridedArguments">The overrided arguments to be used when getting the service.</param>
-        /// <returns>The instance of the service object.</returns>
-        protected override object DoGetService(Type serviceType, object overridedArguments)
+
+        public T GetService<T>(object overridedArguments) where T : class
+        {
+            return objectContainer.GetService<T>(overridedArguments);
+        }
+
+        public object GetService(Type serviceType, object overridedArguments)
         {
             return objectContainer.GetService(serviceType, overridedArguments);
         }
-        /// <summary>
-        /// Resolves all the objects from the specified type.
-        /// </summary>
-        /// <param name="serviceType">The type of the objects to be resolved.</param>
-        /// <returns>A <see cref="System.Array"/> object which contains all the objects resolved.</returns>
-        protected override Array DoResolveAll(Type serviceType)
+
+        public Array ResolveAll(Type serviceType)
         {
             return objectContainer.ResolveAll(serviceType);
         }
+
+        public T[] ResolveAll<T>() where T : class
+        {
+            return objectContainer.ResolveAll<T>();
+        }
+
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Initializes the object container by using the application/web config file.
-        /// </summary>
-        /// <param name="configSectionName">The name of the ConfigurationSection in the application/web config file
-        /// which is used for initializing the object container.</param>
-        public override void InitializeFromConfigFile(string configSectionName)
+        #region IServiceProvider Members
+
+        public object GetService(Type serviceType)
         {
-            objectContainer.InitializeFromConfigFile(configSectionName);
+            return objectContainer.GetService(serviceType);
         }
-        /// <summary>
-        /// Gets the wrapped container instance.
-        /// </summary>
-        /// <typeparam name="T">The type of the wrapped container.</typeparam>
-        /// <returns>The instance of the wrapped container.</returns>
-        public override T GetWrappedContainer<T>()
-        {
-            return objectContainer.GetWrappedContainer<T>();
-        }
+
         #endregion
     }
 }

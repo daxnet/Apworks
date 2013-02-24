@@ -31,7 +31,7 @@ namespace Apworks.Snapshots.Serialization
     /// <summary>
     /// Represents the binary snapshot serializer.
     /// </summary>
-    public class SnapshotBinarySerializer : ObjectBinarySerializer<ISnapshot>, ISnapshotSerializer
+    public class SnapshotBinarySerializer : ObjectBinarySerializer, ISnapshotSerializer
     {
     }
 }

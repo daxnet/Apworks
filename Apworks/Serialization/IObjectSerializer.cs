@@ -32,20 +32,20 @@ namespace Apworks.Serialization
     /// Represents that the implemented classes are object serializers.
     /// </summary>
     /// <typeparam name="TObject">The type of the object which needs to be serialized/deserialized.</typeparam>
-    public interface IObjectSerializer<TObject>
+    public interface IObjectSerializer
     {
         /// <summary>
         /// Serializes an object into a byte stream.
         /// </summary>
         /// <param name="obj">The object to be serialized.</param>
         /// <returns>The byte stream which contains the serialized data.</returns>
-        byte[] Serialize(TObject obj);
+        byte[] Serialize<TObject>(TObject obj);
         /// <summary>
         /// Deserializes an object from the given byte stream.
         /// </summary>
         /// <param name="destType">The destination type of the object being deserialized.</param>
         /// <param name="stream">The byte stream which contains the serialized data of the object.</param>
         /// <returns>The deserialized object.</returns>
-        TObject Deserialize(Type destType, byte[] stream);
+        TObject Deserialize<TObject>(byte[] stream);
     }
 }

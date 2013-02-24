@@ -30,6 +30,7 @@ using System.Xml.Serialization;
 using Apworks.Application;
 using Apworks.Config;
 using Apworks.Snapshots.Serialization;
+using System.Reflection;
 
 namespace Apworks.Snapshots
 {
@@ -136,7 +137,7 @@ namespace Apworks.Snapshots
                 Type snapshotType = Type.GetType(SnapshotType);
                 if (snapshotType == null)
                     return null;
-                return serializer.Deserialize(snapshotType, SnapshotData);
+                return (ISnapshot)serializer.Deserialize(snapshotType, this.SnapshotData);
             }
             catch
             {

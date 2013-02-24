@@ -31,7 +31,7 @@ namespace Apworks.Events.Serialization
     /// <summary>
     /// Represents that the implemented classes are domain event serializers.
     /// </summary>
-    public interface IDomainEventSerializer : IObjectSerializer<IDomainEvent>
+    public interface IDomainEventSerializer : IObjectSerializer
     {
     }
 }

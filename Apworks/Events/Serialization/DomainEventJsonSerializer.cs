@@ -32,7 +32,7 @@ namespace Apworks.Events.Serialization
     /// Represents the serializer for domain events that serializes/deserializes the domain events
     /// with Json format.
     /// </summary>
-    public class DomainEventJsonSerializer : ObjectJsonSerializer<IDomainEvent>, IDomainEventSerializer
+    public class DomainEventJsonSerializer : ObjectJsonSerializer, IDomainEventSerializer
     {
     }
 }

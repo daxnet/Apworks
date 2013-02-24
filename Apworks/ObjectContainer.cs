@@ -238,5 +238,42 @@ namespace Apworks
 
         #endregion
 
+        #region IServiceRegister Members
+
+        public IServiceRegister RegisterServiceType<TFrom, TTo>()
+        {
+            return RegisterServiceType(typeof(TFrom), typeof(TTo));
+        }
+
+        public IServiceRegister RegisterServiceType<TFrom, TTo>(string name)
+        {
+            return RegisterServiceType(typeof(TFrom), typeof(TTo), name);
+        }
+
+        public IServiceRegister RegisterServiceType<TFrom, TTo>(LifetimeStyle lifetimeStyle)
+        {
+            return RegisterServiceType(typeof(TFrom), typeof(TTo), lifetimeStyle);
+        }
+
+        public IServiceRegister RegisterServiceType<TFrom, TTo>(string name, LifetimeStyle lifetimeStyle)
+        {
+            return RegisterServiceType(typeof(TFrom), typeof(TTo), name, lifetimeStyle);
+        }
+
+        public IServiceRegister RegisterServiceType(Type from, Type to)
+        {
+            return RegisterServiceType(from, to, LifetimeStyle.Transient);
+        }
+
+        public IServiceRegister RegisterServiceType(Type from, Type to, string name)
+        {
+            return RegisterServiceType(from, to, name, LifetimeStyle.Transient);
+        }
+
+        public abstract IServiceRegister RegisterServiceType(Type from, Type to, LifetimeStyle lifetimeStyle);
+
+        public abstract IServiceRegister RegisterServiceType(Type from, Type to, string name, LifetimeStyle lifetimeStyle);
+
+        #endregion
     }
 }
