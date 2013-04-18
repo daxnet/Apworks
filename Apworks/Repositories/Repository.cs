@@ -69,6 +69,7 @@ namespace Apworks.Repositories
         /// Gets all the aggregate roots from repository.
         /// </summary>
         /// <returns>All the aggregate roots got from the repository.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll()
         {
             return DoGetAll(new AnySpecification<TAggregateRoot>(), null, Storage.SortOrder.Unspecified);
@@ -80,6 +81,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>All the aggregate roots got from the repository, with the aggregate roots being sorted by
         /// using the provided sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
         {
             return DoGetAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder);
@@ -93,6 +95,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots got from the repository for the specified page, with the aggregate roots being sorted by
         /// using the provided sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return DoGetAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize);
@@ -102,6 +105,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="specification">The specification with which the aggregate roots should match.</param>
         /// <returns>All the aggregate roots that match the given specification.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification)
         {
             return DoGetAll(specification, null, Storage.SortOrder.Unspecified);
@@ -113,6 +117,7 @@ namespace Apworks.Repositories
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder);
         /// <summary>
         /// Gets all the aggregate roots from repository.
@@ -123,12 +128,14 @@ namespace Apworks.Repositories
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize);
         /// <summary>
         /// Gets all the aggregate roots from repository.
         /// </summary>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return DoGetAll(new AnySpecification<TAggregateRoot>(), null, Storage.SortOrder.Unspecified, eagerLoadingProperties);
@@ -140,6 +147,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return DoGetAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, eagerLoadingProperties);
@@ -153,6 +161,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregated roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return DoGetAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
@@ -163,6 +172,7 @@ namespace Apworks.Repositories
         /// <param name="specification">The specification with which the aggregate roots should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected virtual IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return DoGetAll(specification, null, Storage.SortOrder.Unspecified, eagerLoadingProperties);
@@ -175,6 +185,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Gets all the aggregate roots from repository.
@@ -186,6 +197,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Finds all the aggregate roots from repository.
@@ -217,7 +229,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots got from the repository, with the aggregate roots being sorted by
         /// using the provided sort predicate and the sort order.</returns>
-        protected virtual IEnumerable<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
+        protected virtual PagedResult<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize);
         }
@@ -249,7 +261,7 @@ namespace Apworks.Repositories
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
-        protected abstract IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize);
+        protected abstract PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -279,7 +291,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected virtual IEnumerable<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected virtual PagedResult<TAggregateRoot> DoFindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return DoFindAll(new AnySpecification<TAggregateRoot>(), sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
         }
@@ -312,12 +324,13 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected abstract IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
+        protected abstract PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Gets a single aggregate root instance from repository by using the given specification.
         /// </summary>
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <returns>The aggregate root instance.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected abstract TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification);
         /// <summary>
         /// Gets a single aggregate root from repository.
@@ -325,6 +338,7 @@ namespace Apworks.Repositories
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected abstract TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Finds a single aggregate root that matches the given specification.
@@ -383,10 +397,12 @@ namespace Apworks.Repositories
         {
             return this.DoGetByKey(key);
         }
+        #region Obsolete
         /// <summary>
         /// Gets all the aggregate roots from repository.
         /// </summary>
         /// <returns>All the aggregate roots got from the repository.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll()
         {
             return this.DoGetAll();
@@ -398,6 +414,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>All the aggregate roots got from the repository, with the aggregate roots being sorted by
         /// using the provided sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
         {
             return this.DoGetAll(sortPredicate, sortOrder);
@@ -407,6 +424,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="specification">The specification with which the aggregate roots should match.</param>
         /// <returns>All the aggregate roots that match the given specification.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification)
         {
             return this.DoGetAll(specification);
@@ -418,6 +436,7 @@ namespace Apworks.Repositories
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
         {
             return this.DoGetAll(specification, sortPredicate, sortOrder);
@@ -431,6 +450,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots got from the repository for the specified page, with the aggregate roots being sorted by
         /// using the provided sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return this.DoGetAll(sortPredicate, sortOrder, pageNumber, pageSize);
@@ -444,6 +464,7 @@ namespace Apworks.Repositories
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return this.DoGetAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
@@ -453,6 +474,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(eagerLoadingProperties);
@@ -464,6 +486,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(sortPredicate, sortOrder, eagerLoadingProperties);
@@ -477,6 +500,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregated roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
@@ -487,6 +511,7 @@ namespace Apworks.Repositories
         /// <param name="specification">The specification with which the aggregate roots should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(specification, eagerLoadingProperties);
@@ -499,6 +524,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(specification, sortPredicate, sortOrder, eagerLoadingProperties);
@@ -513,6 +539,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(specification, sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
@@ -522,6 +549,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <returns>The aggregate root instance.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public TAggregateRoot Get(ISpecification<TAggregateRoot> specification)
         {
             return this.DoGet(specification);
@@ -532,10 +560,12 @@ namespace Apworks.Repositories
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         public TAggregateRoot Get(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGet(specification, eagerLoadingProperties);
         }
+        #endregion
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -582,7 +612,7 @@ namespace Apworks.Repositories
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>The aggregate roots.</returns>
-        public IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
+        public PagedResult<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return this.DoFindAll(sortPredicate, sortOrder, pageNumber, pageSize);
         }
@@ -595,7 +625,7 @@ namespace Apworks.Repositories
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>The aggregate roots.</returns>
-        public IEnumerable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
+        public PagedResult<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
@@ -628,7 +658,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        public IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public PagedResult<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
         }
@@ -664,7 +694,7 @@ namespace Apworks.Repositories
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        public IEnumerable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        public PagedResult<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
         }

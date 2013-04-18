@@ -11,6 +11,7 @@ namespace Apworks.Tests.Common.AggregateRoots
         public string Password { get; set; }
         public EFAddress Address { get; set; }
         public string Email { get; set; }
+        public int Sequence { get; set; }
 
         #region IEntity Members
 
@@ -18,15 +19,6 @@ namespace Apworks.Tests.Common.AggregateRoots
         {
             get;
             set;
-        }
-
-        #endregion
-
-        #region IEquatable<IEntity> Members
-
-        public bool Equals(IEntity other)
-        {
-            return other != null && other.GetType() == typeof(EFCustomer) && this.ID == other.ID;
         }
 
         #endregion

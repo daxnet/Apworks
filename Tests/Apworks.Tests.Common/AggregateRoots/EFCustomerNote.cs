@@ -21,13 +21,5 @@ namespace Apworks.Tests.Common.AggregateRoots
 
         #endregion
 
-        #region IEquatable<IEntity> Members
-
-        public bool Equals(IEntity other)
-        {
-            return other != null && other.GetType() == typeof(EFCustomerNote) && other.ID == this.ID;
-        }
-
-        #endregion
     }
 }

@@ -38,7 +38,7 @@ namespace Apworks.Bus
     public class MessageDispatcher : IMessageDispatcher
     {
         #region Private Fields
-        private readonly Dictionary<Type, List<Func<dynamic, bool>>> messageDispatchPredicates = new Dictionary<Type, List<Func<dynamic, bool>>>();
+        private readonly Dictionary<Type, List<object>> handlers = new Dictionary<Type, List<object>>();
         #endregion
 
         #region Private Methods
@@ -50,16 +50,7 @@ namespace Apworks.Bus
         private static void RegisterType(IMessageDispatcher messageDispatcher, Type handlerType)
         {
             MethodInfo methodInfo = messageDispatcher.GetType().GetMethod("Register", BindingFlags.Public | BindingFlags.Instance);
-            //Type handlerIntfType = handlerType.GetInterfaces().FirstOrDefault(p => 
-            //    p.IsGenericType && 
-            //    p.GetGenericTypeDefinition().Equals(typeof(IHandler<>)));
-            //if (handlerIntfType != null)
-            //{
-            //    object handlerInstance = Activator.CreateInstance(handlerType);
-            //    Type messageType = handlerIntfType.GetGenericArguments().First();
-            //    MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(messageType);
-            //    genericMethodInfo.Invoke(messageDispatcher, new object[] { handlerInstance });
-            //}
+
             var handlerIntfTypeQuery = from p in handlerType.GetInterfaces()
                                        where p.IsGenericType &&
                                        p.GetGenericTypeDefinition().Equals(typeof(IHandler<>))
@@ -174,20 +165,29 @@ namespace Apworks.Bus
         /// </summary>
         public virtual void Clear()
         {
-            messageDispatchPredicates.Clear();
+            handlers.Clear();
         }
         /// <summary>
         /// Dispatches the message.
         /// </summary>
         /// <param name="message">The message to be dispatched.</param>
-        public virtual void DispatchMessage(object message)
+        public virtual void DispatchMessage<T>(T message)
         {
-            Type messageType = message.GetType();
-            if (messageDispatchPredicates.ContainsKey(messageType))
+            Type messageType = typeof(T);
+            if (handlers.ContainsKey(messageType))
             {
-                var handlers = messageDispatchPredicates[messageType];
-                foreach (var handler in handlers)
-                    handler(message);
+                var messageHandlers = handlers[messageType];
+                foreach (var messageHandler in messageHandlers)
+                {
+                    var dynMessageHandler = (IHandler<T>)messageHandler;
+                    var evtArgs = new MessageDispatchEventArgs(message, messageHandler.GetType(), messageHandler);
+                    this.OnDispatching(evtArgs);
+                    var handled = dynMessageHandler.Handle(message);
+                    if (!handled)
+                        this.OnDispatchFailed(evtArgs);
+                    else
+                        this.OnDispatched(evtArgs);
+                }
             }
         }
         /// <summary>
@@ -200,45 +200,44 @@ namespace Apworks.Bus
             Type keyType = typeof(T);
             Type handlerType = handler.GetType();
 
-            Func<dynamic, bool> predicate = p => 
+            if (handlers.ContainsKey(keyType))
             {
-                var evtArgs = new MessageDispatchEventArgs(p, handler.GetType(), handler);
-                this.OnDispatching(evtArgs);
-                var ret = handler.Handle(p);
-                if (!ret)
+                List<object> registeredHandlers = handlers[keyType];
+                if (registeredHandlers != null)
                 {
-                    this.OnDispatchFailed(evtArgs);
+                    if (!registeredHandlers.Contains(handler))
+                        registeredHandlers.Add(handler);
                 }
                 else
                 {
-                    this.OnDispatched(evtArgs);
-                }
-                return ret;
-            };
-
-            if (messageDispatchPredicates.ContainsKey(keyType))
-            {
-                List<Func<dynamic, bool>> registeredDispatcherPredicates = messageDispatchPredicates[keyType];
-                if (registeredDispatcherPredicates != null)
-                {
-                    if (!registeredDispatcherPredicates.Contains(predicate))
-                        registeredDispatcherPredicates.Add(predicate);
-                }
-                else
-                {
-                    registeredDispatcherPredicates = new List<Func<dynamic, bool>>();
-                    registeredDispatcherPredicates.Add(predicate);
-                    messageDispatchPredicates.Add(keyType, registeredDispatcherPredicates);
+                    registeredHandlers = new List<object>();
+                    registeredHandlers.Add(handler);
+                    handlers.Add(keyType, registeredHandlers);
                     
                 }
             }
             else
             {
-                List<Func<dynamic, bool>> registeredDispatcherPredicates = new List<Func<dynamic, bool>>();
-                registeredDispatcherPredicates.Add(predicate);
-                messageDispatchPredicates.Add(keyType, registeredDispatcherPredicates);
+                List<object> registeredHandlers = new List<object>();
+                registeredHandlers.Add(handler);
+                handlers.Add(keyType, registeredHandlers);
             }
-
+        }
+        /// <summary>
+        /// Unregisters a message handler from the message dispatcher.
+        /// </summary>
+        /// <typeparam name="T">The type of the message.</typeparam>
+        /// <param name="handler">The handler to be registered.</param>
+        public virtual void UnRegister<T>(IHandler<T> handler)
+        {
+            var keyType = typeof(T);
+            if (handlers.ContainsKey(keyType) &&
+                handlers[keyType] != null &&
+                handlers[keyType].Count > 0 &&
+                handlers[keyType].Contains(handler))
+            {
+                handlers[keyType].Remove(handler);
+            }
         }
         /// <summary>
         /// Occurs when the message dispatcher is going to dispatch a message.

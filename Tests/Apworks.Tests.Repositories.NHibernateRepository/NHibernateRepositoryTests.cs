@@ -177,7 +177,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.Equals("cust2"));
-            var c = customerRepository.Get(spec);
+            var c = customerRepository.Find(spec);
             customerRepository.Context.Dispose();
             Assert.IsNotNull(c);
             Assert.IsNotNull(c.ID);
@@ -204,7 +204,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust"));
-            var custs = customerRepository.GetAll(spec);
+            var custs = customerRepository.FindAll(spec);
             customerRepository.Context.Dispose();
             Assert.IsNotNull(custs);
             Assert.AreEqual<int>(3, custs.Count());
@@ -228,7 +228,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.Username.Equals("daxnet"));
 
-            var customer2 = customerRepository.Get(spec);
+            var customer2 = customerRepository.Find(spec);
             Assert.AreEqual(customer.Username, customer2.Username);
 
             customer2.FirstName = "qingyang";
@@ -237,7 +237,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
 
 
-            var customer3 = customerRepository.Get(spec);
+            var customer3 = customerRepository.Find(spec);
             customerRepository.Context.Dispose();
             Assert.AreEqual("qingyang", customer3.FirstName);
             Assert.AreEqual("chen", customer3.LastName);
@@ -264,7 +264,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust"));
-            var custs = customerRepository.GetAll(spec, c => c.Email, Storage.SortOrder.Descending);
+            var custs = customerRepository.FindAll(spec, c => c.Email, Storage.SortOrder.Descending);
             customerRepository.Context.Dispose();
             Assert.IsNotNull(custs);
             Assert.AreEqual<int>(3, custs.Count());
@@ -297,7 +297,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(c => c.FirstName.StartsWith("cust"));
 
-            var result = repository.GetAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
+            var result = repository.FindAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
             Assert.AreEqual<int>(pageSize, result.Count());
             Assert.AreEqual<string>(string.Format("cust{0}", (pageNumber - 1) * pageSize + 1), result.First().FirstName);
             Assert.AreEqual<string>(string.Format("cust{0}", pageSize * pageNumber), result.Last().FirstName);
@@ -330,7 +330,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(c => c.FirstName.StartsWith("cust"));
 
-            var result = repository.GetAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
+            var result = repository.FindAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
             Assert.AreEqual<int>(pageSize, result.Count());
             Assert.AreEqual<string>(string.Format("cust{0}", (pageNumber - 1) * pageSize + 1), result.First().FirstName);
             Assert.AreEqual<string>(string.Format("cust{0}", pageSize * pageNumber), result.Last().FirstName);
@@ -364,7 +364,7 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(c => c.FirstName.StartsWith("cust"));
 
-            var result = repository.GetAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
+            var result = repository.FindAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
             Assert.AreEqual<int>(pagingTotalRecords % pageSize, result.Count());
             Assert.AreEqual<string>(string.Format("cust{0}", (pageNumber - 1) * pageSize + 1), result.First().FirstName);
             Assert.AreEqual<string>(string.Format("cust{0}", (pageSize * (pageNumber - 1)) + (pagingTotalRecords % pageSize)), result.Last().FirstName);

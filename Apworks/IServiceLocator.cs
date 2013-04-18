@@ -41,5 +41,8 @@ namespace Apworks
         /// <typeparam name="T">The type of the objects to be resolved.</typeparam>
         /// <returns>A <see cref="System.Array"/> object which contains all the objects resolved.</returns>
         T[] ResolveAll<T>() where T : class;
+
+        bool Registered<T>();
+        bool Registered(Type type);
     }
 }

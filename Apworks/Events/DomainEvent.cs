@@ -24,6 +24,8 @@
 // limitations under the License.
 // ==================================================================================================================
 
+using Apworks.Application;
+using Apworks.Bus;
 using System;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -36,12 +38,30 @@ namespace Apworks.Events
     [Serializable]
     public abstract class DomainEvent : IDomainEvent
     {
+        #region Private Static Fields
+        private static readonly IMessageDispatcher messageDispatcher;
+        #endregion
+
         #region Ctor
+        /// <summary>
+        /// Make static initialization of the <c>DomainEvent</c> class.
+        /// </summary>
+        static DomainEvent()
+        {
+            if (ServiceLocator.Instance.Registered<IMessageDispatcher>())
+                messageDispatcher = ServiceLocator.Instance.GetService<IMessageDispatcher>();
+            else
+                messageDispatcher = MessageDispatcher.CreateAndRegister(AppRuntime.Instance.CurrentApplication.ConfigSource,
+                    typeof(MessageDispatcher));
+        }
         /// <summary>
         /// Initializes a new instance of <c>DomainEvent</c> class.
         /// </summary>
         public DomainEvent() { }
-
+        /// <summary>
+        /// Initializes a new instace of <c>DomainEvent</c> class.
+        /// </summary>
+        /// <param name="source">The source entity which raises the domain event.</param>
         public DomainEvent(IEntity source)
         {
             this.Source = source;
@@ -70,12 +90,14 @@ namespace Apworks.Events
         /// instance; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj))
+                return true;
             if (obj == null)
                 return false;
-            DomainEvent domainEvent = obj as DomainEvent;
-            if ((object)domainEvent == null)
+            DomainEvent other = obj as DomainEvent;
+            if ((object)other == (object)null)
                 return false;
-            return this.Equals((IEntity)domainEvent);
+            return this.ID == other.ID;
         }
         #endregion
 
@@ -88,6 +110,9 @@ namespace Apworks.Events
         /// Gets or sets the assembly qualified name of the type of the aggregate root.
         /// </summary>
         // public virtual string AssemblyQualifiedSourceType { get; set; }
+        /// <summary>
+        /// Gets or sets the source of the entity which raises the domain event.
+        /// </summary>
         [XmlIgnore]
         [SoapIgnore]
         [IgnoreDataMember]
@@ -127,27 +152,40 @@ namespace Apworks.Events
         public virtual Guid ID { get; set; }
         #endregion
 
-        #region IEquatable<IEntity> Members
-        /// <summary>
-        /// Returns a <see cref="System.Boolean"/> value indicating whether this instance is equal to a specified
-        /// entity.
-        /// </summary>
-        /// <param name="other">An object to compare with this instance.</param>
-        /// <returns>True if obj is an instance of the <see cref="Apworks.ISourcedAggregateRoot"/> type and equals the value of this
-        /// instance; otherwise, false.</returns>
-        public virtual bool Equals(IEntity other)
+        #region Public Static Methods
+
+        public static void Subscribe<TDomainEvent>(IDomainEventHandler<TDomainEvent> domainEventHandler)
+            where TDomainEvent : IDomainEvent
         {
-            if (object.ReferenceEquals(this, other))
-                return true;
-            if ((object)other == null)
-                return false;
-            if (!(other is DomainEvent))
-                return false;
-            DomainEvent otherDomainEvent = other as DomainEvent;
-            return this.ID.Equals(otherDomainEvent.ID);
+            messageDispatcher.Register<TDomainEvent>(domainEventHandler);
         }
 
-        #endregion
+        public static void Unsubscribe<TDomainEvent>(IDomainEventHandler<TDomainEvent> domainEventHandler)
+            where TDomainEvent : IDomainEvent
+        {
+            messageDispatcher.UnRegister<TDomainEvent>(domainEventHandler);
+        }
 
+        public static void Publish<TDomainEvent>(TDomainEvent @event)
+            where TDomainEvent : IDomainEvent
+        {
+            messageDispatcher.DispatchMessage<TDomainEvent>(@event);
+        }
+
+        public static void Publish<TDomainEvent>(TDomainEvent @event, Action<TDomainEvent, Exception> callback)
+            where TDomainEvent : IDomainEvent
+        {
+            Exception exception = null;
+            try
+            {
+                messageDispatcher.DispatchMessage<TDomainEvent>(@event);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            callback(@event, exception);
+        }
+        #endregion
     }
 }

@@ -87,6 +87,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder);
@@ -103,6 +104,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
@@ -118,6 +120,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, eagerLoadingProperties);
@@ -135,6 +138,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
@@ -176,25 +180,36 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>The aggregate roots.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
         {
+            if (pageNumber <= 0)
+                throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException("pageSize", pageSize, "The pageSize is one-based and should be larger than zero.");
+            if (sortPredicate == null)
+                throw new ArgumentNullException("sortPredicate");
+
             var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
             var query = collection.AsQueryable<TAggregateRoot>().Where(specification.GetExpression());
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
+            int totalCount = query.Count();
+            int totalPages = (totalCount + pageSize - 1) / pageSize;
             if (sortPredicate != null)
             {
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return query.OrderBy(sortPredicate).Skip(skip).Take(take).ToList();
+                        var pagedCollectionAscending = query.OrderBy(sortPredicate).Skip(skip).Take(take).ToList();
+                        return new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedCollectionAscending);
                     case SortOrder.Descending:
-                        return query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToList();
+                        var pagedCollectionDescending = query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToList();
+                        return new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedCollectionDescending);
                     default:
                         break;
                 }
             }
-            return query.Skip(skip).Take(take).ToList();
+            return null;
         }
         /// <summary>
         /// Finds all the aggregate roots from repository.
@@ -218,7 +233,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
@@ -227,6 +242,7 @@ namespace Apworks.Repositories.MongoDB
         /// </summary>
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification)
         {
             var result = this.DoFind(specification);
@@ -240,6 +256,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             var result = this.DoFind(specification, eagerLoadingProperties);

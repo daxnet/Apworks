@@ -69,12 +69,14 @@ namespace Apworks.Commands
         /// instance; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj))
+                return true;
             if (obj == null)
                 return false;
-            Command cmd = obj as Command;
-            if ((object)cmd == null)
+            Command other = obj as Command;
+            if ((object)other == (object)null)
                 return false;
-            return this.Equals((IEntity)cmd);
+            return this.ID == other.ID;
         }
         #endregion
 
@@ -86,28 +88,6 @@ namespace Apworks.Commands
         {
             get;
             set;
-        }
-
-        #endregion
-
-        #region IEquatable<IEntity> Members
-        /// <summary>
-        /// Returns a <see cref="System.Boolean"/> value indicating whether this instance is equal to a specified
-        /// object.
-        /// </summary>
-        /// <param name="other">An object to compare with this instance.</param>
-        /// <returns>True if obj is an instance of the <see cref="Apworks.Commands.ICommand"/> type and equals the value of this
-        /// instance; otherwise, false.</returns>
-        public virtual bool Equals(IEntity other)
-        {
-            if (object.ReferenceEquals(this, other))
-                return true;
-            if ((object)other == null)
-                return false;
-            if (!(other is Command))
-                return false;
-            Command otherCommand = other as Command;
-            return this.ID.Equals(otherCommand.ID);
         }
 
         #endregion

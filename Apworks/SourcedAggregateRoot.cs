@@ -46,7 +46,7 @@ namespace Apworks
         private long eventVersion;
         private long branch;
         private readonly List<IDomainEvent> uncommittedEvents = new List<IDomainEvent>();
-        private readonly Dictionary<Type, List<IDomainEventHandler>> domainEventHandlers = new Dictionary<Type, List<IDomainEventHandler>>();
+        private readonly Dictionary<Type, List<object>> domainEventHandlers = new Dictionary<Type, List<object>>();
         #endregion
 
         #region Internal Constants
@@ -85,14 +85,14 @@ namespace Apworks
         /// </summary>
         /// <param name="domainEvent">The domain event on which the handlers should be retrieved.</param>
         /// <returns>The domain event handlers.</returns>
-        private IEnumerable<IDomainEventHandler> GetDomainEventHandlers(IDomainEvent domainEvent)
+        private IEnumerable<object> GetDomainEventHandlers(IDomainEvent domainEvent)
         {
             Type eventType = domainEvent.GetType();
             if (domainEventHandlers.ContainsKey(eventType))
                 return domainEventHandlers[eventType];
             else
             {
-                List<IDomainEventHandler> handlers = new List<IDomainEventHandler>();
+                List<object> handlers = new List<object>();
                 // firstly create and add all the handler methods defined within the aggregation root.
                 MethodInfo[] allMethods = this.GetType().GetMethods(BindingFlags.Public |
                     BindingFlags.NonPublic | BindingFlags.Instance);
@@ -109,7 +109,10 @@ namespace Apworks
                                      select new { MethodInfo = method };
                 foreach (var handlerMethod in handlerMethods)
                 {
-                    handlers.Add(new InlineDomainEventHandler(this, handlerMethod.MethodInfo));
+                    var inlineDomainEventHandlerType = typeof(InlineDomainEventHandler<>).MakeGenericType(eventType);
+                    var inlineDomainEventHandler = Activator.CreateInstance(inlineDomainEventHandlerType,
+                        new object[] { this, handlerMethod.MethodInfo });
+                    handlers.Add(inlineDomainEventHandler);
                 }
                 // then read all the registered handlers.
 
@@ -128,8 +131,11 @@ namespace Apworks
             var handlers = this.GetDomainEventHandlers(@event);
             foreach (var handler in handlers)
             {
-                if (handler.CanHandle(@event))
-                    handler.Handle(@event);
+                var handleMethod = handler.GetType().GetMethod("Handle", BindingFlags.Public | BindingFlags.Instance);
+                if (handleMethod != null)
+                {
+                    handleMethod.Invoke(handler, new object[] { @event });
+                }
             }
         }
         #endregion
@@ -198,12 +204,14 @@ and should not be referenced in any circumstances.", true)]
         /// instance; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj))
+                return true;
             if (obj == null)
                 return false;
-            SourcedAggregateRoot sourcedAggregateRoot = obj as SourcedAggregateRoot;
-            if ((object)sourcedAggregateRoot == null)
+            SourcedAggregateRoot other = obj as SourcedAggregateRoot;
+            if ((object)other == (object)null)
                 return false;
-            return this.Equals((IEntity)sourcedAggregateRoot);
+            return other.ID == this.ID;
         }
         #endregion
 
@@ -284,28 +292,6 @@ and should not be referenced in any circumstances.", true)]
             snapshot.AggregateRootID = this.id;
             return snapshot;
         }
-        #endregion
-
-        #region IEquatable<IEntity> Members
-        /// <summary>
-        /// Returns a <see cref="System.Boolean"/> value indicating whether this instance is equal to a specified
-        /// entity.
-        /// </summary>
-        /// <param name="other">An object to compare with this instance.</param>
-        /// <returns>True if obj is an instance of the <see cref="Apworks.ISourcedAggregateRoot"/> type and equals the value of this
-        /// instance; otherwise, false.</returns>
-        public virtual bool Equals(IEntity other)
-        {
-            if (object.ReferenceEquals(this, other))
-                return true;
-            if ((object)other == null)
-                return false;
-            if (!(other is SourcedAggregateRoot))
-                return false;
-            SourcedAggregateRoot otherAggregateRoot = other as SourcedAggregateRoot;
-            return this.ID.Equals(otherAggregateRoot.ID);
-        }
-
         #endregion
 
     }

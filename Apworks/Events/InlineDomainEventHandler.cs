@@ -36,11 +36,12 @@ namespace Apworks.Events
     /// an aggregate root and handles the domain event when <c>SourcedAggregateRoot.RaiseEvent&lt;TEvent&gt;</c>
     /// is called.
     /// </summary>
-    public sealed class InlineDomainEventHandler : IDomainEventHandler
+    public sealed class InlineDomainEventHandler<TDomainEvent> : IDomainEventHandler<TDomainEvent>
+        where TDomainEvent : IDomainEvent
     {
         #region Private Fields
         private readonly Type domainEventType;
-        private readonly Func<IDomainEvent, bool> action;
+        private readonly Func<TDomainEvent, bool> action;
         #endregion
 
         #region Ctor
@@ -70,23 +71,45 @@ namespace Apworks.Events
         }
         #endregion
 
-        #region IDomainEventHandler Members
+        #region Public Methods
         /// <summary>
-        /// Handles the specified domain event.
+        /// Determines whether the specified System.Object is equal to the current System.Object.
         /// </summary>
-        /// <param name="message">The domain event to be handled.</param>
-        public bool Handle(IDomainEvent message)
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>true if the specified System.Object is equal to the current System.Object;
+        /// otherwise, false.</returns>
+        public override bool Equals(object obj)
         {
-            return action(message);
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj == (object)null)
+                return false;
+            InlineDomainEventHandler<TDomainEvent> other = obj as InlineDomainEventHandler<TDomainEvent>;
+            if ((object)other == (object)null)
+                return false;
+            return Delegate.Equals(this.action, other.action);
         }
         /// <summary>
-        /// Checks whether the specified domain event could be handled by the current handler.
+        /// Serves as a hash function for a particular type.
         /// </summary>
-        /// <param name="domainEvent">The domain event to be checked.</param>
-        /// <returns>True if the specified domain event can be handled by the current handler, otherwise false.</returns>
-        public bool CanHandle(IDomainEvent domainEvent)
+        /// <returns>A hash code for the current System.Object.</returns>
+        public override int GetHashCode()
         {
-            return domainEventType.Equals(domainEvent.GetType());
+            if (this.action != null && this.domainEventType != null)
+                return Utils.GetHashCode(this.action.GetHashCode(),
+                    this.domainEventType.GetHashCode());
+            return base.GetHashCode();
+        }
+        #endregion
+
+        #region IHandler<TDomainEvent> Members
+        /// <summary>
+        /// Handles the specified message.
+        /// </summary>
+        /// <param name="message">The message to be handled.</param>
+        public bool Handle(TDomainEvent message)
+        {
+            return action(message);
         }
 
         #endregion

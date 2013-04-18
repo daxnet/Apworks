@@ -24,17 +24,41 @@
 // limitations under the License.
 // ==================================================================================================================
 
+using Apworks.Repositories.NHibernate.Properties;
+using Apworks.Specifications;
+using Apworks.Storage;
+using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Apworks.Repositories.NHibernate.Properties;
-using Apworks.Specifications;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Apworks.Repositories.NHibernate
 {
+    /// <summary>
+    /// Represents the extension method provider for IQueryable{T} interface.
+    /// </summary>
+    internal static class QueryableExtender
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        public static IFutureValue<TResult> ToFutureValue<TSource, TResult>(this IQueryable<TSource> source,
+            Expression<Func<IQueryable<TSource>, TResult>> selector)
+            where TResult : struct
+        {
+            var provider = (INhQueryProvider)source.Provider;
+            var method = ((MethodCallExpression)selector.Body).Method;
+            var expression = Expression.Call(null, method, source.Expression);
+            return (IFutureValue<TResult>)provider.ExecuteFuture(expression);
+        }
+    }
     /// <summary>
     /// Represents the repository which supports the NHibernate implementation.
     /// </summary>
@@ -87,6 +111,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enum which specifies the sort order.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder);
@@ -104,6 +129,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
@@ -135,7 +161,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enum which specifies the sort order.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
+        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
             var query = this.session.Query<TAggregateRoot>()
                 .Where(specification.GetExpression());
@@ -164,37 +190,48 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "The pageSize is one-based and should be larger than zero.");
+            if (sortPredicate == null)
+                throw new ArgumentNullException("sortPredicate");
+
             var query = this.session.Query<TAggregateRoot>()
                 .Where(specification.GetExpression());
+
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
-            switch(sortOrder)
+            int totalCount = 0;
+            int totalPages = 0;
+            List<TAggregateRoot> pagedData = null;
+
+            switch (sortOrder)
             {
                 case Storage.SortOrder.Ascending:
-                    if (sortPredicate != null)
-                        return query.OrderBy(sortPredicate).Skip(skip).Take(take).ToList();
-                    break;
+                    totalCount = query.ToFutureValue(x => x.Count()).Value;
+                    totalPages = (totalCount + pageSize - 1) / pageSize;
+                    pagedData = query.OrderBy(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
+                    return new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
                 case Storage.SortOrder.Descending:
-                    if (sortPredicate!=null)
-                        return query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToList();
-                    break;
+                    totalCount = query.ToFutureValue(x => x.Count()).Value;
+                    totalPages = (totalCount + pageSize - 1) / pageSize;
+                    pagedData = query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
+                    return new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
                 default:
                     break;
-                    
+
             }
-            return query.Skip(skip).Take(take).ToList();
+            return null;
         }
         /// <summary>
         /// Gets a single entity instance from repository by using the given specification.
         /// </summary>
         /// <param name="specification">The specification.</param>
         /// <returns>The entity instance.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification)
         {
             TAggregateRoot result = this.DoFind(specification);
@@ -228,6 +265,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(specification, sortPredicate, sortOrder);
@@ -242,6 +280,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGetAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
@@ -268,7 +307,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
@@ -278,6 +317,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoGet(specification, eagerLoadingProperties);

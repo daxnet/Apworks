@@ -16,6 +16,8 @@
     <SccLocalPath>Svn</SccLocalPath>
     <SccAuxPath>Svn</SccAuxPath>
     <SccProvider>SubversionScc</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -105,46 +107,19 @@
     </Compile>
     <Compile Include="Config\Fluent\ApplicationConfigurator.cs" />
     <Compile Include="Config\Fluent\ApworksConfigurator.cs" />
+    <Compile Include="Config\Fluent\ExceptionHandlerConfigurator.cs" />
     <Compile Include="Config\Fluent\Extensions.cs" />
     <Compile Include="Config\Fluent\ConfigSourceConfigurator.cs" />
     <Compile Include="Config\Fluent\Configurator.cs" />
+    <Compile Include="Config\Fluent\HandlerConfigurator.cs" />
+    <Compile Include="Config\Fluent\InterceptionConfigurator.cs" />
     <Compile Include="Config\Fluent\SequenceGeneratorConfigurator.cs" />
     <Compile Include="Config\Fluent\IdentityGeneratorConfigurator.cs" />
     <Compile Include="Config\Fluent\ObjectContainerConfigurator.cs" />
     <Compile Include="Config\Fluent\TypeSpecifiedConfigSourceConfigurator.cs" />
     <Compile Include="IServiceLocator.cs" />
     <Compile Include="IServiceRegister.cs" />
-    <Compile Include="Messaging\Config\Configurator.cs" />
-    <Compile Include="Messaging\Config\ConfiguratorExtension.cs" />
-    <Compile Include="Messaging\Config\IConfigurator.cs" />
-    <Compile Include="Messaging\Config\IMessageBodySerializerConfigurator.cs" />
-    <Compile Include="Messaging\Config\IMessageSerializerConfigurator.cs" />
-    <Compile Include="Messaging\Config\IServiceBusConfigurator.cs" />
-    <Compile Include="Messaging\Config\MessageBodySerializerConfigurator.cs" />
-    <Compile Include="Messaging\Config\MessageSerializerConfigurator.cs" />
-    <Compile Include="Messaging\Config\NewServiceBusConfigurator.cs" />
-    <Compile Include="Messaging\ServiceBus.cs" />
-    <Compile Include="Messaging\Endpoint.cs" />
-    <Compile Include="Messaging\EndpointAddress.cs" />
-    <Compile Include="Messaging\IServiceBus.cs" />
-    <Compile Include="Messaging\IEndpoint.cs" />
-    <Compile Include="Messaging\IInboundPipeline.cs" />
-    <Compile Include="Messaging\IInboundTransport.cs" />
-    <Compile Include="Messaging\IOutboundPipeline.cs" />
-    <Compile Include="Messaging\IOutboundTransport.cs" />
-    <Compile Include="Messaging\IPipeline.cs" />
-    <Compile Include="Messaging\ISubscriptionStorage.cs" />
-    <Compile Include="Messaging\ITransport.cs" />
-    <Compile Include="Messaging\Message.cs" />
-    <Compile Include="Messaging\Pipelines\PassthroughPipeline.cs" />
-    <Compile Include="Messaging\Pipelines\Pipeline.cs" />
-    <Compile Include="Messaging\Serialization\IMessageSerializer.cs" />
-    <Compile Include="Messaging\Serialization\MessageBinarySerializer.cs" />
-    <Compile Include="Messaging\Serialization\MessageDataContractSerializer.cs" />
-    <Compile Include="Messaging\Serialization\MessageJsonSerializer.cs" />
-    <Compile Include="Messaging\Serialization\MessageXmlSerializer.cs" />
-    <Compile Include="Messaging\ServiceBusFactory.cs" />
-    <Compile Include="Messaging\Subscription.cs" />
+    <Compile Include="PagedResult.cs" />
     <Compile Include="Repositories\RepositoryContext.cs" />
     <Compile Include="Services\ApplicationServices\DataTransferObject.cs" />
     <Compile Include="Application\AppInitEventArgs.cs" />
@@ -310,11 +285,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messaging\Subscriptions\" />
-    <Folder Include="Messaging\Transportation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

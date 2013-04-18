@@ -59,12 +59,14 @@ namespace Apworks
         /// instance; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj))
+                return true;
             if (obj == null)
                 return false;
-            AggregateRoot ar = obj as AggregateRoot;
-            if ((object)ar == null)
+            AggregateRoot other = obj as AggregateRoot;
+            if ((object)other == (object)null)
                 return false;
-            return this.Equals((IEntity)ar);
+            return this.ID == other.ID;
         }
         #endregion
 
@@ -74,27 +76,5 @@ namespace Apworks
         /// </summary>
         public virtual Guid ID { get; set; }
         #endregion
-
-        #region IEquatable<IEntity> Members
-        /// <summary>
-        /// Returns a <see cref="System.Boolean"/> value indicating whether this instance is equal to a specified
-        /// entity.
-        /// </summary>
-        /// <param name="other">An object to compare with this instance.</param>
-        /// <returns>True if obj is an instance of the <see cref="Apworks.ISourcedAggregateRoot"/> type and equals the value of this
-        /// instance; otherwise, false.</returns>
-        public virtual bool Equals(IEntity other)
-        {
-            if (object.ReferenceEquals(this, other))
-                return true;
-            if ((object)other == null)
-                return false;
-            if (!(other is AggregateRoot))
-                return false;
-            AggregateRoot otherAR = other as AggregateRoot;
-            return this.ID.Equals(otherAR.ID);
-        }
-        #endregion
-
     }
 }

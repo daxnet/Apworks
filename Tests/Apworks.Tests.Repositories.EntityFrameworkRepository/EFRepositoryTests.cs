@@ -1,12 +1,16 @@
-﻿using System;
-using System.Data.Entity;
-using Apworks.Application;
+﻿using Apworks.Application;
 using Apworks.Config;
+using Apworks.Generators;
 using Apworks.Repositories;
+using Apworks.Specifications;
 using Apworks.Tests.Common;
 using Apworks.Tests.Common.AggregateRoots;
 using Apworks.Tests.Common.EFContexts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Apworks.Tests.Repositories.EntityFrameworkRepository
 {
@@ -17,6 +21,9 @@ namespace Apworks.Tests.Repositories.EntityFrameworkRepository
     public class EFRepositoryTests
     {
         private static IApp application;
+        private const int pageSize = 20;
+        private const int pagingTotalRecords = 97;
+
         public EFRepositoryTests()
         {
             //
@@ -138,9 +145,97 @@ namespace Apworks.Tests.Repositories.EntityFrameworkRepository
         }
 
         [TestMethod]
-        public void EntityFrameworkRepositoryTests_SaveAggregateTest()
+        public void EntityFrameworkRepositoryTests_Paging_NormalTest()
         {
+            int pageNumber = 3;
+            SequentialIdentityGenerator g = new SequentialIdentityGenerator();
+            List<EFCustomer> customers = new List<EFCustomer>();
+            for (int i = 1; i <= pagingTotalRecords; i++)
+                customers.Add(new EFCustomer
+                {
+                    ID = (Guid)g.Next,
+                    Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                    Email = "cust" + i + "@apworks.com",
+                    Password = i.ToString(),
+                    UserName = "cust" + i,
+                    Sequence = i
+                });
 
+            IRepository<EFCustomer> repository = ServiceLocator.Instance.GetService<IRepository<EFCustomer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+
+            ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(c => c.UserName.StartsWith("cust"));
+
+            var result = repository.FindAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
+            Assert.AreEqual<int>(pageSize, result.Count());
+            Assert.AreEqual<string>(string.Format("cust{0}", (pageNumber - 1) * pageSize + 1), result.First().UserName);
+            Assert.AreEqual<string>(string.Format("cust{0}", pageSize * pageNumber), result.Last().UserName);
+            repository.Context.Dispose();
+        }
+
+        [TestMethod]
+        public void EntityFrameworkRepositoryTests_Paging_FirstPageTest()
+        {
+            int pageNumber = 1;
+            SequentialIdentityGenerator g = new SequentialIdentityGenerator();
+            List<EFCustomer> customers = new List<EFCustomer>();
+            for (int i = 1; i <= pagingTotalRecords; i++)
+                customers.Add(new EFCustomer
+                {
+                    ID = (Guid)g.Next,
+                    Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                    Email = "cust" + i + "@apworks.com",
+                    Password = i.ToString(),
+                    UserName = "cust" + i,
+                    Sequence = i
+                });
+
+            IRepository<EFCustomer> repository = ServiceLocator.Instance.GetService<IRepository<EFCustomer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+
+            ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(c => c.UserName.StartsWith("cust"));
+
+            var result = repository.FindAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
+            Assert.AreEqual<int>(pageSize, result.Count());
+            Assert.AreEqual<string>(string.Format("cust{0}", (pageNumber - 1) * pageSize + 1), result.First().UserName);
+            Assert.AreEqual<string>(string.Format("cust{0}", pageSize * pageNumber), result.Last().UserName);
+            repository.Context.Dispose();
+        }
+
+        [TestMethod]
+        public void EntityFrameworkRepositoryTests_Paging_LastPageTest()
+        {
+            int pageNumber = pagingTotalRecords / pageSize + 1;
+            List<EFCustomer> customers = new List<EFCustomer>();
+            SequentialIdentityGenerator g = new SequentialIdentityGenerator();
+            for (int i = 1; i <= pagingTotalRecords; i++)
+                customers.Add(new EFCustomer
+                {
+                    ID = (Guid)g.Next,
+                    Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                    Email = "cust" + i + "@apworks.com",
+                    Password = i.ToString(),
+                    UserName = "cust" + i,
+                    Sequence = i
+                });
+
+            IRepository<EFCustomer> repository = ServiceLocator.Instance.GetService<IRepository<EFCustomer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+
+
+            ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(c => c.UserName.StartsWith("cust"));
+
+            var result = repository.FindAll(spec, p => p.Sequence, Storage.SortOrder.Ascending, pageNumber, pageSize);
+            Assert.AreEqual<int>(pagingTotalRecords % pageSize, result.Count());
+            Assert.AreEqual<string>(string.Format("cust{0}", (pageNumber - 1) * pageSize + 1), result.First().UserName);
+            Assert.AreEqual<string>(string.Format("cust{0}", (pageSize * (pageNumber - 1)) + (pagingTotalRecords % pageSize)), result.Last().UserName);
+            repository.Context.Dispose();
         }
     }
 }

@@ -31,23 +31,9 @@ namespace Apworks.Events
     /// Represents the base class for event handlers.
     /// </summary>
     /// <typeparam name="TEvent">The type of the event to be handled.</typeparam>
-//    [Obsolete(@"This class is obsolete, query facilities will be provided in other products, 
-//or users should use their own mechanism to handle query object storages. Instead, use IEventHandler<TEvent> interface
-//directly to implement your event handlers.")]
     public abstract class EventHandler<TEvent> : IEventHandler<TEvent>
         where TEvent : IEvent
     {
-        //#region Protected Methods
-        ///// <summary>
-        ///// Gets the instance of the query object storage.
-        ///// </summary>
-        ///// <returns>The instance of the query object storage.</returns>
-        //protected virtual IQueryObjectStorage GetQueryObjectStorage()
-        //{
-        //    return AppRuntime.Instance.CurrentApplication.ObjectContainer.GetService<IQueryObjectStorage>();
-        //}
-        //#endregion
-
         #region Public Methods
         /// <summary>
         /// Handles the specified event.

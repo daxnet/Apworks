@@ -207,34 +207,14 @@ namespace Apworks.Snapshots
         /// instance; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj))
+                return true;
             if (obj == null)
                 return false;
-            SnapshotDataObject snapshotDataObject = obj as SnapshotDataObject;
-            if ((object)snapshotDataObject == null)
+            SnapshotDataObject other = obj as SnapshotDataObject;
+            if ((object)other == (object)null)
                 return false;
-
-            return this.Equals((IEntity)snapshotDataObject);
-        }
-        #endregion
-
-        #region IEquatable<IEntity> Members
-        /// <summary>
-        /// Returns a <see cref="System.Boolean"/> value indicating whether this instance is equal to a specified
-        /// object.
-        /// </summary>
-        /// <param name="other">An object to compare with this instance.</param>
-        /// <returns>True if obj is an instance of the <see cref="Apworks.Snapshots.SnapshotDataObject"/> type and equals the value of this
-        /// instance; otherwise, false.</returns>
-        public bool Equals(IEntity other)
-        {
-            if (object.ReferenceEquals(this, other))
-                return true;
-            if ((object)other == null)
-                return false;
-            if (!(other is SnapshotDataObject))
-                return false;
-            SnapshotDataObject otherData = other as SnapshotDataObject;
-            return this.ID.Equals(otherData.ID);
+            return this.ID == other.ID;
         }
         #endregion
 

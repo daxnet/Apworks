@@ -147,6 +147,13 @@ namespace Apworks.Config
         /// this value should be the name of the assembly.</param>
         public void AddHandler(string name, HandlerKind kind, HandlerSourceType sourceType, string source)
         {
+            if (this.config.Handlers == null)
+                this.config.Handlers = new HandlerElementCollection();
+            foreach (HandlerElement he in this.config.Handlers)
+            {
+                if ((he.Name == name) || (he.Kind == kind && he.SourceType == sourceType && he.Source == source))
+                    return;
+            }
             this.config.Handlers.Add(new HandlerElement
             {
                 Name = name,
@@ -162,6 +169,13 @@ namespace Apworks.Config
         /// <param name="behavior">The exception handling behavior.</param>
         public void AddException(Type exceptionType, ExceptionHandlingBehavior behavior = ExceptionHandlingBehavior.Direct)
         {
+            if (this.config.Exceptions == null)
+                this.config.Exceptions = new ExceptionElementCollection();
+            foreach (ExceptionElement ee in this.config.Exceptions)
+            {
+                if (ee.Type == exceptionType.AssemblyQualifiedName && ee.Behavior == behavior)
+                    return;
+            }
             this.config.Exceptions.Add(new ExceptionElement
             {
                 Type = exceptionType.AssemblyQualifiedName,

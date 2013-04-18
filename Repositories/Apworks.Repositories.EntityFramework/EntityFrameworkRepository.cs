@@ -126,6 +126,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder);
@@ -142,6 +143,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
@@ -157,6 +159,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, eagerLoadingProperties);
@@ -174,6 +177,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate roots.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize, eagerLoadingProperties);
@@ -215,30 +219,37 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="pageNumber">The number of objects per page.</param>
         /// <param name="pageSize">The number of objects per page.</param>
         /// <returns>The aggregate roots.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "The pageSize is one-based and should be larger than zero.");
+            if (sortPredicate == null)
+                throw new ArgumentNullException("sortPredicate");
 
             var query = efContext.Context.Set<TAggregateRoot>()
                 .Where(specification.GetExpression());
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
-            if (sortPredicate != null)
+
+            switch (sortOrder)
             {
-                switch (sortOrder)
-                {
-                    case SortOrder.Ascending:
-                        return query.SortBy(sortPredicate).Skip(skip).Take(take).ToList();
-                    case SortOrder.Descending:
-                        return query.SortByDescending(sortPredicate).Skip(skip).Take(take).ToList();
-                    default:
-                        break;
-                }
+                case SortOrder.Ascending:
+                    var pagedGroupAscending = query.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                        if (pagedGroupAscending == null)
+                            return null;
+                        return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
+                case SortOrder.Descending:
+                    var pagedGroupDescending = query.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                        if (pagedGroupDescending == null)
+                            return null;
+                        return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
+                default:
+                    break;
             }
-            return query.Skip(skip).Take(take).ToList();
+
+            return null;
         }
         /// <summary>
         /// Finds all the aggregate roots from repository.
@@ -293,12 +304,14 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="pageSize">The number of objects per page.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "The pageSize is one-based and should be larger than zero.");
+            if (sortPredicate == null)
+                throw new ArgumentNullException("sortPredicate");
 
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
@@ -322,25 +335,31 @@ namespace Apworks.Repositories.EntityFramework
             else
                 queryable = dbset.Where(specification.GetExpression());
 
-            if (sortPredicate != null)
+
+            switch (sortOrder)
             {
-                switch (sortOrder)
-                {
-                    case SortOrder.Ascending:
-                        return queryable.SortBy(sortPredicate).Skip(skip).Take(take).ToList();
-                    case SortOrder.Descending:
-                        return queryable.SortByDescending(sortPredicate).Skip(skip).Take(take).ToList();
-                    default:
-                        break;
-                }
+                case SortOrder.Ascending:
+                    var pagedGroupAscending = queryable.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    if (pagedGroupAscending == null)
+                        return null;
+                    return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
+                case SortOrder.Descending:
+                    var pagedGroupDescending = queryable.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    if (pagedGroupDescending == null)
+                        return null;
+                    return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
+                default:
+                    break;
             }
-            return queryable.Skip(skip).Take(take).ToList();
+
+            return null;
         }
         /// <summary>
         /// Gets a single aggregate root from repository.
         /// </summary>
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification)
         {
             TAggregateRoot result = this.DoFind(specification);
@@ -354,6 +373,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="specification">The specification with which the aggregate root should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
+        [Obsolete("The method is obsolete, use FindXXX instead.")]
         protected override TAggregateRoot DoGet(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             TAggregateRoot result = this.DoFind(specification, eagerLoadingProperties);

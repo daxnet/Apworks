@@ -30,13 +30,9 @@ namespace Apworks.Events
     /// <summary>
     /// Represents that the implemented classes are domain event handlers.
     /// </summary>
-    public interface IDomainEventHandler : IEventHandler<IDomainEvent>
+    public interface IDomainEventHandler<TDomainEvent> : IEventHandler<TDomainEvent>
+        where TDomainEvent : IDomainEvent
     {
-        /// <summary>
-        /// Checks whether the specified domain event could be handled by the current handler.
-        /// </summary>
-        /// <param name="domainEvent">The domain event to be checked.</param>
-        /// <returns>True if the specified domain event can be handled by the current handler, otherwise false.</returns>
-        bool CanHandle(IDomainEvent domainEvent);
+
     }
 }

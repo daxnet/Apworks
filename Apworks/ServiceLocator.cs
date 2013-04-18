@@ -57,6 +57,15 @@ namespace Apworks
             return objectContainer.ResolveAll<T>();
         }
 
+        public bool Registered<T>()
+        {
+            return objectContainer.Registered<T>();
+        }
+
+        public bool Registered(Type type)
+        {
+            return objectContainer.Registered(type);
+        }
         #endregion
 
         #region IServiceProvider Members
