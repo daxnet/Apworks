@@ -46,6 +46,10 @@ namespace Apworks.Repositories.MongoDB
     public interface IMongoDBRepositoryContextSettings
     {
         /// <summary>
+        /// Gets the database name.
+        /// </summary>
+        string DatabaseName { get; }
+        /// <summary>
         /// Gets the instance of <see cref="MongoServerSettings"/> class which represents the
         /// settings for MongoDB server.
         /// </summary>

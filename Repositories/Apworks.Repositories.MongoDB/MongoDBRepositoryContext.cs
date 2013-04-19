@@ -24,15 +24,13 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
 using Apworks.Repositories.MongoDB.Conventions;
-using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Apworks.Repositories.MongoDB
 {
@@ -60,7 +58,7 @@ namespace Apworks.Repositories.MongoDB
         {
             this.settings = settings;
             server = new MongoServer(settings.ServerSettings);
-            database = server.GetDatabase(settings.GetDatabaseSettings(server));
+            database = server.GetDatabase(settings.DatabaseName, settings.GetDatabaseSettings(server));
         }
         #endregion
 
@@ -100,21 +98,18 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="localDateTime">A <see cref="Boolean"/> value which indicates whether
         /// the local date/time should be used when serializing/deserializing <see cref="DateTime"/> values.</param>
         /// <param name="additionConventions">Additional conventions that needs to be registered.</param>
-        public static void RegisterConventions(bool autoGenerateID, bool localDateTime, ConventionProfile additionConventions)
+        public static void RegisterConventions(bool autoGenerateID, bool localDateTime, IEnumerable<IConvention> additionConventions)
         {
-            var convention = new ConventionProfile();
-            convention.SetIdMemberConvention(new NamedIdMemberConvention("id", "Id", "ID", "iD"));
-
+            var conventionPack = new ConventionPack();
+            conventionPack.Add(new NamedIdMemberConvention("id", "Id", "ID", "iD"));
             if (autoGenerateID)
-                convention.SetIdGeneratorConvention(new GuidIDGeneratorConvention());
-
+                conventionPack.Add(new GuidIDGeneratorConvention());
             if (localDateTime)
-                convention.SetSerializationOptionsConvention(new UseLocalDateTimeConvention());
-
+                conventionPack.Add(new UseLocalDateTimeConvention());
             if (additionConventions != null)
-                convention.Merge(additionConventions);
-
-            BsonClassMap.RegisterConventions(convention, type => true);
+                conventionPack.AddRange(additionConventions);
+            
+            ConventionRegistry.Register("DefaultConvention", conventionPack, t => true);
         }
 
         #endregion

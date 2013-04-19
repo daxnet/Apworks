@@ -344,7 +344,9 @@ namespace Apworks.Tests.Common
 
         public static void ClearMongoDB()
         {
-            MongoServer server = MongoServer.Create(MongoDB_ConnectionString);
+            var mongoClient = new MongoClient(MongoDB_ConnectionString);
+            //MongoServer server = MongoServer.Create(MongoDB_ConnectionString);
+            var server = mongoClient.GetServer();
             MongoDatabase database = server.GetDatabase(MongoDB_Database);
             database.Drop();
             server.Disconnect();

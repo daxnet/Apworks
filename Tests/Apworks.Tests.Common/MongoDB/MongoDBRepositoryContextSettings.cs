@@ -17,19 +17,24 @@ namespace Apworks.Tests.Common.MongoDB
             {
                 var settings = new MongoServerSettings();
                 settings.Server = new MongoServerAddress("localhost");
-                settings.SafeMode = SafeMode.True;
+                settings.WriteConcern = WriteConcern.Acknowledged;
                 return settings;
             }
         }
 
         public MongoDatabaseSettings GetDatabaseSettings(MongoServer server)
         {
-            return new MongoDatabaseSettings(server, Helper.MongoDB_Database);
+            return new MongoDatabaseSettings();
         }
 
         public MapTypeToCollectionNameDelegate MapTypeToCollectionName
         {
             get { return null; }
+        }
+
+        public string DatabaseName
+        {
+            get { return Helper.MongoDB_Database; }
         }
 
         #endregion

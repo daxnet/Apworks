@@ -24,11 +24,11 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using System;
-using System.Reflection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Options;
+using System;
+using System.Reflection;
 
 namespace Apworks.Repositories.MongoDB.Conventions
 {
@@ -36,34 +36,45 @@ namespace Apworks.Repositories.MongoDB.Conventions
     /// Represents the Bson serialization convention that serializes the <see cref="System.DateTime"/> value
     /// by using the local date/time kind.
     /// </summary>
-    public class UseLocalDateTimeConvention : ISerializationOptionsConvention
+    public class UseLocalDateTimeConvention : IMemberMapConvention
     {
-        #region ISerializationOptionsConvention Members
+        #region IMemberMapConvention Members
         /// <summary>
-        /// Gets the BSON serialization options for a member.
+        /// Applies the specified member map convention.
         /// </summary>
-        /// <param name="memberInfo">The member.</param>
-        /// <returns>The BSON serialization options for the member; or null to use defaults.</returns>
-        public virtual IBsonSerializationOptions GetSerializationOptions(MemberInfo memberInfo)
+        /// <param name="memberMap">The member map convention.</param>
+        public void Apply(BsonMemberMap memberMap)
         {
-            switch(memberInfo.MemberType)
+            IBsonSerializationOptions options = null;
+            switch (memberMap.MemberInfo.MemberType)
             {
                 case MemberTypes.Property:
-                    PropertyInfo propertyInfo = (PropertyInfo)memberInfo;
+                    PropertyInfo propertyInfo = (PropertyInfo)memberMap.MemberInfo;
                     if (propertyInfo.PropertyType == typeof(DateTime) ||
                         propertyInfo.PropertyType == typeof(DateTime?))
-                        return new DateTimeSerializationOptions(DateTimeKind.Local);
+                        options = new DateTimeSerializationOptions(DateTimeKind.Local);
                     break;
                 case MemberTypes.Field:
-                    FieldInfo fieldInfo = (FieldInfo)memberInfo;
+                    FieldInfo fieldInfo = (FieldInfo)memberMap.MemberInfo;
                     if (fieldInfo.FieldType == typeof(DateTime) ||
                         fieldInfo.FieldType == typeof(DateTime?))
-                        return new DateTimeSerializationOptions(DateTimeKind.Local);
+                        options = new DateTimeSerializationOptions(DateTimeKind.Local);
                     break;
                 default:
                     break;
             }
-            return null;
+            memberMap.SetSerializationOptions(options);
+        }
+
+        #endregion
+
+        #region IConvention Members
+        /// <summary>
+        /// Gets the name of the convention.
+        /// </summary>
+        public string Name
+        {
+            get { return this.GetType().Name; }
         }
 
         #endregion

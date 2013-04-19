@@ -24,9 +24,6 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using System;
-using System.Linq;
-using System.Reflection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.IdGenerators;
@@ -37,39 +34,28 @@ namespace Apworks.Repositories.MongoDB.Conventions
     /// Represents the ID generator convention which generates a <see cref="System.Guid"/> value
     /// for ID.
     /// </summary>
-    public class GuidIDGeneratorConvention : IIdGeneratorConvention
+    public class GuidIDGeneratorConvention : IPostProcessingConvention
     {
-        #region IIdGeneratorConvention Members
+        #region IPostProcessingConvention Members
         /// <summary>
-        /// Gets the Id generator for an Id member.
+        /// Post process the class map.
         /// </summary>
-        /// <param name="memberInfo">The member.</param>
-        /// <returns>An Id generator.</returns>
-        public virtual IIdGenerator GetIdGenerator(MemberInfo memberInfo)
+        /// <param name="classMap">The class map to be processed.</param>
+        public void PostProcess(BsonClassMap classMap)
         {
-            if (memberInfo.DeclaringType.GetInterfaces().Any(intf => intf == typeof(IEntity)) && 
-                (memberInfo.Name == "ID" || memberInfo.Name == "Id" || memberInfo.Name == "iD" ||
-                memberInfo.Name == "id" || memberInfo.Name == "_id"))
-            {
-                switch (memberInfo.MemberType)
-                {
-                    case MemberTypes.Property:
-                        PropertyInfo propertyInfo = (PropertyInfo)memberInfo;
-                        if (propertyInfo.PropertyType == typeof(Guid) ||
-                            propertyInfo.PropertyType == typeof(Guid?))
-                            return new GuidGenerator();
-                        break;
-                    case MemberTypes.Field:
-                        FieldInfo fieldInfo = (FieldInfo)memberInfo;
-                        if (fieldInfo.FieldType == typeof(Guid) ||
-                            fieldInfo.FieldType == typeof(Guid?))
-                            return new GuidGenerator();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return null;
+            if (typeof(IEntity).IsAssignableFrom(classMap.ClassType))
+                classMap.IdMemberMap.SetIdGenerator(new GuidGenerator());
+        }
+
+        #endregion
+
+        #region IConvention Members
+        /// <summary>
+        /// Gets the name of the convention.
+        /// </summary>
+        public string Name
+        {
+            get { return this.GetType().Name; }
         }
 
         #endregion

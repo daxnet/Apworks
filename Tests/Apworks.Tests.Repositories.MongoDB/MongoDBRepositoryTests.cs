@@ -103,7 +103,9 @@ namespace Apworks.Tests.Repositories.MongoDB
                 customerRepository.Add(customer);
             context.Commit();
 
-            MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
+            MongoClient client = new MongoClient(Helper.MongoDB_ConnectionString);
+            //MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
+            MongoServer server = client.GetServer();
             MongoDatabase database = server.GetDatabase(Helper.MongoDB_Database);
             MongoCollection collection = database.GetCollection("Customer");
             var count = collection.Count();
@@ -137,7 +139,9 @@ namespace Apworks.Tests.Repositories.MongoDB
             customerRepository.Update(oneCustomer);
             context.Commit();
 
-            MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
+            MongoClient client = new MongoClient(Helper.MongoDB_ConnectionString);
+            //MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
+            MongoServer server = client.GetServer();
             MongoDatabase database = server.GetDatabase(Helper.MongoDB_Database);
             MongoCollection collection = database.GetCollection("Customer");
             var query = Query.EQ("Sequence", 50);
@@ -171,7 +175,9 @@ namespace Apworks.Tests.Repositories.MongoDB
             customerRepository.Remove(oneCustomer);
             context.Commit();
 
-            MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
+            MongoClient client = new MongoClient(Helper.MongoDB_ConnectionString);
+            //MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
+            MongoServer server = client.GetServer();
             MongoDatabase database = server.GetDatabase(Helper.MongoDB_Database);
             MongoCollection collection = database.GetCollection("Customer");
             var query = Query.EQ("Sequence", 50);
