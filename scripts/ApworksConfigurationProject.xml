@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConfigProject>
+  <EnumerationTypes>
+    <Enumeration Name="ExceptionHandlingBehavior">
+      <EnumVal Assign="0">Direct</EnumVal>
+      <EnumVal>Forward</EnumVal>
+    </Enumeration>
+    <Enumeration Name="HandlerKind">
+      <EnumVal>Command</EnumVal>
+      <EnumVal>Event</EnumVal>
+    </Enumeration>
+    <Enumeration Name="HandlerSourceType">
+      <EnumVal>Type</EnumVal>
+      <EnumVal>Assembly</EnumVal>
+    </Enumeration>
+  </EnumerationTypes>
+  <ConfigElements>
+    <Element Name="ApplicationElement">
+      <Property Name="Provider" ConfigName="provider" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="ExceptionElement">
+      <Property Name="Type" ConfigName="type" CLRType="System.String" IsKey="true" IsRequired="true"/>
+      <Property Name="Behavior" ConfigName="behavior" EnumType="ExceptionHandlingBehavior" />
+      <Property Name="Handlers" ConfigName="handlers" CollectionType="ExceptionHandlerElementCollection"/>
+    </Element>
+    <Element Name="ExceptionHandlerElement">
+      <Property Name="Type" ConfigName="type" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="SequenceGeneratorElement">
+      <Property Name="Provider" ConfigName="provider" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="IdentityGeneratorElement">
+      <Property Name="Provider" ConfigName="provider" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="GeneratorElement">
+      <Property Name="SequenceGenerator" ConfigName="sequenceGenerator" ElementType="SequenceGeneratorElement"/>
+      <Property Name="IdentityGenerator" ConfigName="identityGenerator" ElementType="IdentityGeneratorElement"/>
+    </Element>
+    <Element Name="HandlerElement">
+      <Property Name="Name" ConfigName="name" CLRType="System.String" IsKey="true" IsRequired="true"/>
+      <Property Name="Kind" ConfigName="kind" EnumType="HandlerKind" IsRequired="true"/>
+      <Property Name="SourceType" ConfigName="sourceType" EnumType="HandlerSourceType" IsRequired="true"/>
+      <Property Name="Source" ConfigName="source" CLRType="System.String" IsRequired="true"/>
+    </Element>
+    <Element Name="ObjectContainerElement">
+      <Property Name="Provider" ConfigName="provider" CLRType="System.String" IsKey="true" IsRequired="true"/>
+      <Property Name="InitFromConfigFile" ConfigName="initFromConfigFile" CLRType="System.Boolean"/>
+      <Property Name="SectionName" ConfigName="sectionName" CLRType="System.String"/>
+    </Element>
+    <Element Name="EventSerializerElement">
+      <Property Name="Provider" ConfigName="provider" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="SnapshotSerializerElement">
+      <Property Name="Provider" ConfigName="provider" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="SerializerElement">
+      <Property Name="EventSerializer" ConfigName="eventSerializer" ElementType="EventSerializerElement"/>
+      <Property Name="SnapshotSerializer" ConfigName="snapshotSerializer" ElementType="SnapshotSerializerElement"/>
+    </Element>
+    <Element Name="InterceptorElement">
+      <Property Name="Name" ConfigName="name" CLRType="System.String" IsKey="true" IsRequired="true"/>
+      <Property Name="Type" ConfigName="type" CLRType="System.String" IsKey="false" IsRequired="true"/>
+    </Element>
+    <Element Name="InterceptorRefElement">
+      <Property Name="Name" ConfigName="name" CLRType="System.String" IsKey="true" IsRequired="true"/>
+    </Element>
+    <Element Name="InterceptMethodElement">
+      <Property Name="Signature" ConfigName="signature" CLRType="System.String" IsRequired="true"/>
+      <Property Name="InterceptorRefs" ConfigName="interceptorRefs" CollectionType="InterceptorRefElementCollection"/>
+    </Element>
+    <Element Name="InterceptContractElement">
+      <Property Name="Type" ConfigName="type" CLRType="System.String" IsKey="true" IsRequired="true"/>
+      <Property Name="Methods" ConfigName="methods" CollectionType="InterceptMethodElementCollection"/>
+    </Element>
+    <Element Name="InterceptionElement">
+      <Property Name="Interceptors" ConfigName="interceptors" CollectionType="InterceptorElementCollection"/>
+      <Property Name="Contracts" ConfigName="contracts" CollectionType="InterceptContractElementCollection"/>
+    </Element>
+  </ConfigElements>
+  <ConfigElementCollections>
+    <Collection Name="ExceptionElementCollection" ElementName="ExceptionElement" AddItemName="exception" CollectionType="BasicMap"/>
+    <Collection Name="ExceptionHandlerElementCollection" ElementName="ExceptionHandlerElement" AddItemName="handler" CollectionType="BasicMap"/>
+    <Collection Name="HandlerElementCollection" ElementName="HandlerElement" AddItemName="handler" CollectionType="BasicMap"/>
+    <Collection Name="InterceptorElementCollection" ElementName="InterceptorElement" AddItemName="interceptor" CollectionType="BasicMap"/>
+    <Collection Name="InterceptorRefElementCollection" ElementName="InterceptorRefElement" AddItemName="interceptorRef" CollectionType="BasicMap"/>
+    <Collection Name="InterceptMethodElementCollection" ElementName="InterceptMethodElement" AddItemName="method" CollectionType="BasicMap"/>
+    <Collection Name="InterceptContractElementCollection" ElementName="InterceptContractElement" AddItemName="contract" CollectionType="BasicMap"/>
+  </ConfigElementCollections>
+  <ConfigSection Name="ApworksConfigSection" ConfigName="apworks">
+    <Property Name="Application" ConfigName="application" ElementType="ApplicationElement" IsRequired="true"/>
+    <Property Name="ObjectContainer" ConfigName="objectContainer" ElementType="ObjectContainerElement" IsRequired="true"/>
+    <Property Name="Serializers" ConfigName="serializers" ElementType="SerializerElement"/>
+    <Property Name="Generators" ConfigName="generators" ElementType="GeneratorElement"/>
+    <Property Name="Handlers" ConfigName="handlers" CollectionType="HandlerElementCollection"/>
+    <Property Name="Exceptions" ConfigName="exceptions" CollectionType="ExceptionElementCollection"/>
+    <Property Name="Interception" ConfigName="interception" ElementType="InterceptionElement"/>
+  </ConfigSection>
+</ConfigProject>

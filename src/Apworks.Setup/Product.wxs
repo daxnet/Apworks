@@ -42,9 +42,9 @@
     <!--Install Folder Components-->
     <DirectoryRef Id="APPROOTFOLDER">
       <Component Id="MiscFiles" Guid="{8CD9B43C-3AB5-4B2E-8C5D-7AAE43D0DEDA}">
-        <File Id="ReleaseNotes.txt.File" Name="ReleaseNotes.txt" Source="$(var.SolutionDir)Additions\Documentation\ReleaseNotes.txt" DiskId="1"/>
-        <File Id="Apache20.rtf.File" Name="Apache20.rtf" Source="$(var.SolutionDir)Additions\Licenses\Apache20.rtf" DiskId="1"/>
-        <File Id="ClsLibRef.chm.File" Name="ClsLibRef.chm" Source="$(var.SolutionDir)Additions\Documentation\ClassLibRef\ClsLibRef.chm" DiskId="1"/>
+        <File Id="ReleaseNotes.txt.File" Name="ReleaseNotes.txt" Source="$(var.SolutionDir)docs\ReleaseNotes.txt" DiskId="1"/>
+        <File Id="Apache20.rtf.File" Name="Apache20.rtf" Source="$(var.SolutionDir)docs\Apache20.rtf" DiskId="1"/>
+        <File Id="ClsLibRef.chm.File" Name="ClsLibRef.chm" Source="$(var.SolutionDir)docs\ClsLibRef.chm" DiskId="1"/>
       </Component>
     </DirectoryRef>
     <!--Bin Folder Components-->
@@ -92,33 +92,31 @@
     <!--ExternalRefs Folder Components-->
     <DirectoryRef Id="EXTERNALREFSFOLDER">
       <Component Id="ExternalRefBinFiles" Guid="{1F02095A-043D-438A-9DAF-D881086206A1}">
-        <File Id="Castle.Core.dll.File" Name="Castle.Core.dll" Source="$(var.SolutionDir)packages\Castle.Core.3.1.0\lib\net35\Castle.Core.dll" DiskId="1"/>
+        <File Id="Castle.Core.dll.File" Name="Castle.Core.dll" Source="$(var.SolutionDir)packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll" DiskId="1"/>
         <File Id="EntityFramework.dll.File" Name="EntityFramework.dll" Source="$(var.SolutionDir)packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll" DiskId="1"/>
         <File Id="Iesi.Collections.dll.File" Name="Iesi.Collections.dll" Source="$(var.SolutionDir)packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll" DiskId="1"/>
         <File Id="Microsoft.Practices.ServiceLocation.dll.File" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.SolutionDir)packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" DiskId="1"/>
         <File Id="Microsoft.Practices.Unity.Configuration.dll.File" Name="Microsoft.Practices.Unity.Configuration.dll" Source="$(var.SolutionDir)packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" DiskId="1"/>
         <File Id="Microsoft.Practices.Unity.dll.File" Name="Microsoft.Practices.Unity.dll" Source="$(var.SolutionDir)packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" DiskId="1"/>
-        <File Id="MongoDB.Bson.dll.File" Name="MongoDB.Bson.dll" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Bson.dll" DiskId="1"/>
-        <File Id="MongoDB.Driver.dll.File" Name="MongoDB.Driver.dll" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Driver.dll" DiskId="1"/>
-        <File Id="MySql.Data.dll.File" Name="MySql.Data.dll" Source="$(var.SolutionDir)packages\MySql.Data.6.5.4\lib\net40\MySql.Data.dll" DiskId="1"/>
-        <File Id="NHibernate.dll.File" Name="NHibernate.dll" Source="$(var.SolutionDir)packages\NHibernate.3.3.2.4000\lib\Net35\NHibernate.dll" DiskId="1"/>
+        <File Id="MongoDB.Bson.dll.File" Name="MongoDB.Bson.dll" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.dll" DiskId="1"/>
+        <File Id="MongoDB.Driver.dll.File" Name="MongoDB.Driver.dll" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll" DiskId="1"/>
+        <File Id="MySql.Data.dll.File" Name="MySql.Data.dll" Source="$(var.SolutionDir)packages\MySql.Data.6.6.5\lib\net40\MySql.Data.dll" DiskId="1"/>
+        <File Id="NHibernate.dll.File" Name="NHibernate.dll" Source="$(var.SolutionDir)packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll" DiskId="1"/>
       </Component>
       <Component Id="ExternalRefXmlDocFiles" Guid="{04F2671A-C8F0-4692-BBB6-CA7364C4CD63}">
-          <File Id="Castle.Core.xml.File" Name="Castle.Core.xml" Source="$(var.SolutionDir)packages\Castle.Core.3.1.0\lib\net35\Castle.Core.xml" DiskId="1"/>
+          <File Id="Castle.Core.xml.File" Name="Castle.Core.xml" Source="$(var.SolutionDir)packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll" DiskId="1"/>
           <File Id="EntityFramework.xml.File" Name="EntityFramework.xml" Source="$(var.SolutionDir)packages\EntityFramework.5.0.0\lib\net40\EntityFramework.xml" DiskId="1"/>
           <File Id="Iesi.Collections.xml.File" Name="Iesi.Collections.xml" Source="$(var.SolutionDir)packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.xml" DiskId="1"/>
           <File Id="Microsoft.Practices.ServiceLocation.xml.File" Name="Microsoft.Practices.ServiceLocation.xml" Source="$(var.SolutionDir)packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.xml" DiskId="1"/>
           <File Id="Microsoft.Practices.Unity.Configuration.xml.File" Name="Microsoft.Practices.Unity.Configuration.xml" Source="$(var.SolutionDir)packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.xml" DiskId="1"/>
           <File Id="Microsoft.Practices.Unity.xml.File" Name="Microsoft.Practices.Unity.xml" Source="$(var.SolutionDir)packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.xml" DiskId="1"/>
-          <File Id="MongoDB.Bson.xml.File" Name="MongoDB.Bson.xml" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Bson.xml" DiskId="1"/>
-          <File Id="MongoDB.Driver.xml.File" Name="MongoDB.Driver.xml" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Driver.xml" DiskId="1"/>
-          <File Id="NHibernate.xml.File" Name="NHibernate.xml" Source="$(var.SolutionDir)packages\NHibernate.3.3.2.4000\lib\Net35\NHibernate.xml" DiskId="1"/>
+          <File Id="MongoDB.Bson.xml.File" Name="MongoDB.Bson.xml" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.xml" DiskId="1"/>
+          <File Id="MongoDB.Driver.xml.File" Name="MongoDB.Driver.xml" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.xml" DiskId="1"/>
+          <File Id="NHibernate.xml.File" Name="NHibernate.xml" Source="$(var.SolutionDir)packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.xml" DiskId="1"/>
         </Component>
       <Component Id="ExternalRefPDBFiles" Guid="{D258F676-9A3A-4D99-9444-982C709C748A}">
           <File Id="Microsoft.Practices.ServiceLocation.pdb.File" Name="Microsoft.Practices.ServiceLocation.pdb" Source="$(var.SolutionDir)packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.pdb" DiskId="1"/>
-          <File Id="MongoDB.Bson.pdb.File" Name="MongoDB.Bson.pdb" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Bson.pdb" DiskId="1"/>
-          <File Id="MongoDB.Driver.pdb.File" Name="MongoDB.Driver.pdb" Source="$(var.SolutionDir)packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Driver.pdb" DiskId="1"/>
-        </Component>
+      </Component>
     </DirectoryRef>
   </Fragment>
   
