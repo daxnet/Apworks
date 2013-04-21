@@ -149,43 +149,43 @@
     <EmbeddedResource Include="Customer.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Apworks\Apworks.csproj">
+    <ProjectReference Include="..\..\src\Apworks\Apworks.csproj">
       <Project>{aabea3f6-07bc-4eb8-9cbf-68baaf381bae}</Project>
       <Name>Apworks</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Buses\Apworks.Bus.DirectBus\Apworks.Bus.DirectBus.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Bus.DirectBus\Apworks.Bus.DirectBus.csproj">
       <Project>{B9D8E0AC-7CC8-4823-9BE5-9389831D093D}</Project>
       <Name>Apworks.Bus.DirectBus</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Buses\Apworks.Bus.MSMQ\Apworks.Bus.MSMQ.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Bus.MSMQ\Apworks.Bus.MSMQ.csproj">
       <Project>{504A62DA-2969-4EFE-A3C5-3AC686BC4EE7}</Project>
       <Name>Apworks.Bus.MSMQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ObjectContainers\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
+    <ProjectReference Include="..\..\src\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
       <Project>{C65C063A-9B9D-47DB-8011-DF4BD75CDE8B}</Project>
       <Name>Apworks.ObjectContainers.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Repositories\Apworks.Repositories.EntityFramework\Apworks.Repositories.EntityFramework.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Repositories.EntityFramework\Apworks.Repositories.EntityFramework.csproj">
       <Project>{878621F3-C8F3-4374-AE6E-03831FBB9071}</Project>
       <Name>Apworks.Repositories.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Repositories\Apworks.Repositories.MongoDB\Apworks.Repositories.MongoDB.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Repositories.MongoDB\Apworks.Repositories.MongoDB.csproj">
       <Project>{44857580-036E-4D64-BA85-FA4092528771}</Project>
       <Name>Apworks.Repositories.MongoDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Repositories\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj">
       <Project>{38CC8B20-5EB7-478A-8C7E-972BF3069319}</Project>
       <Name>Apworks.Repositories.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Storage\Apworks.Events.Storage.General\Apworks.Events.Storage.General.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Events.Storage.General\Apworks.Events.Storage.General.csproj">
       <Project>{562AE750-3EB7-42A6-9297-C7C941723670}</Project>
       <Name>Apworks.Events.Storage.General</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Storage\Apworks.Events.Storage.MySql\Apworks.Events.Storage.MySql.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Events.Storage.MySql\Apworks.Events.Storage.MySql.csproj">
       <Project>{73D272F6-29EB-4498-A364-88CF702AEAE7}</Project>
       <Name>Apworks.Events.Storage.MySql</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Storage\Apworks.Storage.General\Apworks.Storage.General.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Storage.General\Apworks.Storage.General.csproj">
       <Project>{B206AA16-E0C6-4537-8D03-49EDF10810DD}</Project>
       <Name>Apworks.Storage.General</Name>
     </ProjectReference>

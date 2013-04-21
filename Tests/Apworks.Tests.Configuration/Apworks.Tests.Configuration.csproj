@@ -64,15 +64,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Apworks\Apworks.csproj">
+    <ProjectReference Include="..\..\src\Apworks\Apworks.csproj">
       <Project>{aabea3f6-07bc-4eb8-9cbf-68baaf381bae}</Project>
       <Name>Apworks</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ObjectContainers\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
+    <ProjectReference Include="..\..\src\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
       <Project>{c65c063a-9b9d-47db-8011-df4bd75cde8b}</Project>
       <Name>Apworks.ObjectContainers.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Repositories\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj">
       <Project>{38cc8b20-5eb7-478a-8c7e-972bf3069319}</Project>
       <Name>Apworks.Repositories.NHibernate</Name>
     </ProjectReference>

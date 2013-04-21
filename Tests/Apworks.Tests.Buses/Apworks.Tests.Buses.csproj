@@ -84,7 +84,7 @@
     <Compile Include="CommandBusTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Apworks\Apworks.csproj">
+    <ProjectReference Include="..\..\src\Apworks\Apworks.csproj">
       <Project>{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}</Project>
       <Name>Apworks</Name>
     </ProjectReference>

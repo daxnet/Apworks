@@ -88,21 +88,21 @@
     <Compile Include="MySqlEventStorageTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Apworks.Tests.Common\Apworks.Tests.Common.csproj">
-      <Project>{8F1E8058-88B3-4E43-8F50-D376377794BD}</Project>
-      <Name>Apworks.Tests.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Apworks\Apworks.csproj">
+    <ProjectReference Include="..\..\src\Apworks\Apworks.csproj">
       <Project>{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}</Project>
       <Name>Apworks</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ObjectContainers\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
+    <ProjectReference Include="..\..\src\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
       <Project>{C65C063A-9B9D-47DB-8011-DF4BD75CDE8B}</Project>
       <Name>Apworks.ObjectContainers.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Storage\Apworks.Events.Storage.MySql\Apworks.Events.Storage.MySql.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Events.Storage.MySql\Apworks.Events.Storage.MySql.csproj">
       <Project>{73D272F6-29EB-4498-A364-88CF702AEAE7}</Project>
       <Name>Apworks.Events.Storage.MySql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apworks.Tests.Common\Apworks.Tests.Common.csproj">
+      <Project>{8f1e8058-88b3-4e43-8f50-d376377794bd}</Project>
+      <Name>Apworks.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

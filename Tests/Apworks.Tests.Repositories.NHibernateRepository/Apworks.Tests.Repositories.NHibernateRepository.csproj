@@ -91,20 +91,20 @@
     <Compile Include="NHibernateRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Apworks\Apworks.csproj">
+    <ProjectReference Include="..\..\src\Apworks\Apworks.csproj">
       <Project>{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}</Project>
       <Name>Apworks</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ObjectContainers\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
+    <ProjectReference Include="..\..\src\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
       <Project>{C65C063A-9B9D-47DB-8011-DF4BD75CDE8B}</Project>
       <Name>Apworks.ObjectContainers.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Repositories\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj">
       <Project>{38CC8B20-5EB7-478A-8C7E-972BF3069319}</Project>
       <Name>Apworks.Repositories.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\Apworks.Tests.Common\Apworks.Tests.Common.csproj">
-      <Project>{8F1E8058-88B3-4E43-8F50-D376377794BD}</Project>
+      <Project>{8f1e8058-88b3-4e43-8f50-d376377794bd}</Project>
       <Name>Apworks.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>

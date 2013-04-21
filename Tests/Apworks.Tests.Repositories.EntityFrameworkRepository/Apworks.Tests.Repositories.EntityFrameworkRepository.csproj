@@ -83,20 +83,20 @@
     <Compile Include="EFRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Apworks\Apworks.csproj">
+    <ProjectReference Include="..\..\src\Apworks\Apworks.csproj">
       <Project>{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}</Project>
       <Name>Apworks</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ObjectContainers\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
+    <ProjectReference Include="..\..\src\Apworks.ObjectContainers.Unity\Apworks.ObjectContainers.Unity.csproj">
       <Project>{C65C063A-9B9D-47DB-8011-DF4BD75CDE8B}</Project>
       <Name>Apworks.ObjectContainers.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Repositories\Apworks.Repositories.EntityFramework\Apworks.Repositories.EntityFramework.csproj">
+    <ProjectReference Include="..\..\src\Apworks.Repositories.EntityFramework\Apworks.Repositories.EntityFramework.csproj">
       <Project>{878621F3-C8F3-4374-AE6E-03831FBB9071}</Project>
       <Name>Apworks.Repositories.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Apworks.Tests.Common\Apworks.Tests.Common.csproj">
-      <Project>{8F1E8058-88B3-4E43-8F50-D376377794BD}</Project>
+      <Project>{8f1e8058-88b3-4e43-8f50-d376377794bd}</Project>
       <Name>Apworks.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>
