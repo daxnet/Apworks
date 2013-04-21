@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Design", "0 - Design", "{87B7ED4A-E251-4BC3-B10D-0CF2FFFE7EE3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Core", "1 - Core", "{A5FAAA7C-C5FA-4F69-B6D7-0D2AE0AC9ABC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Tests", "2 - Tests", "{5C4BB49A-A2FC-4C56-8F46-B5A42EAD3A2F}"
@@ -48,8 +46,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.6 - Miscellaneous", "4.6 
 		Additions\Miscellaneous\HeaderComments.cs = Additions\Miscellaneous\HeaderComments.cs
 		Additions\Miscellaneous\TODO.txt = Additions\Miscellaneous\TODO.txt
 	EndProjectSection
-EndProject
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Apworks.Design", "Apworks.Design\Apworks.Design.modelproj", "{9B067EE9-1526-4F4B-9048-D220A08DBD37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks", "Apworks\Apworks.csproj", "{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}"
 EndProject
@@ -138,22 +134,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreDebugDeployment|Any CPU.ActiveCfg = CoreDebugDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreDebugDeployment|Mixed Platforms.ActiveCfg = CoreDebugDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreDebugDeployment|Mixed Platforms.Build.0 = CoreDebugDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreDebugDeployment|x86.ActiveCfg = CoreDebugDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreReleaseDeployment|Any CPU.ActiveCfg = CoreReleaseDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreReleaseDeployment|Mixed Platforms.ActiveCfg = CoreReleaseDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreReleaseDeployment|Mixed Platforms.Build.0 = CoreReleaseDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.CoreReleaseDeployment|x86.ActiveCfg = CoreReleaseDeployment|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37}.Release|x86.ActiveCfg = Release|Any CPU
 		{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}.CoreDebugDeployment|Any CPU.ActiveCfg = CoreDebugDeployment|Any CPU
 		{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}.CoreDebugDeployment|Any CPU.Build.0 = CoreDebugDeployment|Any CPU
 		{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE}.CoreDebugDeployment|Mixed Platforms.ActiveCfg = CoreDebugDeployment|Any CPU
@@ -639,7 +619,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9B067EE9-1526-4F4B-9048-D220A08DBD37} = {87B7ED4A-E251-4BC3-B10D-0CF2FFFE7EE3}
 		{AABEA3F6-07BC-4EB8-9CBF-68BAAF381BAE} = {A5FAAA7C-C5FA-4F69-B6D7-0D2AE0AC9ABC}
 		{C2A5C1DE-9806-4100-B7BC-4A1C0439C259} = {A5FAAA7C-C5FA-4F69-B6D7-0D2AE0AC9ABC}
 		{8EAC350B-F33A-4AE8-97C9-E34E214586B0} = {A5FAAA7C-C5FA-4F69-B6D7-0D2AE0AC9ABC}

@@ -39,9 +39,7 @@ namespace Apworks.Repositories.NHibernate
     public class NHibernateContext : RepositoryContext, INHibernateContext
     {
         #region Private Fields
-        [ThreadStatic]
         private readonly DatabaseSessionFactory databaseSessionFactory;
-        [ThreadStatic]
         private readonly ISession session = null;
         private readonly object sync = new object();
         private readonly Dictionary<string, object> repositories = new Dictionary<string, object>();
