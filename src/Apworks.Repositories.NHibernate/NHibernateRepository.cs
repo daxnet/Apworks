@@ -37,29 +37,6 @@ using System.Linq.Expressions;
 namespace Apworks.Repositories.NHibernate
 {
     /// <summary>
-    /// Represents the extension method provider for IQueryable{T} interface.
-    /// </summary>
-    internal static class QueryableExtender
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="selector"></param>
-        /// <returns></returns>
-        public static IFutureValue<TResult> ToFutureValue<TSource, TResult>(this IQueryable<TSource> source,
-            Expression<Func<IQueryable<TSource>, TResult>> selector)
-            where TResult : struct
-        {
-            var provider = (INhQueryProvider)source.Provider;
-            var method = ((MethodCallExpression)selector.Body).Method;
-            var expression = Expression.Call(null, method, source.Expression);
-            return (IFutureValue<TResult>)provider.ExecuteFuture(expression);
-        }
-    }
-    /// <summary>
     /// Represents the repository which supports the NHibernate implementation.
     /// </summary>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
@@ -67,7 +44,8 @@ namespace Apworks.Repositories.NHibernate
         where TAggregateRoot : class, IAggregateRoot
     {
         #region Private Fields
-        private readonly ISession session = null;
+        //private readonly ISession session = null;
+        private readonly INHibernateContext nhContext = null;
         #endregion
 
         #region Ctor
@@ -78,9 +56,8 @@ namespace Apworks.Repositories.NHibernate
         public NHibernateRepository(IRepositoryContext context)
             : base(context)
         {
-            if (context is INHibernateContext)
-                this.session = (context as INHibernateContext).Session;
-            else
+            nhContext = context as INHibernateContext;
+            if (nhContext == null)
                 throw new RepositoryException(Resources.EX_INVALID_CONTEXT_TYPE);
         }
         #endregion
@@ -101,14 +78,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The instance of the entity.</returns>
         protected override TAggregateRoot DoGetByKey(object key)
         {
-            // Use of implicit transactions is discouraged.
-            // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
-            using (ITransaction transaction = this.session.BeginTransaction())
-            {
-                var result = (TAggregateRoot)this.session.Get(typeof(TAggregateRoot), key);
-                transaction.Commit();
-                return result;
-            }
+            return nhContext.GetByKey<TAggregateRoot>(key);
         }
         /// <summary>
         /// Gets all the aggregate roots that match the given specification, and sorts the aggregate roots
@@ -170,28 +140,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
         protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
-            using (ITransaction transaction = this.session.BeginTransaction())
-            {
-                List<TAggregateRoot> result = null;
-                var query = this.session.Query<TAggregateRoot>()
-                    .Where(specification.GetExpression());
-                switch (sortOrder)
-                {
-                    case Storage.SortOrder.Ascending:
-                        if (sortPredicate != null)
-                            result = query.OrderBy(sortPredicate).ToList();
-                        break;
-                    case Storage.SortOrder.Descending:
-                        if (sortPredicate != null)
-                            result = query.OrderByDescending(sortPredicate).ToList();
-                        break;
-                    default:
-                        result = query.ToList();
-                        break;
-                }
-                transaction.Commit();
-                return result;
-            }
+            return nhContext.FindAll<TAggregateRoot>(specification, sortPredicate, sortOrder);
         }
         /// <summary>
         /// Finds all the aggregate roots that match the given specification with paging enabled, and sorts the aggregate roots
@@ -205,47 +154,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
         protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
-            using (ITransaction transaction = this.session.BeginTransaction())
-            {
-                if (pageNumber <= 0)
-                    throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
-                if (pageSize <= 0)
-                    throw new ArgumentOutOfRangeException("pageSize", pageSize, "The pageSize is one-based and should be larger than zero.");
-                if (sortPredicate == null)
-                    throw new ArgumentNullException("sortPredicate");
-
-                var query = this.session.Query<TAggregateRoot>()
-                    .Where(specification.GetExpression());
-
-                int skip = (pageNumber - 1) * pageSize;
-                int take = pageSize;
-                int totalCount = 0;
-                int totalPages = 0;
-                List<TAggregateRoot> pagedData = null;
-                PagedResult<TAggregateRoot> result = null;
-
-                switch (sortOrder)
-                {
-                    case Storage.SortOrder.Ascending:
-                        totalCount = query.ToFutureValue(x => x.Count()).Value;
-                        totalPages = (totalCount + pageSize - 1) / pageSize;
-                        pagedData = query.OrderBy(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
-                        result = new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
-                        break;
-                    case Storage.SortOrder.Descending:
-                        totalCount = query.ToFutureValue(x => x.Count()).Value;
-                        totalPages = (totalCount + pageSize - 1) / pageSize;
-                        pagedData = query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
-                        result = new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
-                        break;
-                    default:
-                        break;
-
-                }
-
-                transaction.Commit();
-                return result;
-            }
+            return nhContext.FindAll<TAggregateRoot>(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
         /// <summary>
         /// Gets a single entity instance from repository by using the given specification.
@@ -267,12 +176,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The instance of the aggregate root.</returns>
         protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
         {
-            using (ITransaction transaction = this.session.BeginTransaction())
-            {
-                var result = this.session.Query<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
-                transaction.Commit();
-                return result;
-            }
+            return nhContext.Find<TAggregateRoot>(specification);
         }
         /// <summary>
         /// Checkes whether the aggregate root which matches the given specification exists.

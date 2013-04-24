@@ -145,6 +145,94 @@ namespace Apworks.Tests.Repositories.EntityFrameworkRepository
         }
 
         [TestMethod]
+        public void EntityFrameworkRepositoryTests_RetrieveByAndSpecificationTest()
+        {
+            List<EFCustomer> customers = new List<EFCustomer>{new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "daxnet",
+                Password = "123456"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "aa",
+                Password = "aa"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "bb",
+                Password = "bb"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "cc",
+                Password = "cc"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "dd",
+                Password = "dd"
+            }};
+            IRepository<EFCustomer> repository = ServiceLocator.Instance.GetService<IRepository<EFCustomer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+            ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(p => p.UserName.StartsWith("d")).And(Specification<EFCustomer>.Eval(p => p.Password != "dd"));
+            var c = repository.FindAll(spec);
+            repository.Context.Dispose();
+            Assert.IsNotNull(c);
+            Assert.AreEqual(1, c.Count());
+        }
+
+        [TestMethod]
+        public void EntityFrameworkRepositoryTests_RetrieveByOrSpecificationTest()
+        {
+            List<EFCustomer> customers = new List<EFCustomer>{new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "daxnet",
+                Password = "123456"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "aa",
+                Password = "aa"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "bb",
+                Password = "bb"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "cc",
+                Password = "cc"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "dd",
+                Password = "dd"
+            }};
+            IRepository<EFCustomer> repository = ServiceLocator.Instance.GetService<IRepository<EFCustomer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+            ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(p => p.UserName.StartsWith("d")).Or(Specification<EFCustomer>.Eval(p => p.UserName == "cc"));
+            var c = repository.FindAll(spec);
+            repository.Context.Dispose();
+            Assert.IsNotNull(c);
+            Assert.AreEqual(3, c.Count());
+        }
+
+        [TestMethod]
         public void EntityFrameworkRepositoryTests_Paging_NormalTest()
         {
             int pageNumber = 3;

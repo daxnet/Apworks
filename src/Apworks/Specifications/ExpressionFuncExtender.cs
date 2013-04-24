@@ -37,7 +37,7 @@ namespace Apworks.Specifications
         /// <returns>The combined expression.</returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
-            return first.Compose(second, Expression.And);
+            return first.Compose(second, Expression.AndAlso);
         }
         /// <summary>
         /// Combines two given expressions by using the OR semantics.
@@ -48,7 +48,7 @@ namespace Apworks.Specifications
         /// <returns>The combined expression.</returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
-            return first.Compose(second, Expression.Or);
+            return first.Compose(second, Expression.OrElse);
         }
         #endregion
     }

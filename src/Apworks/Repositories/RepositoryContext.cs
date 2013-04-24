@@ -109,10 +109,10 @@ namespace Apworks.Repositories
         /// <param name="obj">The object to be registered.</param>
         public virtual void RegisterNew(object obj)
         {
-            if (localModifiedCollection.Value.Contains(obj))
-                throw new InvalidOperationException("The object cannot be registered as a new object since it was marked as modified.");
-            if (localNewCollection.Value.Contains(obj))
-                throw new InvalidOperationException("The object has already been registered as a new object.");
+            //if (localModifiedCollection.Value.Contains(obj))
+             //   throw new InvalidOperationException("The object cannot be registered as a new object since it was marked as modified.");
+            //if (localNewCollection.Value.Contains(obj))
+            //    throw new InvalidOperationException("The object has already been registered as a new object.");
             localNewCollection.Value.Add(obj);
             Committed = false;
         }
@@ -164,7 +164,7 @@ namespace Apworks.Repositories
         /// Gets a <see cref="System.Boolean"/> value which indicates
         /// whether the Unit of Work was successfully committed.
         /// </summary>
-        public bool Committed
+        public virtual bool Committed
         {
             get { return localCommitted.Value; }
             protected set { localCommitted.Value = value; }

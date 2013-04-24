@@ -26,12 +26,39 @@
 
 using Apworks.Interception;
 using NHibernate;
+using NHibernate.Linq;
 using NHibernate.Cfg;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Apworks.Repositories.NHibernate
 {
+    /// <summary>
+    /// Represents the extension method provider for IQueryable{T} interface.
+    /// </summary>
+    internal static class QueryableExtender
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        public static IFutureValue<TResult> ToFutureValue<TSource, TResult>(this IQueryable<TSource> source,
+            Expression<Func<IQueryable<TSource>, TResult>> selector)
+            where TResult : struct
+        {
+            var provider = (INhQueryProvider)source.Provider;
+            var method = ((MethodCallExpression)selector.Body).Method;
+            var expression = Expression.Call(null, method, source.Expression);
+            return (IFutureValue<TResult>)provider.ExecuteFuture(expression);
+        }
+    }
+
     /// <summary>
     /// Represents the repository context which supports NHibernate implementation.
     /// </summary>
@@ -41,8 +68,7 @@ namespace Apworks.Repositories.NHibernate
         #region Private Fields
         private readonly DatabaseSessionFactory databaseSessionFactory;
         private readonly ISession session = null;
-        private readonly object sync = new object();
-        private readonly Dictionary<string, object> repositories = new Dictionary<string, object>();
+        private ITransaction transaction;
         #endregion
 
         #region Ctor
@@ -61,6 +87,16 @@ namespace Apworks.Repositories.NHibernate
         {
             databaseSessionFactory = new DatabaseSessionFactory(nhibernateConfig);
             session = databaseSessionFactory.Session;
+            SetupTransaction();
+        }
+        #endregion
+
+        #region Private Methods
+        private void SetupTransaction()
+        {
+            if (transaction != null)
+                transaction.Dispose();
+            transaction = session.BeginTransaction();
         }
         #endregion
 
@@ -80,66 +116,161 @@ namespace Apworks.Repositories.NHibernate
                 // handle the commit logic by themselves.
                 //if (!committed)
                 //    Commit();
-                ISession dbSession = session;
-                if (dbSession != null && dbSession.IsOpen)
+                if (transaction != null)
                 {
-                    dbSession.Close();
+                    transaction.Dispose();
+                    transaction = null;
                 }
-                dbSession.Dispose();
+                ISession dbSession = session;
+                if (dbSession != null /*&& dbSession.IsOpen*/)
+                {
+                    //dbSession.Close();
+                    dbSession.Dispose();
+                    dbSession = null;
+                }
+                //dbSession.Dispose();
             }
             base.Dispose(disposing);
         }
         #endregion
 
-        #region Public Properties
-        /// <summary>
-        /// Gets the instance of the NHibernate Session object.
-        /// </summary>
-        public ISession Session { get { return session; } }
+        #region Public Methods
+
+        public override void RegisterNew(object obj)
+        {
+            session.Save(obj);
+        }
+
+        public override void RegisterDeleted(object obj)
+        {
+            session.Delete(obj);
+        }
+
+        public override void RegisterModified(object obj)
+        {
+            session.Update(obj);
+        }
 
         #endregion
 
         #region IUnitOfWork Members
+        public override bool Committed
+        {
+            get
+            {
+                return transaction != null &&
+                    transaction.WasCommitted;
+            }
+            protected set { }
+        }
         /// <summary>
         /// Commits the transaction.
         /// </summary>
         public override void Commit()
         {
-            lock (sync)
-            {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    try
-                    {
-                        foreach (var obj in NewCollection)
-                            session.Save(obj);
-                        foreach (var obj in ModifiedCollection)
-                            session.Update(obj);
-                        foreach (var obj in DeletedCollection)
-                            session.Delete(obj);
-                        transaction.Commit();
-                        ClearRegistrations();
-                        Committed = true;
-                    }
-                    catch
-                    {
-                        if (transaction.IsActive)
-                            transaction.Rollback();
-                        this.session.Clear();
-                        throw;
-                    }
-                }
-            }
+            transaction.Commit();
+            SetupTransaction();
         }
         /// <summary>
         /// Rollback the transaction.
         /// </summary>
         public override void Rollback()
         {
-            Committed = false;
+            transaction.Rollback();
+            SetupTransaction();
         }
 
         #endregion
-        
+
+
+        #region INHibernateContext Members
+
+        public TAggregateRoot GetByKey<TAggregateRoot>(object key) where TAggregateRoot : class, IAggregateRoot
+        {
+            var result = (TAggregateRoot)this.session.Get(typeof(TAggregateRoot), key);
+            // Use of implicit transactions is discouraged.
+            // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
+            Commit();
+            return result;
+        }
+
+        public IEnumerable<TAggregateRoot> FindAll<TAggregateRoot>(Specifications.ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot
+        {
+            List<TAggregateRoot> result = null;
+            var query = this.session.Query<TAggregateRoot>()
+                .Where(specification.GetExpression());
+            switch (sortOrder)
+            {
+                case Storage.SortOrder.Ascending:
+                    if (sortPredicate != null)
+                        result = query.OrderBy(sortPredicate).ToList();
+                    break;
+                case Storage.SortOrder.Descending:
+                    if (sortPredicate != null)
+                        result = query.OrderByDescending(sortPredicate).ToList();
+                    break;
+                default:
+                    result = query.ToList();
+                    break;
+            }
+            // Use of implicit transactions is discouraged.
+            // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
+            Commit();
+            return result;
+        }
+
+        public PagedResult<TAggregateRoot> FindAll<TAggregateRoot>(Specifications.ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize) where TAggregateRoot : class, IAggregateRoot
+        {
+            if (pageNumber <= 0)
+                throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException("pageSize", pageSize, "The pageSize is one-based and should be larger than zero.");
+            if (sortPredicate == null)
+                throw new ArgumentNullException("sortPredicate");
+
+            var query = this.session.Query<TAggregateRoot>()
+                .Where(specification.GetExpression());
+
+            int skip = (pageNumber - 1) * pageSize;
+            int take = pageSize;
+            int totalCount = 0;
+            int totalPages = 0;
+            List<TAggregateRoot> pagedData = null;
+            PagedResult<TAggregateRoot> result = null;
+
+            switch (sortOrder)
+            {
+                case Storage.SortOrder.Ascending:
+                    totalCount = query.ToFutureValue(x => x.Count()).Value;
+                    totalPages = (totalCount + pageSize - 1) / pageSize;
+                    pagedData = query.OrderBy(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
+                    result = new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
+                    break;
+                case Storage.SortOrder.Descending:
+                    totalCount = query.ToFutureValue(x => x.Count()).Value;
+                    totalPages = (totalCount + pageSize - 1) / pageSize;
+                    pagedData = query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToFuture().ToList();
+                    result = new PagedResult<TAggregateRoot>(totalCount, totalPages, pageSize, pageNumber, pagedData);
+                    break;
+                default:
+                    break;
+
+            }
+            // Use of implicit transactions is discouraged.
+            // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
+            Commit();
+            return result;
+        }
+
+        public TAggregateRoot Find<TAggregateRoot>(Specifications.ISpecification<TAggregateRoot> specification) where TAggregateRoot : class, IAggregateRoot
+        {
+            var result = this.session.Query<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
+            // Use of implicit transactions is discouraged.
+            // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
+            Commit();
+            return result;
+        }
+
+        #endregion
     }
 }

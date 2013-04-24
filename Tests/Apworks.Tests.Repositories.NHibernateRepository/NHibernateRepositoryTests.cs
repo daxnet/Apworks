@@ -184,6 +184,52 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
         }
 
         [TestMethod]
+        public void NHibernateRepositoryTests_RetrieveByAndSpecificationTest()
+        {
+            Customer[] customers = new Customer[] 
+            { 
+                customer,
+                new Customer{ ID=Helper.AggregateRootId1, Birth=DateTime.Now.AddYears(-23), Email="cust1@apworks.com", FirstName="cust1", LastName="cust1", Password="123456", Username="cust1"},
+                new Customer{ ID=Helper.AggregateRootId2, Birth=DateTime.Now.AddYears(-23), Email="cust2@apworks.com", FirstName="aaa", LastName="bbb", Password="123456", Username="cust2"},
+                new Customer{ ID=Helper.AggregateRootId3, Birth=DateTime.Now.AddYears(-23), Email="cust3@apworks.com", FirstName="cust3", LastName="cust3", Password="654321", Username="cust3"}
+            };
+
+            IRepository<Customer> repository = ServiceLocator.Instance.GetService<IRepository<Customer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+
+            ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust")).And(Specification<Customer>.Eval(p => p.Password == "123456"));
+            var c = repository.Find(spec);
+            repository.Context.Dispose();
+            Assert.IsNotNull(c);
+            Assert.IsNotNull(c.ID);
+        }
+
+        [TestMethod]
+        public void NHibernateRepositoryTests_RetrieveByOrSpecificationTest()
+        {
+            Customer[] customers = new Customer[] 
+            { 
+                customer,
+                new Customer{ ID=Helper.AggregateRootId1, Birth=DateTime.Now.AddYears(-23), Email="cust1@apworks.com", FirstName="cust1", LastName="cust1", Password="123456", Username="cust1"},
+                new Customer{ ID=Helper.AggregateRootId2, Birth=DateTime.Now.AddYears(-23), Email="cust2@apworks.com", FirstName="aaa", LastName="bbb", Password="123456", Username="cust2"},
+                new Customer{ ID=Helper.AggregateRootId3, Birth=DateTime.Now.AddYears(-23), Email="cust3@apworks.com", FirstName="cust3", LastName="cust3", Password="654321", Username="cust3"}
+            };
+
+            IRepository<Customer> repository = ServiceLocator.Instance.GetService<IRepository<Customer>>();
+            foreach (var cust in customers)
+                repository.Add(cust);
+            repository.Context.Commit();
+
+            ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust")).Or(Specification<Customer>.Eval(p => p.FirstName == "aaa"));
+            var c = repository.FindAll(spec);
+            repository.Context.Dispose();
+            Assert.IsNotNull(c);
+            Assert.AreEqual(3, c.Count());
+        }
+
+        [TestMethod]
         [Description("Test the retrieving of aggregate roots by specification.")]
         public void NHibernateRepositoryTests_RetrieveAllAggregateRootBySpecificationTest()
         {

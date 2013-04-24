@@ -48,7 +48,7 @@ namespace Apworks.ObjectContainers.Unity
     /// Represents the lifetime manager which controls the lifetime of the instances based
     /// on each WCF call.
     /// </summary>
-    public class WcfPerRequestLifetimeManager : LifetimeManager
+    public class PerRequestLifetimeManager : LifetimeManager
     {
         #region Private Fields
         private readonly Guid key = Guid.NewGuid();
@@ -57,9 +57,9 @@ namespace Apworks.ObjectContainers.Unity
         /// <summary>
         /// Initializes a new instance of <c>WcfPerRequestLifetimeManager</c> class.
         /// </summary>
-        public WcfPerRequestLifetimeManager() : this(Guid.NewGuid()) { }
+        public PerRequestLifetimeManager() : this(Guid.NewGuid()) { }
 
-        WcfPerRequestLifetimeManager(Guid key)
+        PerRequestLifetimeManager(Guid key)
         {
             if (key == Guid.Empty)
                 throw new ArgumentException("Key is empty.");

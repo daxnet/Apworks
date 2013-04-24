@@ -34,18 +34,11 @@ namespace Apworks.Repositories.NHibernate
     /// </summary>
     internal sealed class DatabaseSessionFactory
     {
-        #region Private Static Fields
-        ///// <summary>
-        ///// The singleton instance of the database session factory.
-        ///// </summary>
-        //private static readonly DatabaseSessionFactory databaseSessionFactory = new DatabaseSessionFactory();
-        #endregion
-
         #region Private Fields
         /// <summary>
         /// The session factory instance.
         /// </summary>
-        private ISessionFactory sessionFactory = null;
+        private readonly ISessionFactory sessionFactory = null;
         /// <summary>
         /// The session instance.
         /// </summary>
@@ -53,10 +46,19 @@ namespace Apworks.Repositories.NHibernate
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of <c>DatabaseSessionFactory</c> class.
+        /// </summary>
+        internal DatabaseSessionFactory()
+        {
+            sessionFactory = new Configuration().Configure().BuildSessionFactory();
+        }
+        /// <summary>
+        /// Initializes a new instance of <c>DatabaseSessionFactory</c> class.
+        /// </summary>
+        /// <param name="nhibernateConfig">The <see cref="Configuration"/> instance used for initializing.</param>
         internal DatabaseSessionFactory(Configuration nhibernateConfig)
         {
-            //Configuration nhibernateConfig = new Configuration();
-            //nhibernateConfig.Configure();
             sessionFactory = nhibernateConfig.BuildSessionFactory();
         }
         #endregion
@@ -70,15 +72,10 @@ namespace Apworks.Repositories.NHibernate
         {
             get
             {
-                try
-                {
-                    ISession result = session;
-                    if (result != null && result.IsOpen)
-                        return result;
-                    return OpenSession();
-                }
-                catch
-                { throw; }
+                ISession result = session;
+                if (result != null && result.IsOpen)
+                    return result;
+                return OpenSession();
             }
         }
         #endregion
@@ -88,7 +85,6 @@ namespace Apworks.Repositories.NHibernate
         /// Always opens a new session from the session factory.
         /// </summary>
         /// <returns>The newly opened session.</returns>
-        /// <exception cref="Apworks.Repositories.RepositoryException">Occurs when failed to open the NHibernate session.</exception>
         public ISession OpenSession()
         {
             this.session = sessionFactory.OpenSession();

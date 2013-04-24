@@ -24,7 +24,12 @@
 // limitations under the License.
 // ==================================================================================================================
 
+using Apworks.Specifications;
+using Apworks.Storage;
 using NHibernate;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Apworks.Repositories.NHibernate
 {
@@ -33,11 +38,19 @@ namespace Apworks.Repositories.NHibernate
     /// </summary>
     internal interface INHibernateContext : IRepositoryContext
     {
-        #region Properties
-        /// <summary>
-        /// Gets the NHibernate Session instance.
-        /// </summary>
-        ISession Session { get; }
+        #region Methods
+        TAggregateRoot GetByKey<TAggregateRoot>(object key)
+            where TAggregateRoot : class, IAggregateRoot;
+
+        IEnumerable<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+            where TAggregateRoot : class, IAggregateRoot;
+
+        PagedResult<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
+            where TAggregateRoot : class, IAggregateRoot;
+
+        TAggregateRoot Find<TAggregateRoot>(ISpecification<TAggregateRoot> specification)
+            where TAggregateRoot : class, IAggregateRoot;
+
         #endregion
     }
 }

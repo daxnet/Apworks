@@ -109,7 +109,7 @@
     <Compile Include="InstanceItems.cs" />
     <Compile Include="UnityObjectContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WcfPerRequestLifetimeManager.cs" />
+    <Compile Include="PerRequestLifetimeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
