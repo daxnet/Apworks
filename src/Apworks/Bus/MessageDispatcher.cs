@@ -198,7 +198,6 @@ namespace Apworks.Bus
         public virtual void Register<T>(IHandler<T> handler)
         {
             Type keyType = typeof(T);
-            Type handlerType = handler.GetType();
 
             if (handlers.ContainsKey(keyType))
             {

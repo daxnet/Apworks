@@ -88,7 +88,6 @@ namespace Apworks
         public static string GetSignature(this MethodInfo method)
         {
             StringBuilder sb = new StringBuilder();
-            Type returnType = method.ReturnType;
             sb.Append(method.ReturnType.GetSignature());
             sb.Append(" ");
             sb.Append(method.Name);
