@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-	<Product Id="{A5B16946-D021-4BB6-8289-A7C931EF4B09}" Name="Apworks Framework" Language="1033" Version="2.5.4563.21309" Manufacturer="apworks.codeplex.com" UpgradeCode="a50c1009-e157-4f42-866d-ccfb64f8a8ab">
+	<Product Id="{A5B16946-D021-4BB6-8289-A7C931EF4B09}" Name="Apworks Framework" Language="1033" Version="2.5.4864.17368" Manufacturer="apworks.codeplex.com" UpgradeCode="a50c1009-e157-4f42-866d-ccfb64f8a8ab">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <Media Id="1" Cabinet="Apworks.cab" EmbedCab="yes"/>
