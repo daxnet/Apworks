@@ -142,6 +142,9 @@
     <Compile Include="Config\Fluent\IdentityGeneratorConfigurator.cs" />
     <Compile Include="Config\Fluent\ObjectContainerConfigurator.cs" />
     <Compile Include="Config\Fluent\TypeSpecifiedConfigSourceConfigurator.cs" />
+    <Compile Include="Events\FuncDelegatedDomainEventHandler.cs" />
+    <Compile Include="Events\DomainEventAggregator.cs" />
+    <Compile Include="Events\HandlesAsynchronouslyAttribute.cs" />
     <Compile Include="IServiceLocator.cs" />
     <Compile Include="IServiceRegister.cs" />
     <Compile Include="PagedResult.cs" />

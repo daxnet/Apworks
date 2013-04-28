@@ -27,6 +27,7 @@
 using Apworks.Application;
 using Apworks.Bus;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -38,21 +39,12 @@ namespace Apworks.Events
     [Serializable]
     public abstract class DomainEvent : IDomainEvent
     {
-        #region Private Static Fields
-        private static readonly IMessageDispatcher messageDispatcher;
-        #endregion
-
         #region Ctor
         /// <summary>
         /// Make static initialization of the <c>DomainEvent</c> class.
         /// </summary>
         static DomainEvent()
         {
-            if (ServiceLocator.Instance.Registered<IMessageDispatcher>())
-                messageDispatcher = ServiceLocator.Instance.GetService<IMessageDispatcher>();
-            else
-                messageDispatcher = MessageDispatcher.CreateAndRegister(AppRuntime.Instance.CurrentApplication.ConfigSource,
-                    typeof(MessageDispatcher));
         }
         /// <summary>
         /// Initializes a new instance of <c>DomainEvent</c> class.
@@ -157,34 +149,102 @@ namespace Apworks.Events
         public static void Subscribe<TDomainEvent>(IDomainEventHandler<TDomainEvent> domainEventHandler)
             where TDomainEvent : IDomainEvent
         {
-            messageDispatcher.Register<TDomainEvent>(domainEventHandler);
+            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandler);
+        }
+
+        public static void Subscribe<TDomainEvent>(IEnumerable<IDomainEventHandler<TDomainEvent>> domainEventHandlers)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlers);
+        }
+
+        public static void Subscribe<TDomainEvent>(params IDomainEventHandler<TDomainEvent>[] domainEventHandlers)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlers);
+        }
+
+        public static void Subscribe<TDomainEvent>(Func<TDomainEvent, bool> domainEventHandlerFunc)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlerFunc);
+        }
+
+        public static void Subscribe<TDomainEvent>(IEnumerable<Func<TDomainEvent, bool>> domainEventHandlerFuncs)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlerFuncs);
+        }
+
+        public static void Subscribe<TDomainEvent>(params Func<TDomainEvent, bool>[] domainEventHandlerFuncs)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlerFuncs);
         }
 
         public static void Unsubscribe<TDomainEvent>(IDomainEventHandler<TDomainEvent> domainEventHandler)
             where TDomainEvent : IDomainEvent
         {
-            messageDispatcher.UnRegister<TDomainEvent>(domainEventHandler);
+            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandler);
         }
 
-        public static void Publish<TDomainEvent>(TDomainEvent @event)
+        public static void Unsubscribe<TDomainEvent>(IEnumerable<IDomainEventHandler<TDomainEvent>> domainEventHandlers)
             where TDomainEvent : IDomainEvent
         {
-            messageDispatcher.DispatchMessage<TDomainEvent>(@event);
+            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlers);
         }
 
-        public static void Publish<TDomainEvent>(TDomainEvent @event, Action<TDomainEvent, Exception> callback)
+        public static void Unsubscribe<TDomainEvent>(params IDomainEventHandler<TDomainEvent>[] domainEventHandlers)
             where TDomainEvent : IDomainEvent
         {
-            Exception exception = null;
-            try
-            {
-                messageDispatcher.DispatchMessage<TDomainEvent>(@event);
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-            callback(@event, exception);
+            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlers);
+        }
+
+        public static void Unsubscribe<TDomainEvent>(Func<TDomainEvent, bool> domainEventHandlerFunc)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlerFunc);
+        }
+
+        public static void Unsubscribe<TDomainEvent>(IEnumerable<Func<TDomainEvent, bool>> domainEventHandlerFuncs)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlerFuncs);
+        }
+
+        public static void Unsubscribe<TDomainEvent>(params Func<TDomainEvent, bool>[] domainEventHandlerFuncs)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlerFuncs);
+        }
+
+        public static IEnumerable<IDomainEventHandler<TDomainEvent>> GetSubscriptions<TDomainEvent>()
+            where TDomainEvent : IDomainEvent
+        {
+            return DomainEventAggregator.Instance.GetSubscriptions<TDomainEvent>();
+        }
+
+        public static void UnsubscribeAll<TDomainEvent>()
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.UnsubscribeAll<TDomainEvent>();
+        }
+
+        public static void UnsubscribeAll()
+        {
+            DomainEventAggregator.Instance.UnsubscribeAll();
+        }
+
+        public static void Publish<TDomainEvent>(TDomainEvent domainEvent)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Publish<TDomainEvent>(domainEvent);
+        }
+
+        public static void Publish<TDomainEvent>(TDomainEvent domainEvent, Action<TDomainEvent, bool, Exception> callback, TimeSpan? timeout = null)
+            where TDomainEvent : IDomainEvent
+        {
+            DomainEventAggregator.Instance.Publish<TDomainEvent>(domainEvent, callback, timeout);
         }
         #endregion
     }

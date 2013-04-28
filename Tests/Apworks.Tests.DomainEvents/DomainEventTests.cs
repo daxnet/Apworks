@@ -6,6 +6,7 @@ using Apworks.Tests.Common.AggregateRoots;
 using Apworks.Tests.Common.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Apworks.Events;
 
 namespace Apworks.Tests.DomainEvents
 {
@@ -59,8 +60,11 @@ namespace Apworks.Tests.DomainEvents
         // public static void MyClassCleanup() { }
         //
         // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
+        [TestInitialize()]
+        public void MyTestInitialize()
+        {
+            DomainEvent.UnsubscribeAll();
+        }
         //
         // Use TestCleanup to run code after each test has run
         // [TestCleanup()]
@@ -100,6 +104,81 @@ namespace Apworks.Tests.DomainEvents
             Assert.AreEqual<int>(1, sourcedCustomer.UncommittedEvents.Count());
             var uncommittedEvent = sourcedCustomer.UncommittedEvents.First();
             Assert.IsInstanceOfType(uncommittedEvent, typeof(CreateCustomerDomainEvent));
+        }
+
+        [TestMethod]
+        public void DomainEvents_SubscribeDomainEventHandlerTest()
+        {
+            DomainEvent.Subscribe<OneDomainEvent>(new OneDomainEventHandler());
+            DomainEvent.Subscribe<AnotherDomainEvent>(new AnotherDomainEventHandler());
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            var s2 = DomainEvent.GetSubscriptions<AnotherDomainEvent>().Count();
+            Assert.AreEqual(1, s1);
+            Assert.AreEqual(1, s2);
+        }
+
+        [TestMethod]
+        public void DomainEvents_SubscribeSameDomainEventHandlerTest()
+        {
+            var a = new OneDomainEventHandler();
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(1, s1);
+        }
+
+        [TestMethod]
+        public void DomainEvents_SubscribeTwoDomainEventHandlerTest()
+        {
+            DomainEvent.Subscribe<OneDomainEvent>(new OneDomainEventHandler());
+            DomainEvent.Subscribe<OneDomainEvent>(new OneDomainEventAnotherHandler());
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(2, s1);
+        }
+
+        [TestMethod]
+        public void DomainEvents_UnsubscribeDomainEventHandlerTest()
+        {
+            var a = new OneDomainEventHandler();
+            var b = new OneDomainEventAnotherHandler();
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            DomainEvent.Subscribe<OneDomainEvent>(b);
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(2, s1);
+            DomainEvent.Unsubscribe<OneDomainEvent>(a);
+            var s2 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(1, s2);
+        }
+
+        [TestMethod]
+        public void DomainEvents_SubscribeFuncHandlerTest()
+        {
+            Func<OneDomainEvent, bool> a = p => true;
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(1, s1);
+        }
+
+        [TestMethod]
+        public void DomainEvents_SubscribeFuncHandlerTwiceTest()
+        {
+            Func<OneDomainEvent, bool> a = p => true;
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(1, s1);
+        }
+
+        [TestMethod]
+        public void DomainEvents_UnsubscribeFuncHandlerTest()
+        {
+            Func<OneDomainEvent, bool> a = p => true;
+            DomainEvent.Subscribe<OneDomainEvent>(a);
+            var s1 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(1, s1);
+            DomainEvent.Unsubscribe<OneDomainEvent>(a);
+            var s2 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
+            Assert.AreEqual(0, s2);
         }
     }
 }
