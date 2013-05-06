@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -43,7 +43,7 @@ namespace Apworks.Repositories.MongoDB.Conventions
         /// <param name="classMap">The class map to be processed.</param>
         public void PostProcess(BsonClassMap classMap)
         {
-            if (typeof(IEntity).IsAssignableFrom(classMap.ClassType))
+            if (typeof(IEntity).IsAssignableFrom(classMap.ClassType) && classMap.IdMemberMap != null)
                 classMap.IdMemberMap.SetIdGenerator(new GuidGenerator());
         }
 

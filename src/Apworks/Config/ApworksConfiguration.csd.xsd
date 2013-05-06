@@ -7,7 +7,7 @@
     the code is regenerated.
 </auto-generated>
 -->
-<xs:schema xmlns:tns="http://apworks.codeplex.com/Schemas/Configuration" elementFormDefault="qualified" targetNamespace="http://apworks.codeplex.com/Schemas/Configuration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://apworks.org/Schemas/Configuration" elementFormDefault="qualified" targetNamespace="http://apworks.org/Schemas/Configuration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="apworks" type="tns:Apworks.Config.ApworksConfigSectionCT" />
 	<xs:complexType name="Apworks.Config.ApworksConfigSectionCT">
 		<xs:sequence>

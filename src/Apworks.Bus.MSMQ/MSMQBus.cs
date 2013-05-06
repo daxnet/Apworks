@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Apworks.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
+using System.Reflection;
 
 namespace Apworks.Bus.MSMQ
 {
     /// <summary>
     /// Represents the base class for buses that are using Microsoft Message Queuing (MSMQ) technologies.
     /// </summary>
-    /// <typeparam name="TMessage">The type of the message that should be stored in the queue.</typeparam>
-    public abstract class MSMQBus<TMessage> : DisposableObject, IBus<TMessage>
+    public abstract class MSMQBus : DisposableObject, IBus
     {
         #region Private Fields
         private volatile bool committed = true;
@@ -17,21 +18,33 @@ namespace Apworks.Bus.MSMQ
         private readonly MSMQBusOptions options;
         private readonly MessageQueue messageQueue;
         private readonly object lockObj = new object();
-        private readonly Queue<TMessage> mockQueue = new Queue<TMessage>();
-        //private TMessage[] backupMessageArray;
-        //private readonly MessageQueueTransaction transaction = new MessageQueueTransaction();
+        private readonly Queue<object> mockQueue = new Queue<object>();
+        private readonly MethodInfo sendMessageGenericMethod;
         #endregion
 
         #region Ctor
+        /// <summary>
+        /// Initializes a new instance of <c>MSMQBus</c> class.
+        /// </summary>
+        public MSMQBus()
+        {
+            sendMessageGenericMethod = (from m in this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                                        let methodName = m.Name
+                                        let generic = m.IsGenericMethod
+                                        where generic &&
+                                        methodName == "SendMessageGeneric"
+                                        select m).First();
+        }
         /// <summary>
         /// Initializes a new instance of <c>MSMQBus&lt;TMessage&gt;</c> class.
         /// </summary>
         /// <param name="path">The location of the queue.</param>
         public MSMQBus(string path)
+            : this()
         {
             this.options = new MSMQBusOptions(path);
-            this.messageQueue = new MessageQueue(path, 
-                options.SharedModeDenyReceive, 
+            this.messageQueue = new MessageQueue(path,
+                options.SharedModeDenyReceive,
                 options.EnableCache, options.QueueAccessMode);
             this.messageQueue.Formatter = options.MessageFormatter;
             this.useInternalTransaction = options.UseInternalTransaction && messageQueue.Transactional;
@@ -43,6 +56,7 @@ namespace Apworks.Bus.MSMQ
         /// <param name="useInternalTransaction">A <see cref="System.Boolean"/> value which indicates
         /// whether the internal transaction should be used to manipulate the message queue.</param>
         public MSMQBus(string path, bool useInternalTransaction)
+            : this()
         {
             this.options = new MSMQBusOptions(path, useInternalTransaction);
             this.messageQueue = new MessageQueue(path,
@@ -57,6 +71,7 @@ namespace Apworks.Bus.MSMQ
         /// <param name="options">The instance of <see cref="Apworks.Bus.MSMQ.MSMQBusOptions"/> class
         /// which contains the option information to initialize the message queue.</param>
         public MSMQBus(MSMQBusOptions options)
+            : this()
         {
             this.options = options;
             this.messageQueue = new MessageQueue(options.Path,
@@ -64,30 +79,6 @@ namespace Apworks.Bus.MSMQ
                 options.EnableCache, options.QueueAccessMode);
             this.messageQueue.Formatter = options.MessageFormatter;
             this.useInternalTransaction = options.UseInternalTransaction && messageQueue.Transactional;
-        }
-        #endregion
-
-        #region Private Methods
-        /// <summary>
-        /// Sends the specified message to the queue without locking.
-        /// </summary>
-        /// <param name="message">The message that is going to be sent.</param>
-        /// <param name="transaction">The <see cref="System.Messaging.MessageQueueTransaction"/> instance
-        /// which manages the MSMQ transaction.</param>
-        private void SendMessage(TMessage message, MessageQueueTransaction transaction = null)
-        {
-            Message msmqMessage = new Message(message);
-            if (useInternalTransaction)
-            {
-                if (transaction == null)
-                    throw new ArgumentNullException("transaction");
-
-                messageQueue.Send(msmqMessage, transaction);
-            }
-            else
-            {
-                messageQueue.Send(msmqMessage, MessageQueueTransactionType.Automatic);
-            }
         }
         #endregion
 
@@ -120,6 +111,37 @@ namespace Apworks.Bus.MSMQ
         #endregion
 
         #region Protected Methods
+        /// <summary>
+        /// Sends the specified message to the queue.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of the message to be sent.</typeparam>
+        /// <param name="message">The message to be sent.</param>
+        /// <param name="transaction">The <see cref="MessageQueueTransaction"/> instance.</param>
+        protected void SendMessageGeneric<TMessage>(TMessage message, MessageQueueTransaction transaction = null)
+        {
+            Message msmqMessage = new Message(message);
+            if (useInternalTransaction)
+            {
+                if (transaction == null)
+                    throw new ArgumentNullException("transaction");
+
+                messageQueue.Send(msmqMessage, transaction);
+            }
+            else
+            {
+                messageQueue.Send(msmqMessage, MessageQueueTransactionType.Automatic);
+            }
+        }
+        /// <summary>
+        /// Sends the specified message to the queue.
+        /// </summary>
+        /// <param name="message">The message to be sent.</param>
+        /// <param name="transaction">The <see cref="MessageQueueTransaction"/> instance.</param>
+        protected void SendMessage(object message, MessageQueueTransaction transaction = null)
+        {
+            var eventType = message.GetType();
+            sendMessageGenericMethod.MakeGenericMethod(eventType).Invoke(this, new object[] { message, transaction });
+        }
         /// <summary>
         /// Disposes the object.
         /// </summary>
@@ -155,7 +177,7 @@ namespace Apworks.Bus.MSMQ
         /// Publishes the specified message to the bus.
         /// </summary>
         /// <param name="message">The message to be published.</param>
-        public void Publish(TMessage message)
+        public void Publish<TMessage>(TMessage message)
         {
             lock (lockObj)
             {
@@ -167,7 +189,7 @@ namespace Apworks.Bus.MSMQ
         /// Publishes a collection of messages to the bus.
         /// </summary>
         /// <param name="messages">The messages to be published.</param>
-        public void Publish(IEnumerable<TMessage> messages)
+        public void Publish<TMessage>(IEnumerable<TMessage> messages)
         {
             lock (lockObj)
             {
@@ -222,7 +244,7 @@ namespace Apworks.Bus.MSMQ
                             transaction.Begin();
                             while (mockQueue.Count > 0)
                             {
-                                TMessage msg = mockQueue.Dequeue();
+                                object msg = mockQueue.Dequeue();
                                 SendMessage(msg, transaction);
                             }
                             transaction.Commit();
@@ -238,7 +260,7 @@ namespace Apworks.Bus.MSMQ
                 {
                     while (mockQueue.Count > 0)
                     {
-                        TMessage msg = mockQueue.Dequeue();
+                        object msg = mockQueue.Dequeue();
                         SendMessage(msg);
                     }
                 }
@@ -250,18 +272,6 @@ namespace Apworks.Bus.MSMQ
         /// </summary>
         public void Rollback()
         {
-            //if (this.useInternalTransaction)
-            //{
-            //    // Rebuild the mockQueue to ensure that nothing was lost.
-            //    if (backupMessageArray != null && backupMessageArray.Length > 0)
-            //    {
-            //        mockQueue.Clear();
-            //        foreach (var msg in backupMessageArray)
-            //        {
-            //            mockQueue.Enqueue(msg);
-            //        }
-            //    }
-            //}
             committed = false;
         }
         #endregion

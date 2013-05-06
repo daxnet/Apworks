@@ -100,12 +100,22 @@ namespace Apworks.ObjectContainers.Unity
                 return (T)this.container;
             throw new InfrastructureException("The wrapped container type provided by the current object container should be '{0}'.", typeof(UnityContainer));
         }
-
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> value which indicates whether the given type
+        /// has been registered to the service locator.
+        /// </summary>
+        /// <typeparam name="T">The type to check.</typeparam>
+        /// <returns>True if the type has been registered, otherwise, false.</returns>
         public override bool Registered<T>()
         {
             return this.container.IsRegistered<T>();
         }
-
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> value which indicates whether the given type
+        /// has been registered to the service locator.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns>True if the type has been registered, otherwise, false.</returns>
         public override bool Registered(Type type)
         {
             return this.container.IsRegistered(type);

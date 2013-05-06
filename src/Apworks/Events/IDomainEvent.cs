@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -34,14 +34,17 @@ namespace Apworks.Events
     /// <remarks>Domain events are the events raised by domain model.</remarks>
     public interface IDomainEvent : IEvent
     {
-        /// <summary>
-        /// Gets or sets the assembly qualified name of the type of the aggregate root.
-        /// </summary>
+        ///// <summary>
+        ///// Gets or sets the assembly qualified name of the type of the aggregate root.
+        ///// </summary>
         // string AssemblyQualifiedSourceType { get; set; }
-        /// <summary>
-        /// Gets or sets the identifier of the aggregate root.
-        /// </summary>
+        ///// <summary>
+        ///// Gets or sets the identifier of the aggregate root.
+        ///// </summary>
         //Guid SourceID { get; set; }
+        /// <summary>
+        /// Gets or sets the source entity from which the domain event was generated.
+        /// </summary>
         IEntity Source { get; set; }
         /// <summary>
         /// Gets or sets the version of the domain event.

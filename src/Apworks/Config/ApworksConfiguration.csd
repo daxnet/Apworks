@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configurationSectionModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="37648ba3-512d-4438-b0c0-a03ba1b2c700" namespace="Apworks.Config" xmlSchemaNamespace="http://apworks.codeplex.com/Schemas/Configuration" assemblyName="Apworks" xmlns="http://schemas.microsoft.com/dsltools/ConfigurationSectionDesigner">
+<configurationSectionModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="37648ba3-512d-4438-b0c0-a03ba1b2c700" namespace="Apworks.Config" xmlSchemaNamespace="http://apworks.org/Schemas/Configuration" assemblyName="Apworks" xmlns="http://schemas.microsoft.com/dsltools/ConfigurationSectionDesigner">
   <typeDefinitions>
     <externalType name="String" namespace="System" />
     <externalType name="Boolean" namespace="System" />

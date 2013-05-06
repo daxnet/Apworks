@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -51,7 +51,7 @@ namespace Apworks.Commands
         /// Handles the specified command.
         /// </summary>
         /// <param name="command">The command instance to be handled.</param>
-        public abstract bool Handle(TCommand command);
+        public abstract void Handle(TCommand command);
         #endregion
 
         #region Protected Properties

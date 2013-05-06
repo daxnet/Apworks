@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -24,11 +24,11 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using Apworks.Application;
-using Apworks.Bus;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Apworks.Events
@@ -40,12 +40,6 @@ namespace Apworks.Events
     public abstract class DomainEvent : IDomainEvent
     {
         #region Ctor
-        /// <summary>
-        /// Make static initialization of the <c>DomainEvent</c> class.
-        /// </summary>
-        static DomainEvent()
-        {
-        }
         /// <summary>
         /// Initializes a new instance of <c>DomainEvent</c> class.
         /// </summary>
@@ -95,15 +89,7 @@ namespace Apworks.Events
 
         #region IDomainEvent Members
         /// <summary>
-        /// Gets or sets the identifier of the aggregate root.
-        /// </summary>
-        // public virtual Guid SourceID { get; set; }
-        /// <summary>
-        /// Gets or sets the assembly qualified name of the type of the aggregate root.
-        /// </summary>
-        // public virtual string AssemblyQualifiedSourceType { get; set; }
-        /// <summary>
-        /// Gets or sets the source of the entity which raises the domain event.
+        /// Gets or sets the source entity from which the domain event was generated.
         /// </summary>
         [XmlIgnore]
         [SoapIgnore]
@@ -145,106 +131,84 @@ namespace Apworks.Events
         #endregion
 
         #region Public Static Methods
-
-        public static void Subscribe<TDomainEvent>(IDomainEventHandler<TDomainEvent> domainEventHandler)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandler);
-        }
-
-        public static void Subscribe<TDomainEvent>(IEnumerable<IDomainEventHandler<TDomainEvent>> domainEventHandlers)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlers);
-        }
-
-        public static void Subscribe<TDomainEvent>(params IDomainEventHandler<TDomainEvent>[] domainEventHandlers)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlers);
-        }
-
-        public static void Subscribe<TDomainEvent>(Func<TDomainEvent, bool> domainEventHandlerFunc)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlerFunc);
-        }
-
-        public static void Subscribe<TDomainEvent>(IEnumerable<Func<TDomainEvent, bool>> domainEventHandlerFuncs)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlerFuncs);
-        }
-
-        public static void Subscribe<TDomainEvent>(params Func<TDomainEvent, bool>[] domainEventHandlerFuncs)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Subscribe<TDomainEvent>(domainEventHandlerFuncs);
-        }
-
-        public static void Unsubscribe<TDomainEvent>(IDomainEventHandler<TDomainEvent> domainEventHandler)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandler);
-        }
-
-        public static void Unsubscribe<TDomainEvent>(IEnumerable<IDomainEventHandler<TDomainEvent>> domainEventHandlers)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlers);
-        }
-
-        public static void Unsubscribe<TDomainEvent>(params IDomainEventHandler<TDomainEvent>[] domainEventHandlers)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlers);
-        }
-
-        public static void Unsubscribe<TDomainEvent>(Func<TDomainEvent, bool> domainEventHandlerFunc)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlerFunc);
-        }
-
-        public static void Unsubscribe<TDomainEvent>(IEnumerable<Func<TDomainEvent, bool>> domainEventHandlerFuncs)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlerFuncs);
-        }
-
-        public static void Unsubscribe<TDomainEvent>(params Func<TDomainEvent, bool>[] domainEventHandlerFuncs)
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.Unsubscribe<TDomainEvent>(domainEventHandlerFuncs);
-        }
-
-        public static IEnumerable<IDomainEventHandler<TDomainEvent>> GetSubscriptions<TDomainEvent>()
-            where TDomainEvent : IDomainEvent
-        {
-            return DomainEventAggregator.Instance.GetSubscriptions<TDomainEvent>();
-        }
-
-        public static void UnsubscribeAll<TDomainEvent>()
-            where TDomainEvent : IDomainEvent
-        {
-            DomainEventAggregator.Instance.UnsubscribeAll<TDomainEvent>();
-        }
-
-        public static void UnsubscribeAll()
-        {
-            DomainEventAggregator.Instance.UnsubscribeAll();
-        }
-
+        /// <summary>
+        /// Publishes the domain event to the registered domain event handlers.
+        /// </summary>
+        /// <typeparam name="TDomainEvent">The type of the domain event to be published.</typeparam>
+        /// <param name="domainEvent">The domain event to be published.</param>
+        /// <remarks>
+        /// This method publishes domain events to the domain event handlers that have been registered 
+        /// to the object container. The method will use the <see cref="ServiceLocator"/> instance to
+        /// resolve all the registered domain event handlers, then publish the given domain event to
+        /// all of these registered handlers. The domain event handler should implement the interface
+        /// <see cref="IDomainEventHandler{T}"/>.
+        /// </remarks>
         public static void Publish<TDomainEvent>(TDomainEvent domainEvent)
-            where TDomainEvent : IDomainEvent
+            where TDomainEvent : class, IDomainEvent
         {
-            DomainEventAggregator.Instance.Publish<TDomainEvent>(domainEvent);
+            IEnumerable<IDomainEventHandler<TDomainEvent>> handlers = ServiceLocator
+                .Instance
+                .ResolveAll<IDomainEventHandler<TDomainEvent>>();
+            foreach (var handler in handlers)
+            {
+                if (handler.GetType().IsDefined(typeof(ParallelExecutionAttribute), false))
+                    Task.Factory.StartNew(() => handler.Handle(domainEvent));
+                else
+                    handler.Handle(domainEvent);
+            }
         }
-
+        /// <summary>
+        /// Publishes the domain event to the registered domain event handlers.
+        /// </summary>
+        /// <typeparam name="TDomainEvent">The type of the domain event to be published.</typeparam>
+        /// <param name="domainEvent">The domain event to be published.</param>
+        /// <param name="callback">The callback function which will be executed after the
+        /// domain event has been published and processed.</param>
+        /// <param name="timeout">If a domain event handler is decorated by <see cref="ParallelExecutionAttribute"/> attribute, this parameter
+        /// is to specify the timeout value for the handler to process the event.</param>
+        /// <remarks>
+        /// This method publishes domain events to the domain event handlers that have been registered 
+        /// to the object container. The method will use the <see cref="ServiceLocator"/> instance to
+        /// resolve all the registered domain event handlers, then publish the given domain event to
+        /// all of these registered handlers. The domain event handler should implement the interface
+        /// <see cref="IDomainEventHandler{T}"/>.
+        /// </remarks>
         public static void Publish<TDomainEvent>(TDomainEvent domainEvent, Action<TDomainEvent, bool, Exception> callback, TimeSpan? timeout = null)
-            where TDomainEvent : IDomainEvent
+            where TDomainEvent : class, IDomainEvent
         {
-            DomainEventAggregator.Instance.Publish<TDomainEvent>(domainEvent, callback, timeout);
+            IEnumerable<IDomainEventHandler<TDomainEvent>> handlers = ServiceLocator
+                .Instance
+                .ResolveAll<IDomainEventHandler<TDomainEvent>>();
+            if (handlers != null && handlers.Count() > 0)
+            {
+                List<Task> tasks = new List<Task>();
+                try
+                {
+                    foreach (var handler in handlers)
+                    {
+                        if (handler.GetType().IsDefined(typeof(ParallelExecutionAttribute), false))
+                        {
+                            tasks.Add(Task.Factory.StartNew(() => handler.Handle(domainEvent)));
+                        }
+                        else
+                            handler.Handle(domainEvent);
+                    }
+                    if (tasks.Count > 0)
+                    {
+                        if (timeout == null)
+                            Task.WaitAll(tasks.ToArray());
+                        else
+                            Task.WaitAll(tasks.ToArray(), timeout.Value);
+                    }
+                    callback(domainEvent, true, null);
+                }
+                catch (Exception ex)
+                {
+                    callback(domainEvent, false, ex);
+                }
+            }
+            else
+                callback(domainEvent, false, null);
         }
         #endregion
     }

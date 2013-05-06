@@ -5,7 +5,7 @@ namespace Apworks.Bus.MSMQ
     /// <summary>
     /// Represents the event bus which uses the Microsoft Message Queuing technology.
     /// </summary>
-    public class MSMQEventBus : MSMQBus<IEvent>, IEventBus
+    public class MSMQEventBus : MSMQBus, IEventBus
     {
         #region Ctor
         /// <summary>

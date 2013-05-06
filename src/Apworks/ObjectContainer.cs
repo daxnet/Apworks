@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -277,8 +277,19 @@ namespace Apworks
         #endregion
 
         #region IServiceLocator Members
-
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> value which indicates whether the given type
+        /// has been registered to the service locator.
+        /// </summary>
+        /// <typeparam name="T">The type to check.</typeparam>
+        /// <returns>True if the type has been registered, otherwise, false.</returns>
         public abstract bool Registered<T>();
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> value which indicates whether the given type
+        /// has been registered to the service locator.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns>True if the type has been registered, otherwise, false.</returns>
         public abstract bool Registered(Type type);
 
         #endregion

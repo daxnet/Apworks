@@ -63,7 +63,7 @@ namespace Apworks.Tests.DomainEvents
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            DomainEvent.UnsubscribeAll();
+            //DomainEvent.UnsubscribeAll();
         }
         //
         // Use TestCleanup to run code after each test has run
@@ -106,6 +106,8 @@ namespace Apworks.Tests.DomainEvents
             Assert.IsInstanceOfType(uncommittedEvent, typeof(CreateCustomerDomainEvent));
         }
 
+        #region Commented, for further consideration
+        /*
         [TestMethod]
         public void DomainEvents_SubscribeDomainEventHandlerTest()
         {
@@ -180,5 +182,7 @@ namespace Apworks.Tests.DomainEvents
             var s2 = DomainEvent.GetSubscriptions<OneDomainEvent>().Count();
             Assert.AreEqual(0, s2);
         }
+         * */
+        #endregion
     }
 }

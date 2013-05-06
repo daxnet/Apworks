@@ -15,9 +15,9 @@ namespace Apworks.Tests.DomainEvents
     {
         #region IHandler<OneDomainEvent> Members
 
-        public bool Handle(OneDomainEvent message)
+        public void Handle(OneDomainEvent message)
         {
-            return true;
+
         }
 
         #endregion
@@ -27,9 +27,9 @@ namespace Apworks.Tests.DomainEvents
     {
         #region IHandler<OneDomainEvent> Members
 
-        public bool Handle(OneDomainEvent message)
+        public void Handle(OneDomainEvent message)
         {
-            return true;
+
         }
 
         #endregion

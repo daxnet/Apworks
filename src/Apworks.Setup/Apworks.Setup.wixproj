@@ -100,6 +100,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\Apworks.Bus.EventAggregator\Apworks.Bus.EventAggregator.csproj">
+      <Name>Apworks.Bus.EventAggregator</Name>
+      <Project>{8589c2f6-6d22-4f40-b55e-5a2e7c740874}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\Apworks.Bus.MSMQ\Apworks.Bus.MSMQ.csproj">
       <Name>Apworks.Bus.MSMQ</Name>
       <Project>{504a62da-2969-4efe-a3c5-3ac686bc4ee7}</Project>

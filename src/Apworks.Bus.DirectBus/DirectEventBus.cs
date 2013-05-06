@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -32,7 +32,7 @@ namespace Apworks.Bus.DirectBus
     /// Represents the event bus that will dispatch the events immediately once
     /// the bus is committed.
     /// </summary>
-    public sealed class DirectEventBus : DirectBus<IEvent>, IEventBus
+    public sealed class DirectEventBus : DirectBus, IEventBus
     {
         #region Ctor
         /// <summary>

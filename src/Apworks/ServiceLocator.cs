@@ -31,37 +31,71 @@ namespace Apworks
         #endregion
 
         #region IServiceLocator Members
-
+        /// <summary>
+        /// Gets the service object of the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of the service object.</typeparam>
+        /// <returns>The instance of the service object.</returns>
         public T GetService<T>() where T : class
         {
             return objectContainer.GetService<T>();
         }
-
+        /// <summary>
+        /// Gets the service object of the specified type, with overrided
+        /// arguments provided.
+        /// </summary>
+        /// <typeparam name="T">The type of the service object.</typeparam>
+        /// <param name="overridedArguments">The overrided arguments to be used when getting the service.</param>
+        /// <returns>The instance of the service object.</returns>
         public T GetService<T>(object overridedArguments) where T : class
         {
             return objectContainer.GetService<T>(overridedArguments);
         }
-
+        /// <summary>
+        /// Gets the service object of the specified type, with overrided
+        /// arguments provided.
+        /// </summary>
+        /// <param name="serviceType">The type of the service to get.</param>
+        /// <param name="overridedArguments">The overrided arguments to be used when getting the service.</param>
+        /// <returns>The instance of the service object.</returns>
         public object GetService(Type serviceType, object overridedArguments)
         {
             return objectContainer.GetService(serviceType, overridedArguments);
         }
-
+        /// <summary>
+        /// Resolves all the objects from the specified type.
+        /// </summary>
+        /// <param name="serviceType">The type of the objects to be resolved.</param>
+        /// <returns>A <see cref="System.Array"/> object which contains all the objects resolved.</returns>
         public Array ResolveAll(Type serviceType)
         {
             return objectContainer.ResolveAll(serviceType);
         }
-
+        /// <summary>
+        /// Resolves all the objects from the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of the objects to be resolved.</typeparam>
+        /// <returns>A <see cref="System.Array"/> object which contains all the objects resolved.</returns>
         public T[] ResolveAll<T>() where T : class
         {
             return objectContainer.ResolveAll<T>();
         }
-
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> value which indicates whether the given type
+        /// has been registered to the service locator.
+        /// </summary>
+        /// <typeparam name="T">The type to check.</typeparam>
+        /// <returns>True if the type has been registered, otherwise, false.</returns>
         public bool Registered<T>()
         {
             return objectContainer.Registered<T>();
         }
-
+        /// <summary>
+        /// Returns a <see cref="Boolean"/> value which indicates whether the given type
+        /// has been registered to the service locator.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns>True if the type has been registered, otherwise, false.</returns>
         public bool Registered(Type type)
         {
             return objectContainer.Registered(type);
@@ -69,7 +103,11 @@ namespace Apworks
         #endregion
 
         #region IServiceProvider Members
-
+        /// <summary>
+        /// Gets the service object of the specified type.
+        /// </summary>
+        /// <param name="serviceType">The type of the service to get.</param>
+        /// <returns>The instance of the service object.</returns>
         public object GetService(Type serviceType)
         {
             return objectContainer.GetService(serviceType);

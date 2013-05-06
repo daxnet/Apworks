@@ -5,7 +5,7 @@ namespace Apworks.Bus.MSMQ
     /// <summary>
     /// Represents the command bus which uses Microsoft Message Queuing technology.
     /// </summary>
-    public class MSMQCommandBus : MSMQBus<ICommand>, ICommandBus
+    public class MSMQCommandBus : MSMQBus, ICommandBus
     {
         #region Ctor
         /// <summary>

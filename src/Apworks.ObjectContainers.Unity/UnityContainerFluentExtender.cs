@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -39,7 +39,7 @@ namespace Apworks.Config.Fluent
         /// Configures the Apworks framework by using Unity as the object container and other settings by default.
         /// </summary>
         /// <param name="configurator">The <see cref="IApworksConfigurator"/> instance to be extended.</param>
-        /// <param name="containerInitFromConfigFile">The <see cref="Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
+        /// <param name="containerInitFromConfigFile">The <see cref="System.Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
         /// <param name="containerConfigSectionName">The name of the section in the config file. This value must be specified when the <paramref name="containerInitFromConfigFile"/> parameter is set to true.</param>
         /// <returns>The <see cref="IObjectContainerConfigurator"/> instace.</returns>
         public static IObjectContainerConfigurator UsingUnityContainerWithDefaultSettings(this IApworksConfigurator configurator, bool containerInitFromConfigFile = false, string containerConfigSectionName = null)
@@ -53,7 +53,7 @@ namespace Apworks.Config.Fluent
         /// Configures the Apworks framework by using Unity as the object container.
         /// </summary>
         /// <param name="configurator">The <see cref="ISequenceGeneratorConfigurator"/> instance to be extended.</param>
-        /// <param name="initFromConfigFile">The <see cref="Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
+        /// <param name="initFromConfigFile">The <see cref="System.Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
         /// <param name="sectionName">The name of the section in the config file. This value must be specified when the <paramref name="initFromConfigFile"/> parameter is set to true.</param>
         /// <returns>The <see cref="IObjectContainerConfigurator"/> instace.</returns>
         public static IObjectContainerConfigurator UsingUnityContainer(this ISequenceGeneratorConfigurator configurator, bool initFromConfigFile = false, string sectionName = null)
@@ -67,7 +67,7 @@ namespace Apworks.Config.Fluent
         /// Configures the Apworks framework by using Unity as the object container.
         /// </summary>
         /// <param name="configurator">The <see cref="IHandlerConfigurator"/> instance to be extended.</param>
-        /// <param name="initFromConfigFile">The <see cref="Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
+        /// <param name="initFromConfigFile">The <see cref="System.Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
         /// <param name="sectionName">The name of the section in the config file. This value must be specified when the <paramref name="initFromConfigFile"/> parameter is set to true.</param>
         /// <returns>The <see cref="IObjectContainerConfigurator"/> instace.</returns>
         public static IObjectContainerConfigurator UsingUnityContainer(this IHandlerConfigurator configurator, bool initFromConfigFile = false, string sectionName = null)
@@ -81,7 +81,7 @@ namespace Apworks.Config.Fluent
         /// Configures the Apworks framework by using Unity as the object container.
         /// </summary>
         /// <param name="configurator">The <see cref="IExceptionHandlerConfigurator"/> instance to be extended.</param>
-        /// <param name="initFromConfigFile">The <see cref="Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
+        /// <param name="initFromConfigFile">The <see cref="System.Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
         /// <param name="sectionName">The name of the section in the config file. This value must be specified when the <paramref name="initFromConfigFile"/> parameter is set to true.</param>
         /// <returns>The <see cref="IObjectContainerConfigurator"/> instace.</returns>
         public static IObjectContainerConfigurator UsingUnityContainer(this IExceptionHandlerConfigurator configurator, bool initFromConfigFile = false, string sectionName = null)
@@ -95,7 +95,7 @@ namespace Apworks.Config.Fluent
         /// Configures the Apworks framework by using Unity as the object container.
         /// </summary>
         /// <param name="configurator">The <see cref="IInterceptionConfigurator"/> instance to be extended.</param>
-        /// <param name="initFromConfigFile">The <see cref="Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
+        /// <param name="initFromConfigFile">The <see cref="System.Boolean"/> value which indicates whether the container configuration should be read from the config file.</param>
         /// <param name="sectionName">The name of the section in the config file. This value must be specified when the <paramref name="initFromConfigFile"/> parameter is set to true.</param>
         /// <returns>The <see cref="IObjectContainerConfigurator"/> instace.</returns>
         public static IObjectContainerConfigurator UsingUnityContainer(this IInterceptionConfigurator configurator, bool initFromConfigFile = false, string sectionName = null)

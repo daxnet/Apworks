@@ -107,8 +107,8 @@ namespace Apworks.Tests.MessageDispatcher
                 };
             var message = new Apworks.Tests.Common.Events.ChangeEmailDomainEvent();
             messageDispatcher.DispatchMessage(message);
-            Assert.IsNotNull(evtFail);
-            Assert.IsNotNull(evtSuccess);
+            //Assert.IsNotNull(evtFail);
+            //Assert.IsNotNull(evtSuccess);
             Assert.AreEqual<Type>(typeof(Apworks.Tests.Common.MessageHandlers.YetAnotherEmailChangedEventHandler), evtFail.HandlerType);
             Assert.AreEqual<Type>(typeof(Apworks.Tests.Common.MessageHandlers.EmailChangedEventHandler), evtSuccess.HandlerType);
         }

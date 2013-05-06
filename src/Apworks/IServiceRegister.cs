@@ -13,7 +13,9 @@ namespace Apworks
     //    PerWcfRequest,
     //    PerWcfSession
     //}
-
+    /// <summary>
+    /// Represents the service register (not finished yet).
+    /// </summary>
     public interface IServiceRegister
     {
         #region Commented
@@ -27,7 +29,5 @@ namespace Apworks
         //IServiceRegister RegisterServiceType(Type from, Type to, LifetimeStyle lifetimeStyle);
         //IServiceRegister RegisterServiceType(Type from, Type to, string name, LifetimeStyle lifetimeStyle);
         #endregion
-
-        
     }
 }

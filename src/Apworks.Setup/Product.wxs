@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-	<Product Id="{A5B16946-D021-4BB6-8289-A7C931EF4B09}" Name="Apworks Framework" Language="1033" Version="2.5.4864.17368" Manufacturer="apworks.codeplex.com" UpgradeCode="a50c1009-e157-4f42-866d-ccfb64f8a8ab">
+	<Product Id="{A5B16946-D021-4BB6-8289-A7C931EF4B09}" Name="Apworks Framework" Language="1033" Version="2.5.4864.17368" Manufacturer="apworks.org" UpgradeCode="a50c1009-e157-4f42-866d-ccfb64f8a8ab">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <Media Id="1" Cabinet="Apworks.cab" EmbedCab="yes"/>
@@ -53,6 +53,7 @@
         <File Id="Apworks.dll.File" Name="$(var.Apworks.TargetFileName)" Source="$(var.Apworks.TargetPath)" DiskId="1" KeyPath="yes"/>
         <File Id="Apworks.Bus.DirectBus.File" Name="$(var.Apworks.Bus.DirectBus.TargetFileName)" Source="$(var.Apworks.Bus.DirectBus.TargetPath)" DiskId="1"/>
         <File Id="Apworks.Bus.MSMQ.File" Name="$(var.Apworks.Bus.MSMQ.TargetFileName)" Source="$(var.Apworks.Bus.MSMQ.TargetPath)" DiskId="1"/>
+        <File Id="Apworks.Bus.EventAggregator.File" Name="$(var.Apworks.Bus.EventAggregator.TargetFileName)" Source="$(var.Apworks.Bus.EventAggregator.TargetPath)" DiskId="1"/>
         <File Id="Apworks.Events.Storage.General.File" Name="$(var.Apworks.Events.Storage.General.TargetFileName)" Source="$(var.Apworks.Events.Storage.General.TargetPath)" DiskId="1"/>
         <File Id="Apworks.Events.Storage.MySql.File" Name="$(var.Apworks.Events.Storage.MySql.TargetFileName)" Source="$(var.Apworks.Events.Storage.MySql.TargetPath)" DiskId="1"/>
         <File Id="Apworks.ObjectContainers.Unity.File" Name="$(var.Apworks.ObjectContainers.Unity.TargetFileName)" Source="$(var.Apworks.ObjectContainers.Unity.TargetPath)" DiskId="1"/>
@@ -66,6 +67,7 @@
         <File Id="Apworks.XML.File" Name="$(var.Apworks.TargetName).XML" Source="$(var.Apworks.TargetDir)$(var.Apworks.TargetName).XML" DiskId="1"/>
         <File Id="Apworks.Bus.DirectBus.XML.File" Name="$(var.Apworks.Bus.DirectBus.TargetName).XML" Source="$(var.Apworks.Bus.DirectBus.TargetDir)$(var.Apworks.TargetName).XML" DiskId="1"/>
         <File Id="Apworks.Bus.MSMQ.XML.File" Name="$(var.Apworks.Bus.MSMQ.TargetName).XML" Source="$(var.Apworks.Bus.MSMQ.TargetDir)$(var.Apworks.Bus.MSMQ.TargetName).XML" DiskId="1"/>
+        <File Id="Apworks.Bus.EventAggregator.XML.File" Name="$(var.Apworks.Bus.EventAggregator.TargetName).XML" Source="$(var.Apworks.Bus.EventAggregator.TargetDir)$(var.Apworks.Bus.EventAggregator.TargetName).XML" DiskId="1"/>
         <File Id="Apworks.Events.Storage.General.XML.File" Name="$(var.Apworks.Events.Storage.General.TargetName).XML" Source="$(var.Apworks.Events.Storage.General.TargetDir)$(var.Apworks.Events.Storage.General.TargetName).XML" DiskId="1"/>
         <File Id="Apworks.Events.Storage.MySql.XML.File" Name="$(var.Apworks.Events.Storage.MySql.TargetName).XML" Source="$(var.Apworks.Events.Storage.MySql.TargetDir)$(var.Apworks.Events.Storage.MySql.TargetName).XML" DiskId="1"/>
         <File Id="Apworks.ObjectContainers.Unity.XML.File" Name="$(var.Apworks.ObjectContainers.Unity.TargetName).XML" Source="$(var.Apworks.ObjectContainers.Unity.TargetDir)$(var.Apworks.ObjectContainers.Unity.TargetName).XML" DiskId="1"/>
@@ -79,6 +81,7 @@
         <File Id="Apworks.pdb.File" Name="$(var.Apworks.TargetName).pdb" Source="$(var.Apworks.TargetDir)$(var.Apworks.TargetName).pdb" DiskId="1"/>
         <File Id="Apworks.Bus.DirectBus.pdb.File" Name="$(var.Apworks.Bus.DirectBus.TargetName).pdb" Source="$(var.Apworks.Bus.DirectBus.TargetDir)$(var.Apworks.TargetName).pdb" DiskId="1"/>
         <File Id="Apworks.Bus.MSMQ.pdb.File" Name="$(var.Apworks.Bus.MSMQ.TargetName).pdb" Source="$(var.Apworks.Bus.MSMQ.TargetDir)$(var.Apworks.Bus.MSMQ.TargetName).pdb" DiskId="1"/>
+        <File Id="Apworks.Bus.EventAggregator.pdb.File" Name="$(var.Apworks.Bus.EventAggregator.TargetName).pdb" Source="$(var.Apworks.Bus.EventAggregator.TargetDir)$(var.Apworks.Bus.EventAggregator.TargetName).pdb" DiskId="1"/>
         <File Id="Apworks.Events.Storage.General.pdb.File" Name="$(var.Apworks.Events.Storage.General.TargetName).pdb" Source="$(var.Apworks.Events.Storage.General.TargetDir)$(var.Apworks.Events.Storage.General.TargetName).pdb" DiskId="1"/>
         <File Id="Apworks.Events.Storage.MySql.pdb.File" Name="$(var.Apworks.Events.Storage.MySql.TargetName).pdb" Source="$(var.Apworks.Events.Storage.MySql.TargetDir)$(var.Apworks.Events.Storage.MySql.TargetName).pdb" DiskId="1"/>
         <File Id="Apworks.ObjectContainers.Unity.pdb.File" Name="$(var.Apworks.ObjectContainers.Unity.TargetName).pdb" Source="$(var.Apworks.ObjectContainers.Unity.TargetDir)$(var.Apworks.ObjectContainers.Unity.TargetName).pdb" DiskId="1"/>
@@ -140,7 +143,7 @@
                   WorkingDirectory="APPROOTFOLDER"/>
         <util:InternetShortcut Id="ProjectPortalShortcut"
                                Name="Project Portal Website"
-                               Target="http://apworks.codeplex.com"/>
+                               Target="http://apworks.org"/>
         <Shortcut Id="UninstallProductShortcut"             
                   Name="Uninstall Apworks"
                   Description="Uninstalls Apworks Framework."

@@ -6,20 +6,20 @@ namespace Apworks.Tests.Common.MessageHandlers
     {
         #region IHandler<CreateCustomerDomainEvent> Members
 
-        public bool Handle(Events.CreateCustomerDomainEvent message)
+        public void Handle(Events.CreateCustomerDomainEvent message)
         {
-            return true;
+
         }
 
         #endregion
 
-        #region IHandler Members
+        //#region IHandler Members
 
-        public bool Handle(object message)
-        {
-            return true;
-        }
+        //public bool Handle(object message)
+        //{
+        //    return true;
+        //}
 
-        #endregion
+        //#endregion
     }
 }

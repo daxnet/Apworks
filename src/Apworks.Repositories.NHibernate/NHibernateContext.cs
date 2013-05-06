@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -32,6 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Apworks.Specifications;
 
 namespace Apworks.Repositories.NHibernate
 {
@@ -135,17 +136,26 @@ namespace Apworks.Repositories.NHibernate
         #endregion
 
         #region Public Methods
-
+        /// <summary>
+        /// Registers a new object to the repository context.
+        /// </summary>
+        /// <param name="obj">The object to be registered.</param>
         public override void RegisterNew(object obj)
         {
             session.Save(obj);
         }
-
+        /// <summary>
+        /// Registers a deleted object to the repository context.
+        /// </summary>
+        /// <param name="obj">The object to be registered.</param>
         public override void RegisterDeleted(object obj)
         {
             session.Delete(obj);
         }
-
+        /// <summary>
+        /// Registers a modified object to the repository context.
+        /// </summary>
+        /// <param name="obj">The object to be registered.</param>
         public override void RegisterModified(object obj)
         {
             session.Update(obj);
@@ -154,6 +164,10 @@ namespace Apworks.Repositories.NHibernate
         #endregion
 
         #region IUnitOfWork Members
+        /// <summary>
+        /// Gets a <see cref="System.Boolean"/> value which indicates
+        /// whether the Unit of Work was successfully committed.
+        /// </summary>
         public override bool Committed
         {
             get
@@ -184,7 +198,11 @@ namespace Apworks.Repositories.NHibernate
 
 
         #region INHibernateContext Members
-
+        /// <summary>
+        /// Gets the aggregate root instance from repository by a given key.
+        /// </summary>
+        /// <param name="key">The key of the aggregate root.</param>
+        /// <returns>The instance of the aggregate root.</returns>
         public TAggregateRoot GetByKey<TAggregateRoot>(object key) where TAggregateRoot : class, IAggregateRoot
         {
             var result = (TAggregateRoot)this.session.Get(typeof(TAggregateRoot), key);
@@ -193,8 +211,14 @@ namespace Apworks.Repositories.NHibernate
             Commit();
             return result;
         }
-
-        public IEnumerable<TAggregateRoot> FindAll<TAggregateRoot>(Specifications.ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot
+        /// <summary>
+        /// Finds all the aggregate roots from repository.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate roots should match.</param>
+        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
+        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
+        /// <returns>The aggregate roots.</returns>
+        public IEnumerable<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot
         {
             List<TAggregateRoot> result = null;
             var query = this.session.Query<TAggregateRoot>()
@@ -218,8 +242,16 @@ namespace Apworks.Repositories.NHibernate
             Commit();
             return result;
         }
-
-        public PagedResult<TAggregateRoot> FindAll<TAggregateRoot>(Specifications.ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize) where TAggregateRoot : class, IAggregateRoot
+        /// <summary>
+        /// Finds all the aggregate roots from repository.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate roots should match.</param>
+        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
+        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
+        /// <param name="pageNumber">The number of objects per page.</param>
+        /// <param name="pageSize">The number of objects per page.</param>
+        /// <returns>The aggregate roots.</returns>
+        public PagedResult<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize) where TAggregateRoot : class, IAggregateRoot
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
@@ -261,8 +293,12 @@ namespace Apworks.Repositories.NHibernate
             Commit();
             return result;
         }
-
-        public TAggregateRoot Find<TAggregateRoot>(Specifications.ISpecification<TAggregateRoot> specification) where TAggregateRoot : class, IAggregateRoot
+        /// <summary>
+        /// Finds a single aggregate root from the repository.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate root should match.</param>
+        /// <returns>The instance of the aggregate root.</returns>
+        public TAggregateRoot Find<TAggregateRoot>(ISpecification<TAggregateRoot> specification) where TAggregateRoot : class, IAggregateRoot
         {
             var result = this.session.Query<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
             // Use of implicit transactions is discouraged.

@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -32,15 +32,14 @@ namespace Apworks.Bus.DirectBus
     /// Represents the message bus that will dispatch the messages immediately once
     /// the bus is committed.
     /// </summary>
-    /// <typeparam name="TMessage">The type of the message.</typeparam>
-    public abstract class DirectBus<TMessage> : DisposableObject, IBus<TMessage>
+    public abstract class DirectBus : DisposableObject, IBus
     {
         #region Private Fields
         private volatile bool committed = true;
         private readonly IMessageDispatcher dispatcher;
-        private readonly Queue<TMessage> messageQueue = new Queue<TMessage>();
+        private readonly Queue<object> messageQueue = new Queue<object>();
         private readonly object queueLock = new object();
-        private TMessage[] backupMessageArray;
+        private object[] backupMessageArray;
         #endregion
 
         #region Ctor
@@ -63,30 +62,15 @@ namespace Apworks.Bus.DirectBus
         /// the object should be disposed explicitly.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                if (!this.Committed)
-                {
-                    try
-                    {
-                        this.Commit();
-                    }
-                    catch
-                    {
-                        this.Rollback();
-                        throw;
-                    }
-                }
-            }
         }
         #endregion
 
-        #region IBus<TMessage> Members
+        #region IBus Members
         /// <summary>
         /// Publishes the specified message to the bus.
         /// </summary>
         /// <param name="message">The message to be published.</param>
-        public void Publish(TMessage message)
+        public void Publish<TMessage>(TMessage message)
         {
             lock (queueLock)
             {
@@ -98,7 +82,7 @@ namespace Apworks.Bus.DirectBus
         /// Publishes a collection of messages to the bus.
         /// </summary>
         /// <param name="messages">The messages to be published.</param>
-        public void Publish(IEnumerable<TMessage> messages)
+        public void Publish<TMessage>(IEnumerable<TMessage> messages)
         {
             lock (queueLock)
             {
@@ -146,7 +130,7 @@ namespace Apworks.Bus.DirectBus
         {
             lock (queueLock)
             {
-                backupMessageArray = new TMessage[messageQueue.Count];
+                backupMessageArray = new object[messageQueue.Count];
                 messageQueue.CopyTo(backupMessageArray, 0);
                 while (messageQueue.Count > 0)
                 {

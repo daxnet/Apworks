@@ -15,9 +15,8 @@ namespace Apworks.Tests.DomainEvents
     {
         #region IHandler<AnotherDomainEvent> Members
 
-        public bool Handle(AnotherDomainEvent message)
+        public void Handle(AnotherDomainEvent message)
         {
-            return true;
         }
 
         #endregion

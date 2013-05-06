@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -33,13 +33,13 @@ namespace Apworks.Serialization
     /// <summary>
     /// Represents the Json serializer.
     /// </summary>
-    /// <typeparam name="TObject">The type of the object which needs to be serialized/deserialized.</typeparam>
     public class ObjectXmlSerializer : IObjectSerializer
     {
         #region IObjectSerializer Members
         /// <summary>
         /// Serializes an object into a byte stream.
         /// </summary>
+        /// <typeparam name="TObject">The type of the object.</typeparam>
         /// <param name="obj">The object to be serialized.</param>
         /// <returns>The byte stream which contains the serialized data.</returns>
         public virtual byte[] Serialize<TObject>(TObject obj)
@@ -58,7 +58,7 @@ namespace Apworks.Serialization
         /// <summary>
         /// Deserializes an object from the given byte stream.
         /// </summary>
-        /// <param name="destType">The destination type of the object being deserialized.</param>
+        /// <typeparam name="TObject">The type of the object.</typeparam>
         /// <param name="stream">The byte stream which contains the serialized data of the object.</param>
         /// <returns>The deserialized object.</returns>
         public virtual TObject Deserialize<TObject>(byte[] stream)

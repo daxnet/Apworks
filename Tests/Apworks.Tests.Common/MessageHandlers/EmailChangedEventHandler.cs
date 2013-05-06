@@ -1,11 +1,10 @@
 ﻿
 namespace Apworks.Tests.Common.MessageHandlers
 {
-    public class EmailChangedEventHandler : Apworks.Events.EventHandler<Events.ChangeEmailDomainEvent>
+    public class EmailChangedEventHandler : Apworks.Events.IEventHandler<Events.ChangeEmailDomainEvent>
     {
-        public override bool Handle(Events.ChangeEmailDomainEvent message)
+        public void Handle(Events.ChangeEmailDomainEvent message)
         {
-            return true;
         }
     }
 }

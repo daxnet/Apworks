@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -37,6 +37,6 @@ namespace Apworks
         /// Handles the specified message.
         /// </summary>
         /// <param name="message">The message to be handled.</param>
-        bool Handle(T message);
+        void Handle(T message);
     }
 }

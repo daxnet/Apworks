@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2011 apworks.codeplex.com.
+// Copyright (C) 2010-2013 apworks.org.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -37,11 +37,11 @@ namespace Apworks.Events
     /// is called.
     /// </summary>
     public sealed class InlineDomainEventHandler<TDomainEvent> : IDomainEventHandler<TDomainEvent>
-        where TDomainEvent : IDomainEvent
+        where TDomainEvent : class, IDomainEvent
     {
         #region Private Fields
         private readonly Type domainEventType;
-        private readonly Func<TDomainEvent, bool> action;
+        private readonly Action<TDomainEvent> action;
         #endregion
 
         #region Ctor
@@ -64,9 +64,8 @@ namespace Apworks.Events
                 try
                 {
                     mi.Invoke(aggregateRoot, new object[] { domainEvent });
-                    return true;
                 }
-                catch { return false; }
+                catch {  }
             };
         }
         #endregion
@@ -107,9 +106,9 @@ namespace Apworks.Events
         /// Handles the specified message.
         /// </summary>
         /// <param name="message">The message to be handled.</param>
-        public bool Handle(TDomainEvent message)
+        public void Handle(TDomainEvent message)
         {
-            return action(message);
+            action(message);
         }
 
         #endregion

@@ -11,7 +11,7 @@ namespace Apworks.Tests.Buses.CommandHandlers
         {
         }
 
-        public override bool Handle(ChangeEmailCommand command)
+        public override void Handle(ChangeEmailCommand command)
         {
             using (IDomainRepository repository = this.DomainRepository)
             {
@@ -22,7 +22,6 @@ namespace Apworks.Tests.Buses.CommandHandlers
                 }
                 repository.Save<SourcedCustomer>(cust);
                 repository.Commit();
-                return true;
             }
         }
     }
