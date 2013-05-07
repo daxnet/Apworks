@@ -166,9 +166,9 @@ namespace Apworks.Repositories
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public override bool DTCompatible
+        public override bool DistributedTransactionSupported
         {
-            get { return context.DTCompatible; }
+            get { return context.DistributedTransactionSupported; }
         }
         /// <summary>
         /// Rollback the transaction.

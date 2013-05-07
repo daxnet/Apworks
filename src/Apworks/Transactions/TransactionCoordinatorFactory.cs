@@ -22,39 +22,32 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ================================================================================================================== 
+// ==================================================================================================================
 
-
-namespace Apworks
+namespace Apworks.Transactions
 {
     /// <summary>
-    /// Represents that the implemented classes will maintain a list of objects
-    /// affected by a business transaction and coordinate the writing out of changes
-    /// and the resolution of concurrency problems. Unit of Work is an object-relational
-    /// behavioral pattern which was described in Martin Fowler's book, Patterns of
-    /// Enterprise Application Architecture. For more information about Unit of Work
-    /// architectural pattern, please refer to http://martinfowler.com/eaaCatalog/unitOfWork.html.
+    /// Represents the factory type which creates an instance of <see cref="ITransactionCoordinator"/>
+    /// based on the given unit of works.
     /// </summary>
-    public interface IUnitOfWork
+    public static class TransactionCoordinatorFactory
     {
+        #region Public Methods
         /// <summary>
-        /// Gets a <see cref="System.Boolean"/> value which indicates
-        /// whether the Unit of Work could support Microsoft Distributed
-        /// Transaction Coordinator (MS-DTC).
+        /// Creates an instance of <see cref="ITransactionCoordinator"/> based on the given unit of works.
         /// </summary>
-        bool DistributedTransactionSupported { get; }
-        /// <summary>
-        /// Gets a <see cref="System.Boolean"/> value which indicates
-        /// whether the Unit of Work was successfully committed.
-        /// </summary>
-        bool Committed { get; }
-        /// <summary>
-        /// Commits the transaction.
-        /// </summary>
-        void Commit();
-        /// <summary>
-        /// Rollback the transaction.
-        /// </summary>
-        void Rollback();
+        /// <param name="args">The unit of works.</param>
+        /// <returns>An instance of <see cref="ITransactionCoordinator"/> type.</returns>
+        public static ITransactionCoordinator Create(params IUnitOfWork[] args)
+        {
+            bool ret = true;
+            foreach (var arg in args)
+                ret = ret && arg.DistributedTransactionSupported;
+            if (ret)
+                return new DistributedTransactionCoordinator(args);
+            else
+                return new SuppressedTransactionCoordinator(args);
+        }
+        #endregion
     }
 }

@@ -81,7 +81,7 @@ namespace Apworks.Repositories
                     this.EventBus.Publish(evnt);
                 }
             }
-            if (this.DTCompatible)
+            if (this.DistributedTransactionSupported)
             {
                 using (TransactionScope ts = new TransactionScope())
                 {
@@ -160,9 +160,9 @@ namespace Apworks.Repositories
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public override bool DTCompatible
+        public override bool DistributedTransactionSupported
         {
-            get { return this.storage.DTCompatible && base.DTCompatible; }
+            get { return this.storage.DistributedTransactionSupported && base.DistributedTransactionSupported; }
         }
         /// <summary>
         /// Rollback the transaction.

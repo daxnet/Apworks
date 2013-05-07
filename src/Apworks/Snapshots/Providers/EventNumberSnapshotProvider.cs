@@ -177,9 +177,9 @@ namespace Apworks.Snapshots.Providers
         /// Gets a <see cref="System.Boolean"/> value which indicates
         /// whether the Unit of Work supports MS-DTC.
         /// </summary>
-        public override bool DTCompatible
+        public override bool DistributedTransactionSupported
         {
-            get { return this.SnapshotStorage.DTCompatible; }
+            get { return this.SnapshotStorage.DistributedTransactionSupported; }
         }
         #endregion
 

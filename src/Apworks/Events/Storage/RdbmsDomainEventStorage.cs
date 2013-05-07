@@ -166,11 +166,11 @@ namespace Apworks.Events.Storage
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public virtual bool DTCompatible
+        public virtual bool DistributedTransactionSupported
         {
             get
             {
-                return storage.DTCompatible;
+                return storage.DistributedTransactionSupported;
             }
         }
         /// <summary>

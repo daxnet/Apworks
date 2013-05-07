@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Apworks.Storage.MySql" Label="Apworks.Storage.MySql" Category="Project" />
+    <Node Id="MySql.Data 6.6.5" Label="MySql.Data 6.6.5" Category="Package" />
+    <Node Id="Apworks.Repositories.NHibernate" Label="Apworks.Repositories.NHibernate" Category="Project" />
+    <Node Id="Castle.Core 3.2.0" Label="Castle.Core 3.2.0" Category="Package" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="Apworks.Repositories.MongoDB" Label="Apworks.Repositories.MongoDB" Category="Project" />
+    <Node Id="mongocsharpdriver 1.8.1" Label="mongocsharpdriver 1.8.1" Category="Package" />
+    <Node Id="Apworks.Repositories.EntityFramework" Label="Apworks.Repositories.EntityFramework" Category="Project" />
+    <Node Id="EntityFramework 5.0.0" Label="EntityFramework 5.0.0" Category="Package" />
+    <Node Id="Apworks.ObjectContainers.Unity" Label="Apworks.ObjectContainers.Unity" Category="Project" />
+    <Node Id="Castle.Core 3.2.0" Label="Castle.Core 3.2.0" Category="Package" />
+    <Node Id="CommonServiceLocator 1.0" Label="CommonServiceLocator 1.0" Category="Package" />
+    <Node Id="Unity 2.1.505.2" Label="Unity 2.1.505.2" Category="Package" />
+    <Node Id="Apworks" Label="Apworks" Category="Project" />
+    <Node Id="Castle.Core 3.2.0" Label="Castle.Core 3.2.0" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Repositories.NHibernateRepository" Label="Apworks.Tests.Repositories.NHibernateRepository" Category="Project" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Repositories.MongoDB" Label="Apworks.Tests.Repositories.MongoDB" Category="Project" />
+    <Node Id="mongocsharpdriver 1.8.1" Label="mongocsharpdriver 1.8.1" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Repositories.EntityFrameworkRepository" Label="Apworks.Tests.Repositories.EntityFrameworkRepository" Category="Project" />
+    <Node Id="EntityFramework 5.0.0" Label="EntityFramework 5.0.0" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Repositories.DomainRepository" Label="Apworks.Tests.Repositories.DomainRepository" Category="Project" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Interception" Label="Apworks.Tests.Interception" Category="Project" />
+    <Node Id="Castle.Core 3.2.0" Label="Castle.Core 3.2.0" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.EventStore.MySql" Label="Apworks.Tests.EventStore.MySql" Category="Project" />
+    <Node Id="MySql.Data 6.6.5" Label="MySql.Data 6.6.5" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Configuration" Label="Apworks.Tests.Configuration" Category="Project" />
+    <Node Id="Castle.Core 3.2.0" Label="Castle.Core 3.2.0" Category="Package" />
+    <Node Id="Tests\Apworks.Tests.Common" Label="Apworks.Tests.Common" Category="Project" />
+    <Node Id="Castle.Core 3.2.0" Label="Castle.Core 3.2.0" Category="Package" />
+    <Node Id="CommonServiceLocator 1.0" Label="CommonServiceLocator 1.0" Category="Package" />
+    <Node Id="EntityFramework 5.0.0" Label="EntityFramework 5.0.0" Category="Package" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="mongocsharpdriver 1.8.1" Label="mongocsharpdriver 1.8.1" Category="Package" />
+    <Node Id="MySql.Data 6.6.5" Label="MySql.Data 6.6.5" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="Unity 2.1.505.2" Label="Unity 2.1.505.2" Category="Package" />
+  </Nodes>
+  <Links>
+    <Link Source="Apworks.Storage.MySql" Target="MySql.Data 6.6.5" Category="Installed Package" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Apworks.Repositories.NHibernate" Target="Castle.Core 3.2.0" Category="Installed Package" />
+    <Link Source="Apworks.Repositories.NHibernate" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Apworks.Repositories.MongoDB" Target="mongocsharpdriver 1.8.1" Category="Installed Package" />
+    <Link Source="Apworks.Repositories.EntityFramework" Target="EntityFramework 5.0.0" Category="Installed Package" />
+    <Link Source="Unity 2.1.505.2" Target="CommonServiceLocator 1.0" Category="Package Dependency" />
+    <Link Source="Apworks.ObjectContainers.Unity" Target="Castle.Core 3.2.0" Category="Installed Package" />
+    <Link Source="Apworks.ObjectContainers.Unity" Target="Unity 2.1.505.2" Category="Installed Package" />
+    <Link Source="Apworks" Target="Castle.Core 3.2.0" Category="Installed Package" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Tests\Apworks.Tests.Repositories.NHibernateRepository" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Repositories.MongoDB" Target="mongocsharpdriver 1.8.1" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Repositories.EntityFrameworkRepository" Target="EntityFramework 5.0.0" Category="Installed Package" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Tests\Apworks.Tests.Repositories.DomainRepository" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Interception" Target="Castle.Core 3.2.0" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.EventStore.MySql" Target="MySql.Data 6.6.5" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Configuration" Target="Castle.Core 3.2.0" Category="Installed Package" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Unity 2.1.505.2" Target="CommonServiceLocator 1.0" Category="Package Dependency" />
+    <Link Source="Tests\Apworks.Tests.Common" Target="Castle.Core 3.2.0" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Common" Target="EntityFramework 5.0.0" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Common" Target="mongocsharpdriver 1.8.1" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Common" Target="MySql.Data 6.6.5" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Common" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Tests\Apworks.Tests.Common" Target="Unity 2.1.505.2" Category="Installed Package" />
+  </Links>
+  <Categories>
+    <Category Id="Project" />
+    <Category Id="Package" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

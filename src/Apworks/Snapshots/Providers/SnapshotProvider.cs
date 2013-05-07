@@ -108,7 +108,7 @@ namespace Apworks.Snapshots.Providers
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public abstract bool DTCompatible { get; }
+        public abstract bool DistributedTransactionSupported { get; }
         /// <summary>
         /// Gets a <see cref="System.Boolean"/> value which indicates
         /// whether the Unit of Work was successfully committed.

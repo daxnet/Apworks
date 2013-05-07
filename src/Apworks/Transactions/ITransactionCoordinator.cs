@@ -22,39 +22,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ================================================================================================================== 
+// ==================================================================================================================
 
+using System;
 
-namespace Apworks
+namespace Apworks.Transactions
 {
     /// <summary>
-    /// Represents that the implemented classes will maintain a list of objects
-    /// affected by a business transaction and coordinate the writing out of changes
-    /// and the resolution of concurrency problems. Unit of Work is an object-relational
-    /// behavioral pattern which was described in Martin Fowler's book, Patterns of
-    /// Enterprise Application Architecture. For more information about Unit of Work
-    /// architectural pattern, please refer to http://martinfowler.com/eaaCatalog/unitOfWork.html.
+    /// Represents that the implemented classes are transaction coordinators.
     /// </summary>
-    public interface IUnitOfWork
+    public interface ITransactionCoordinator : IUnitOfWork, IDisposable
     {
-        /// <summary>
-        /// Gets a <see cref="System.Boolean"/> value which indicates
-        /// whether the Unit of Work could support Microsoft Distributed
-        /// Transaction Coordinator (MS-DTC).
-        /// </summary>
-        bool DistributedTransactionSupported { get; }
-        /// <summary>
-        /// Gets a <see cref="System.Boolean"/> value which indicates
-        /// whether the Unit of Work was successfully committed.
-        /// </summary>
-        bool Committed { get; }
-        /// <summary>
-        /// Commits the transaction.
-        /// </summary>
-        void Commit();
-        /// <summary>
-        /// Rollback the transaction.
-        /// </summary>
-        void Rollback();
     }
 }

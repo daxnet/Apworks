@@ -89,7 +89,7 @@ namespace Apworks.Repositories
                 }
             }
             // then commit the save/publish via UoW.
-            if (this.DTCompatible)
+            if (this.DistributedTransactionSupported)
             {
                 // the distributed transaction is supported either by domain event storage
                 // or by the event bus. use the MS-DTC (Distributed Transaction Coordinator)
@@ -200,9 +200,9 @@ namespace Apworks.Repositories
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public override bool DTCompatible
+        public override bool DistributedTransactionSupported
         {
-            get { return domainEventStorage.DTCompatible && base.DTCompatible; }
+            get { return domainEventStorage.DistributedTransactionSupported && base.DistributedTransactionSupported; }
         }
         /// <summary>
         /// Rollback the transaction.

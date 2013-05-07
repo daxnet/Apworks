@@ -214,7 +214,7 @@ namespace Apworks.Bus.MSMQ
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public bool DTCompatible
+        public bool DistributedTransactionSupported
         {
             get { return true; }
         }

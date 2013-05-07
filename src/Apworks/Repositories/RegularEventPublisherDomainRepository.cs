@@ -85,7 +85,7 @@ namespace Apworks.Repositories
                 this.context.RegisterModified(aggregateRootObj);
                 this.PublishAggregateRootEvents(aggregateRootObj);
             }
-            if (this.DTCompatible)
+            if (this.DistributedTransactionSupported)
             {
                 using (TransactionScope ts = new TransactionScope())
                 {
@@ -193,11 +193,11 @@ namespace Apworks.Repositories
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public override bool DTCompatible
+        public override bool DistributedTransactionSupported
         {
             get
             {
-                return this.context.DTCompatible && base.DTCompatible;
+                return this.context.DistributedTransactionSupported && base.DistributedTransactionSupported;
             }
         }
         /// <summary>

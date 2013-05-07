@@ -22,39 +22,56 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ================================================================================================================== 
+// ==================================================================================================================
 
+using System.Transactions;
 
-namespace Apworks
+namespace Apworks.Transactions
 {
     /// <summary>
-    /// Represents that the implemented classes will maintain a list of objects
-    /// affected by a business transaction and coordinate the writing out of changes
-    /// and the resolution of concurrency problems. Unit of Work is an object-relational
-    /// behavioral pattern which was described in Martin Fowler's book, Patterns of
-    /// Enterprise Application Architecture. For more information about Unit of Work
-    /// architectural pattern, please refer to http://martinfowler.com/eaaCatalog/unitOfWork.html.
+    /// Represents the transaction coordinator that utilizes Microsoft Distributed
+    /// Transaction Coordinator to control the transaction.
     /// </summary>
-    public interface IUnitOfWork
+    internal sealed class DistributedTransactionCoordinator : TransactionCoordinator
     {
+        #region Private Fields
+        private readonly TransactionScope scope = new TransactionScope();
+        #endregion
+
+        #region Ctor
         /// <summary>
-        /// Gets a <see cref="System.Boolean"/> value which indicates
-        /// whether the Unit of Work could support Microsoft Distributed
-        /// Transaction Coordinator (MS-DTC).
+        /// Initializes a new instance of <c>DistributedTransactionCoordinator</c> class.
         /// </summary>
-        bool DistributedTransactionSupported { get; }
+        /// <param name="unitOfWorks">The <see cref="IUnitOfWork"/> instances to be managed by current
+        /// transaction coordinator.</param>
+        public DistributedTransactionCoordinator(params IUnitOfWork[] unitOfWorks)
+            : base(unitOfWorks) { }
+        #endregion
+
+        #region Protected Methods
         /// <summary>
-        /// Gets a <see cref="System.Boolean"/> value which indicates
-        /// whether the Unit of Work was successfully committed.
+        /// Disposes the object.
         /// </summary>
-        bool Committed { get; }
+        /// <param name="disposing">A <see cref="System.Boolean"/> value which indicates whether
+        /// the object should be disposed explicitly.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                scope.Dispose();
+            }
+        }
+        #endregion
+
+        #region Public Methods
         /// <summary>
         /// Commits the transaction.
         /// </summary>
-        void Commit();
-        /// <summary>
-        /// Rollback the transaction.
-        /// </summary>
-        void Rollback();
+        public override void Commit()
+        {
+            base.Commit();
+            scope.Complete();
+        }
+        #endregion
     }
 }

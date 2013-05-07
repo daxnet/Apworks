@@ -156,7 +156,7 @@ namespace Apworks.Repositories
         /// whether the Unit of Work could support Microsoft Distributed
         /// Transaction Coordinator (MS-DTC).
         /// </summary>
-        public virtual bool DTCompatible
+        public virtual bool DistributedTransactionSupported
         {
             get { return false; }
         }
