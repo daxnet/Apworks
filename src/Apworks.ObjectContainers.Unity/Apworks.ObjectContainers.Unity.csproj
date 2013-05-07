@@ -126,6 +126,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LifetimeManagers\GlobalSuppressions.cs" />
+    <Compile Include="LifetimeManagers\UnityBehaviorExtensionElement.cs" />
+    <Compile Include="LifetimeManagers\UnityCallContextInitializer.cs" />
+    <Compile Include="LifetimeManagers\UnityContextChannelExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityContextChannelLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceContextExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceContextInitializer.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceContextLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityInstanceProvider.cs" />
+    <Compile Include="LifetimeManagers\UnityOperationContextExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityOperationContextLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityOperationContextMessageInspector.cs" />
+    <Compile Include="LifetimeManagers\UnityServiceBehavior.cs" />
+    <Compile Include="LifetimeManagers\UnityServiceHostBaseExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityServiceHostBaseLifetimeManager.cs" />
+    <Compile Include="LifetimeManagers\UnityWcfExtension.cs" />
+    <Compile Include="LifetimeManagers\UnityWcfLifetimeManager.cs" />
     <Compile Include="UnityContainerFluentExtender.cs" />
     <Compile Include="InstanceItems.cs" />
     <Compile Include="UnityObjectContainer.cs" />
@@ -142,6 +159,7 @@
       <Name>Apworks</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
