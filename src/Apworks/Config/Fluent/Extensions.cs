@@ -377,6 +377,20 @@ namespace Apworks.Config.Fluent
             var appInstance = AppRuntime.Create(configSource);
             return appInstance;
         }
+        /// <summary>
+        /// Creates the <see cref="IApp"/> instance.
+        /// </summary>
+        /// <param name="configurator">The instance of <see cref="IObjectContainerConfigurator"/> to be extended.</param>
+        /// <param name="initializer">The application initializer.</param>
+        /// <returns>The <see cref="IApp"/> instance.</returns>
+        public static IApp Create(this IObjectContainerConfigurator configurator, EventHandler<AppInitEventArgs> initializer)
+        {
+            var appInstance = Create(configurator);
+            var tmp = initializer;
+            if (tmp != null)
+                appInstance.Initialize += tmp;
+            return appInstance;
+        }
         #endregion
 
         #region AppRuntime Instance Extenders
