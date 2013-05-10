@@ -83,7 +83,7 @@ packages
 
 # NuGet Package Files
 *.nupkg
-*.nuspec
+# *.nuspec
 
 # Windows Azure Build Output
 csx

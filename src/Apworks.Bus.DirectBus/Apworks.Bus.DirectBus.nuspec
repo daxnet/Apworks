@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Apworks.Bus.DirectBus</id>
+        <version>2.5.4878.35266</version>
+        <title>Apworks Direct Bus Implementation</title>
+        <authors>apworks.org</authors>
+        <owners>apworks.org</owners>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+        <projectUrl>https://github.com/daxnet/Apworks</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The message bus that uses the Message Dispatcher to implement the message publishing mechanism (Will be obsolete, please use Event Aggregator implementation instead).</description>
+        <copyright>Copyright (C) 2009-2013 apworks.org</copyright>
+        <dependencies>
+            <dependency id="Apworks" version="2.5.4878.35266" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="lib\net40\Apworks.Bus.DirectBus.dll" target="lib\net40\Apworks.Bus.DirectBus.dll" />
+        <file src="lib\net40\Apworks.Bus.DirectBus.XML" target="lib\net40\Apworks.Bus.DirectBus.XML" />
+    </files>
+</package>

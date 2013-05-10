@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Apworks.Bus.EventAggregator")]
-[assembly: AssemblyDescription("The implementation of the event bus implemented by using Event Aggregator.")]
+[assembly: AssemblyTitle("Apworks Event Aggregator Bus")]
+[assembly: AssemblyDescription("The message bus that uses the Event Aggregator to implement the message publishing mechanism.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("apworks.org")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2012, apworks.org.")]
+[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,4 +32,4 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.5.4864.17368")]
+[assembly: AssemblyVersion("2.5.4878.35266")]

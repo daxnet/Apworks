@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Apworks.Storage.MySql</id>
+        <version>2.5.4878.35266</version>
+        <title>Apworks MySQL Storage</title>
+        <authors>apworks.org</authors>
+        <owners>apworks.org</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The implementation of common storage built with MySQL database.</description>
+        <copyright>Copyright © 2009-2013, apworks.org</copyright>
+        <dependencies>
+            <dependency id="MySql.Data" version="6.6.5" />
+            <dependency id="Apworks" version="2.5.4878.35266" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="lib\net40\Apworks.Storage.MySql.dll" target="lib\net40\Apworks.Storage.MySql.dll" />
+        <file src="lib\net40\Apworks.Storage.MySql.XML" target="lib\net40\Apworks.Storage.MySql.XML" />
+    </files>
+</package>

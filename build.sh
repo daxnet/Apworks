@@ -1,6 +1,6 @@
 #! /bin/bash
 PARAM=''
-PKGFILE='packages_v2_5_4864_17368.tar.gz'
+PKGFILE='packages_v2_5_4878_35266.tar.gz'
 PKGDIR='packages'
 URL='http://apworks.org/wp-content/uploads/fx/'
 if [ "$1" == 'Debug' ]

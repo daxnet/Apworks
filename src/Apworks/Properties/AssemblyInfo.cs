@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("apworks.org")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2012, apworks.org.")]
+[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.5.4864.17368")]
+[assembly: AssemblyVersion("2.5.4878.35266")]
 

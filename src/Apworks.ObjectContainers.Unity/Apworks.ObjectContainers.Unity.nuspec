@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Apworks.ObjectContainers.Unity</id>
+        <version>2.5.4878.35266</version>
+        <title>Apworks Unity Object Container</title>
+        <authors>apworks.org</authors>
+        <owners>apworks.org</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Apworks object container implementation of Microsoft Patterns &amp; Practices Unity Application Block.</description>
+        <copyright>Copyright © 2009-2013, apworks.org</copyright>
+        <dependencies>
+            <dependency id="Castle.Core" version="3.2.0" />
+            <dependency id="Unity" version="2.1.505.2" />
+            <dependency id="Apworks" version="2.5.4878.35266" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="lib\net40\Apworks.ObjectContainers.Unity.dll" target="lib\net40\Apworks.ObjectContainers.Unity.dll" />
+        <file src="lib\net40\Apworks.ObjectContainers.Unity.XML" target="lib\net40\Apworks.ObjectContainers.Unity.XML" />
+    </files>
+</package>

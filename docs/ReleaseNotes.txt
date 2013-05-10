@@ -1,4 +1,5 @@
-=== 2013/05/08 Apworks Application Development Framework version 2.5.4864.17368 ===
+=== 2013/05/08 Apworks Application Development Framework version 2.5.4878.35266 ===
+Installation Prerequisites:
 1. Microsoft .NET Framework 4.0 SP1
 2. Microsoft Visual Studio 2010/2012
 
@@ -13,6 +14,9 @@ Functional Updates:
 7. IBus interface has been changed from a generic interface to a normal one as this
    is more proper way of handling events.
 8. All the external references have been updated to the latest version.
+9. Unity lifetime managers included, thanks for Andrew Oakley on his effort:
+   http://blogs.msdn.com/b/atoakley/archive/2010/12/29/unity-lifetime-managers-and-wcf.aspx
+
 
 === 2012/06/30 Apworks Application Development Framework version 2.5.4563.21309 ===
 Installation Prerequisites:

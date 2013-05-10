@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-	<Product Id="{A5B16946-D021-4BB6-8289-A7C931EF4B09}" Name="Apworks Framework" Language="1033" Version="2.5.4864.17368" Manufacturer="apworks.org" UpgradeCode="a50c1009-e157-4f42-866d-ccfb64f8a8ab">
+	<Product Id="{A5B16946-D021-4BB6-8289-A7C931EF4B09}" Name="Apworks Framework" Language="1033" Version="2.5.4878.35266" Manufacturer="apworks.org" UpgradeCode="a50c1009-e157-4f42-866d-ccfb64f8a8ab">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <Media Id="1" Cabinet="Apworks.cab" EmbedCab="yes"/>
@@ -126,11 +126,13 @@
   <Fragment Id="ProgramMenuShortcutFragment">
     <DirectoryRef Id="ApplicationShortcut">
       <Component Id="StartMenuShortcuts" Guid="{AEF9353A-77A3-4A01-9A58-6B3DB55F8CFA}">
+        <!--
         <Shortcut Id="ClassLibraryReferencesShortcut"
                   Name="Class Library Reference"
                   Description="Displays the Class Library Reference for Apworks."
                   Target="[APPROOTFOLDER]ClsLibRef.chm"
                   WorkingDirectory="APPROOTFOLDER"/>
+        -->
         <Shortcut Id="LicenseInformationShortcut"
                   Name="License Information"
                   Description="Displays the license information."
@@ -154,6 +156,14 @@
       </Component>
     </DirectoryRef>
   </Fragment>
+
+  <Fragment Id="EnvVariableFragment">
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="ApworksHomeEnvVar" Guid="{71A44E1A-E3CE-43C2-B498-1CA44FC343AC}">
+        <Environment Id="ApworksHome" Name="APWORKS_HOME" Value="[APPROOTFOLDER]" System="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
   
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="APPROOTFOLDER">
@@ -165,6 +175,7 @@
       <ComponentRef Id="ExternalRefXmlDocFiles"/>
       <ComponentRef Id="ExternalRefPDBFiles"/>
       <ComponentRef Id="StartMenuShortcuts"/>
+      <ComponentRef Id="ApworksHomeEnvVar"/>
 		</ComponentGroup>
 	</Fragment>
 
