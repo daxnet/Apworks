@@ -144,7 +144,17 @@ namespace Apworks
         protected virtual T[] DoResolveAll<T>()
             where T : class
         {
-            return this.DoResolveAll(typeof(T)) as T[];
+            //return this.DoResolveAll(typeof(T)) as T[];
+            var original = this.DoResolveAll(typeof(T));
+            var casted = new T[original.Length];
+            int index = 0;
+            var e = original.GetEnumerator();
+            while (e.MoveNext())
+            {
+                casted[index] = e.Current as T;
+                index++;
+            }
+            return casted;
         }
         #endregion
 
