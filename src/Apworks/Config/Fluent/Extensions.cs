@@ -93,7 +93,7 @@ namespace Apworks.Config.Fluent
         /// <returns>The <see cref="IIdentityGeneratorConfigurator"/> instance.</returns>
         public static IIdentityGeneratorConfigurator WithDefaultIdentityGenerator(this IApplicationConfigurator configurator)
         {
-            return WithIdentityGenerator<IdentityGenerator>(configurator);
+            return WithIdentityGenerator<SequentialIdentityGenerator>(configurator);
         }
         #endregion
 
@@ -116,7 +116,7 @@ namespace Apworks.Config.Fluent
         /// <returns>The <see cref="ISequenceGeneratorConfigurator"/> instance.</returns>
         public static ISequenceGeneratorConfigurator WithDefaultSequenceGenerator(this IIdentityGeneratorConfigurator configurator)
         {
-            return WithSequenceGenerator<SequenceGenerator>(configurator);
+            return WithSequenceGenerator<SequentialIdentityGenerator>(configurator);
         }
         #endregion
 
