@@ -10,7 +10,7 @@
 <xs:schema xmlns:tns="http://apworks.org/Schemas/Configuration" elementFormDefault="qualified" targetNamespace="http://apworks.org/Schemas/Configuration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="apworks" type="tns:Apworks.Config.ApworksConfigSectionCT" />
 	<xs:complexType name="Apworks.Config.ApworksConfigSectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="1" name="application" type="tns:Apworks.Config.ApplicationElementCT">
 				<xs:annotation>
 					<xs:documentation>The configuration for the Apworks application.</xs:documentation>
@@ -46,11 +46,9 @@
 					<xs:documentation>The configuration for the interceptions.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.ApplicationElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="provider" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The provider type of the application.</xs:documentation>
@@ -58,8 +56,6 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.ObjectContainerElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="provider" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The provider type of the object container.</xs:documentation>
@@ -77,8 +73,6 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.EventSerializerElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="provider" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The provider type of the event serializer.</xs:documentation>
@@ -86,8 +80,6 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.SnapshotSerializerElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="provider" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The provider type of the snapshot serializer.</xs:documentation>
@@ -95,7 +87,7 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.SerializerElementCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="1" name="eventSerializer" type="tns:Apworks.Config.EventSerializerElementCT">
 				<xs:annotation>
 					<xs:documentation>The configuration for the event serializer.</xs:documentation>
@@ -106,11 +98,9 @@
 					<xs:documentation>The configuration for the snapshot serializer.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.SequenceGeneratorElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="provider" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The type of sequence generator.</xs:documentation>
@@ -118,8 +108,6 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.IdentityGeneratorElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="provider" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The type of identity generator.</xs:documentation>
@@ -127,7 +115,7 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.GeneratorElementCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="1" name="sequenceGenerator" type="tns:Apworks.Config.SequenceGeneratorElementCT">
 				<xs:annotation>
 					<xs:documentation>The configuration for the sequence generator.</xs:documentation>
@@ -138,11 +126,9 @@
 					<xs:documentation>The configuration for the identity generator.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.HandlerElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="kind" use="optional" type="tns:HandlerKind">
 			<xs:annotation>
 				<xs:documentation>The kind of the handler, can be either Command or Event.</xs:documentation>
@@ -165,17 +151,15 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.HandlerElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="handler" type="tns:Apworks.Config.HandlerElementCT">
 				<xs:annotation>
 					<xs:documentation>Represents the configuration for message handlers.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.ExceptionHandlerElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="type" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The type of the exception handler.</xs:documentation>
@@ -183,22 +167,22 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.ExceptionHandlerElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="handler" type="tns:Apworks.Config.ExceptionHandlerElementCT">
 				<xs:annotation>
 					<xs:documentation>Represents the configuration for exception handlers.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.ExceptionElementCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" name="handlers" type="tns:Apworks.Config.ExceptionHandlerElementCollectionCT">
 				<xs:annotation>
 					<xs:documentation>The Handlers.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 		<xs:attribute name="type" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The type of the exception.</xs:documentation>
@@ -211,17 +195,15 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.ExceptionElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="exception" type="tns:Apworks.Config.ExceptionElementCT">
 				<xs:annotation>
 					<xs:documentation>Represents the configuration for exception handling.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptorRefElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="name" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The Name.</xs:documentation>
@@ -229,8 +211,6 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptorElementCT">
-		<xs:sequence>
-		</xs:sequence>
 		<xs:attribute name="name" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The Name.</xs:documentation>
@@ -243,16 +223,16 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptorElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="interceptor" type="tns:Apworks.Config.InterceptorElementCT">
 				<xs:annotation>
 					<xs:documentation>The InterceptorElement Configuration Element.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptionElementCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" name="interceptors" type="tns:Apworks.Config.InterceptorElementCollectionCT">
 				<xs:annotation>
 					<xs:documentation>The Interceptors.</xs:documentation>
@@ -263,25 +243,25 @@
 					<xs:documentation>The Contracts.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptorRefElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="interceptorRef" type="tns:Apworks.Config.InterceptorRefElementCT">
 				<xs:annotation>
 					<xs:documentation>Represents the configuration for interceptor ref.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptMethodElementCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" name="interceptorRefs" type="tns:Apworks.Config.InterceptorRefElementCollectionCT">
 				<xs:annotation>
 					<xs:documentation>The InterceptorRefs.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 		<xs:attribute name="signature" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The Signature.</xs:documentation>
@@ -289,22 +269,22 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptMethodElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="method" type="tns:Apworks.Config.InterceptMethodElementCT">
 				<xs:annotation>
 					<xs:documentation>Represents the configuration for intercept method.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptContractElementCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" name="methods" type="tns:Apworks.Config.InterceptMethodElementCollectionCT">
 				<xs:annotation>
 					<xs:documentation>The Methods.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 		<xs:attribute name="type" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The Type.</xs:documentation>
@@ -312,13 +292,13 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Apworks.Config.InterceptContractElementCollectionCT">
-		<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="unbounded" name="contract" type="tns:Apworks.Config.InterceptContractElementCT">
 				<xs:annotation>
 					<xs:documentation>Represents the configuration for intercept contract.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:simpleType name="HandlerKind">
 		<xs:annotation>

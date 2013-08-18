@@ -28,8 +28,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks.Repositories.MongoD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks.Repositories.NHibernate", "src\Apworks.Repositories.NHibernate\Apworks.Repositories.NHibernate.csproj", "{38CC8B20-5EB7-478A-8C7E-972BF3069319}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Apworks.Setup", "src\Apworks.Setup\Apworks.Setup.wixproj", "{D5DBFC73-5471-4511-8283-EF450E24C3FE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks.Storage.General", "src\Apworks.Storage.General\Apworks.Storage.General.csproj", "{B206AA16-E0C6-4537-8D03-49EDF10810DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks.Storage.MySql", "src\Apworks.Storage.MySql\Apworks.Storage.MySql.csproj", "{1818637E-3487-4C26-886C-2A35D953CBB8}"
@@ -178,13 +176,6 @@ Global
 		{38CC8B20-5EB7-478A-8C7E-972BF3069319}.MonoRelease|Any CPU.Build.0 = MonoRelease|Any CPU
 		{38CC8B20-5EB7-478A-8C7E-972BF3069319}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38CC8B20-5EB7-478A-8C7E-972BF3069319}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.CoreDebug|Any CPU.ActiveCfg = Debug|x86
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.CoreRelease|Any CPU.ActiveCfg = Release|x86
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.MonoDebug|Any CPU.ActiveCfg = Debug|x86
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.MonoRelease|Any CPU.ActiveCfg = Release|x86
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.Release|Any CPU.ActiveCfg = Release|x86
-		{D5DBFC73-5471-4511-8283-EF450E24C3FE}.Release|Any CPU.Build.0 = Release|x86
 		{B206AA16-E0C6-4537-8D03-49EDF10810DD}.CoreDebug|Any CPU.ActiveCfg = CoreDebug|Any CPU
 		{B206AA16-E0C6-4537-8D03-49EDF10810DD}.CoreDebug|Any CPU.Build.0 = CoreDebug|Any CPU
 		{B206AA16-E0C6-4537-8D03-49EDF10810DD}.CoreRelease|Any CPU.ActiveCfg = CoreRelease|Any CPU
