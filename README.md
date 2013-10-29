@@ -32,6 +32,11 @@ Note that in the standard Apworks distribute package all required assemblies/lib
 
 Sample Project
 ==============
+The [Byteart Retail](https://github.com/daxnet/byteartretail_apworks "Byteart Retail") project demonstrated how to use Apworks framework to build domain-oriented, classic-layered applications. Although it is in Simplified-Chinese, you can read much about how Apworks helps you building the professional enterprise applications.
+For more introduction about Byteart Retail project, please read [HERE](https://github.com/daxnet/byteartretail "Byteart Retail Portal"), which is also in Simplified-Chinese.
+
+![Byteart Retail Version 3](http://images.cnblogs.com/cnblogs_com/daxnet/201211/201211081523197376.png)
+
 The [Tiny Library CQRS](http://tlibcqrs.codeplex.com "Tiny Library CQRS") project fully demonstrates how to apply CQRS architectural pattern in a real-world application by using Apworks framework.
 
 ![Tiny Library CQRS](http://download.codeplex.com/Download?ProjectName=apworks&DownloadId=276386)
