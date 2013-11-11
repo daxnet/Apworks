@@ -33,7 +33,7 @@ namespace Apworks.Events
     /// </summary>
     /// <typeparam name="TEvent">The type of the event to be handled.</typeparam>
     [RegisterDispatch]
-    public interface IEventHandler<TEvent> : IHandler<TEvent>
+    public interface IEventHandler<in TEvent> : IHandler<TEvent>
         where TEvent : class, IEvent
     {
     }
