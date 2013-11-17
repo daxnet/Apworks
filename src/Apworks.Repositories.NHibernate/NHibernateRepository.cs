@@ -24,7 +24,6 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using Apworks.Repositories.NHibernate.Properties;
 using Apworks.Specifications;
 using Apworks.Storage;
 using NHibernate;
@@ -58,7 +57,7 @@ namespace Apworks.Repositories.NHibernate
         {
             nhContext = context as INHibernateContext;
             if (nhContext == null)
-                throw new RepositoryException(Resources.EX_INVALID_CONTEXT_TYPE);
+                throw new RepositoryException("The provided context type is invalid. NHibernateRepository requires an instance of NHibernateContext to be initialized.");
         }
         #endregion
 
@@ -93,7 +92,7 @@ namespace Apworks.Repositories.NHibernate
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder);
             if (results == null || results.Count() == 0)
-                throw new RepositoryException(Resources.EX_GETALL_FAIL);
+                throw new RepositoryException("Cannot get the aggregate with the provided specification.");
             return results;
         }
         /// <summary>
@@ -111,7 +110,7 @@ namespace Apworks.Repositories.NHibernate
         {
             var results = this.DoFindAll(specification, sortPredicate, sortOrder, pageNumber, pageSize);
             if (results == null || results.Count() == 0)
-                throw new RepositoryException(Resources.EX_GETALL_FAIL);
+                throw new RepositoryException("Cannot get the aggregate with the provided specification.");
             return results;
         }
         /// <summary>
@@ -166,7 +165,7 @@ namespace Apworks.Repositories.NHibernate
         {
             TAggregateRoot result = this.DoFind(specification);
             if (result == null)
-                throw new RepositoryException(Resources.EX_GETBYSPEC_FAIL);
+                throw new RepositoryException("Cannot get the aggregate with the provided specification.");
             return result;
         }
         /// <summary>

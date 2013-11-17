@@ -67,8 +67,9 @@ namespace Apworks.Repositories.NHibernate
     public class NHibernateContext : RepositoryContext, INHibernateContext
     {
         #region Private Fields
-        private readonly DatabaseSessionFactory databaseSessionFactory;
-        private readonly ISession session = null;
+        //private readonly DatabaseSessionFactory databaseSessionFactory;
+        private ISession session = null;
+        private readonly ISessionFactory sessionFactory = null;
         private ITransaction transaction;
         #endregion
 
@@ -83,21 +84,34 @@ namespace Apworks.Repositories.NHibernate
         /// <summary>
         /// Initializes a new instance of <c>NHibernateContext</c> class.
         /// </summary>
+        [Obsolete("This constructor is obsolete, please use NHibernateContext(ISessionFactory sessionFactory) override instead.")]
         public NHibernateContext(Configuration nhibernateConfig)
             : this()
         {
-            databaseSessionFactory = new DatabaseSessionFactory(nhibernateConfig);
-            session = databaseSessionFactory.Session;
-            SetupTransaction();
+            
+        }
+
+        public NHibernateContext(ISessionFactory sessionFactory)
+        {
+            this.sessionFactory = sessionFactory;
         }
         #endregion
 
         #region Private Methods
-        private void SetupTransaction()
+        private void EnsureSession()
         {
-            if (transaction != null)
-                transaction.Dispose();
-            transaction = session.BeginTransaction();
+            if (this.session == null || !this.session.IsOpen)
+            {
+                this.session = this.sessionFactory.OpenSession();
+                this.transaction = this.session.BeginTransaction();
+            }
+            else
+            {
+                if (this.transaction == null || !this.transaction.IsActive)
+                {
+                    this.transaction = this.session.BeginTransaction();
+                }
+            }
         }
         #endregion
 
@@ -122,12 +136,11 @@ namespace Apworks.Repositories.NHibernate
                     transaction.Dispose();
                     transaction = null;
                 }
-                ISession dbSession = session;
-                if (dbSession != null /*&& dbSession.IsOpen*/)
+                if (session != null /*&& dbSession.IsOpen*/)
                 {
                     //dbSession.Close();
-                    dbSession.Dispose();
-                    dbSession = null;
+                    session.Dispose();
+                    session = null;
                 }
                 //dbSession.Dispose();
             }
@@ -142,6 +155,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterNew(object obj)
         {
+            EnsureSession();
             session.Save(obj);
         }
         /// <summary>
@@ -150,6 +164,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterDeleted(object obj)
         {
+            EnsureSession();
             session.Delete(obj);
         }
         /// <summary>
@@ -158,6 +173,7 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterModified(object obj)
         {
+            EnsureSession();
             session.Update(obj);
         }
 
@@ -183,7 +199,6 @@ namespace Apworks.Repositories.NHibernate
         public override void Commit()
         {
             transaction.Commit();
-            SetupTransaction();
         }
         /// <summary>
         /// Rollback the transaction.
@@ -191,7 +206,6 @@ namespace Apworks.Repositories.NHibernate
         public override void Rollback()
         {
             transaction.Rollback();
-            SetupTransaction();
         }
 
         #endregion
@@ -205,6 +219,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The instance of the aggregate root.</returns>
         public TAggregateRoot GetByKey<TAggregateRoot>(object key) where TAggregateRoot : class, IAggregateRoot
         {
+            EnsureSession();
             var result = (TAggregateRoot)this.session.Get(typeof(TAggregateRoot), key);
             // Use of implicit transactions is discouraged.
             // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
@@ -220,6 +235,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The aggregate roots.</returns>
         public IEnumerable<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot
         {
+            EnsureSession();
             List<TAggregateRoot> result = null;
             var query = this.session.Query<TAggregateRoot>()
                 .Where(specification.GetExpression());
@@ -253,6 +269,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The aggregate roots.</returns>
         public PagedResult<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize) where TAggregateRoot : class, IAggregateRoot
         {
+            EnsureSession();
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "The pageNumber is one-based and should be larger than zero.");
             if (pageSize <= 0)
@@ -300,6 +317,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The instance of the aggregate root.</returns>
         public TAggregateRoot Find<TAggregateRoot>(ISpecification<TAggregateRoot> specification) where TAggregateRoot : class, IAggregateRoot
         {
+            EnsureSession();
             var result = this.session.Query<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
             // Use of implicit transactions is discouraged.
             // For more information please refer to: http://www.hibernatingrhinos.com/products/nhprof/learn/alert/DoNotUseImplicitTransactions
