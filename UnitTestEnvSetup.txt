@@ -1,0 +1,5 @@
+Please setup the unit test environment as indicated below:
+1. Open Apworks.Tests.Common.Helper.cs, change the connection string settings
+2. Run the SQL scripts under the scrpits folder
+3. Setup the MSMQ
+4. Setup MongoDB

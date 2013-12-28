@@ -223,10 +223,10 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             repository.Context.Commit();
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust")).Or(Specification<Customer>.Eval(p => p.FirstName == "aaa"));
-            var c = repository.FindAll(spec);
+            var c = repository.FindAll(spec).Count();
             repository.Context.Dispose();
             Assert.IsNotNull(c);
-            Assert.AreEqual(3, c.Count());
+            Assert.AreEqual(3, c);
         }
 
         [TestMethod]
@@ -250,10 +250,10 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust"));
-            var custs = customerRepository.FindAll(spec);
+            var custs = customerRepository.FindAll(spec).Count();
             customerRepository.Context.Dispose();
             Assert.IsNotNull(custs);
-            Assert.AreEqual<int>(3, custs.Count());
+            Assert.AreEqual<int>(3, custs);
         }
 
         [TestMethod]
@@ -310,11 +310,13 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             customerRepository.Context.Commit();
 
             ISpecification<Customer> spec = Specification<Customer>.Eval(p => p.FirstName.StartsWith("cust"));
-            var custs = customerRepository.FindAll(spec, c => c.Email, Storage.SortOrder.Descending);
+            var query = customerRepository.FindAll(spec, c => c.Email, Storage.SortOrder.Descending);
+            var count = query.Count();
+            var custs = query.First();
             customerRepository.Context.Dispose();
             Assert.IsNotNull(custs);
-            Assert.AreEqual<int>(3, custs.Count());
-            Assert.AreEqual<string>("cust3@apworks.com", custs.First().Email);
+            Assert.AreEqual<int>(3, count);
+            Assert.AreEqual<string>("cust3@apworks.com", custs.Email);
         }
 
         [TestMethod]

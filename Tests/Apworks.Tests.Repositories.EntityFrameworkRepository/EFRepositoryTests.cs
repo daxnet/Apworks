@@ -182,10 +182,10 @@ namespace Apworks.Tests.Repositories.EntityFrameworkRepository
                 repository.Add(cust);
             repository.Context.Commit();
             ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(p => p.UserName.StartsWith("d")).And(Specification<EFCustomer>.Eval(p => p.Password != "dd"));
-            var c = repository.FindAll(spec);
+            var c = repository.FindAll(spec).Count();
             repository.Context.Dispose();
             Assert.IsNotNull(c);
-            Assert.AreEqual(1, c.Count());
+            Assert.AreEqual(1, c);
         }
 
         [TestMethod]
@@ -226,10 +226,10 @@ namespace Apworks.Tests.Repositories.EntityFrameworkRepository
                 repository.Add(cust);
             repository.Context.Commit();
             ISpecification<EFCustomer> spec = Specification<EFCustomer>.Eval(p => p.UserName.StartsWith("d")).Or(Specification<EFCustomer>.Eval(p => p.UserName == "cc"));
-            var c = repository.FindAll(spec);
+            var c = repository.FindAll(spec).Count();
             repository.Context.Dispose();
             Assert.IsNotNull(c);
-            Assert.AreEqual(3, c.Count());
+            Assert.AreEqual(3, c);
         }
 
         [TestMethod]

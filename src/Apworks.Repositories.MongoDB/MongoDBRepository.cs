@@ -153,7 +153,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
             var collection = this.mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
             var query = collection.AsQueryable<TAggregateRoot>().Where(specification.GetExpression());
@@ -162,14 +162,14 @@ namespace Apworks.Repositories.MongoDB
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return query.OrderBy(sortPredicate).ToList();
+                        return query.OrderBy(sortPredicate);
                     case SortOrder.Descending:
-                        return query.OrderByDescending(sortPredicate).ToList();
+                        return query.OrderByDescending(sortPredicate);
                     default:
                         break;
                 }
             }
-            return query.ToList();
+            return query;
         }
         /// <summary>
         /// Finds all the aggregate roots from repository.
@@ -219,7 +219,7 @@ namespace Apworks.Repositories.MongoDB
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             return this.DoFindAll(specification, sortPredicate, sortOrder);
         }

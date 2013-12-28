@@ -192,7 +192,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
+        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
         {
             var query = efContext.Context.Set<TAggregateRoot>()
                 .Where(specification.GetExpression());
@@ -201,14 +201,14 @@ namespace Apworks.Repositories.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return query.SortBy(sortPredicate).ToList();
+                        return query.SortBy(sortPredicate);
                     case SortOrder.Descending:
-                        return query.SortByDescending(sortPredicate).ToList();
+                        return query.SortByDescending(sortPredicate);
                     default:
                         break;
                 }
             }
-            return query.ToList();
+            return query;
         }
         /// <summary>
         /// Finds all the aggregate roots from repository.
@@ -259,7 +259,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        protected override IEnumerable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
+        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties)
         {
             var dbset = efContext.Context.Set<TAggregateRoot>();
             IQueryable<TAggregateRoot> queryable = null;
@@ -285,14 +285,14 @@ namespace Apworks.Repositories.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return queryable.SortBy(sortPredicate).ToList();
+                        return queryable.SortBy(sortPredicate);
                     case SortOrder.Descending:
-                        return queryable.SortByDescending(sortPredicate).ToList();
+                        return queryable.SortByDescending(sortPredicate);
                     default:
                         break;
                 }
             }
-            return queryable.ToList();
+            return queryable;
         }
         /// <summary>
         /// Finds all the aggregate roots from repository.

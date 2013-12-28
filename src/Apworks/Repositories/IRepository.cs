@@ -24,10 +24,11 @@
 // limitations under the License.
 // ==================================================================================================================
 
+using Apworks.Specifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using Apworks.Specifications;
 
 namespace Apworks.Repositories
 {
@@ -184,14 +185,14 @@ namespace Apworks.Repositories
         /// Finds all the aggregate roots from repository.
         /// </summary>
         /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll();
+        IQueryable<TAggregateRoot> FindAll();
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder);
+        IQueryable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -206,7 +207,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="specification">The specification with which the aggregate roots should match.</param>
         /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification);
+        IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -214,7 +215,7 @@ namespace Apworks.Repositories
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder);
+        IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -230,7 +231,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
+        IQueryable<TAggregateRoot> FindAll(params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -238,7 +239,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
+        IQueryable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -255,7 +256,7 @@ namespace Apworks.Repositories
         /// <param name="specification">The specification with which the aggregate roots should match.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
+        IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -264,7 +265,7 @@ namespace Apworks.Repositories
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
         /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
+        IQueryable<TAggregateRoot> FindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, params Expression<Func<TAggregateRoot, dynamic>>[] eagerLoadingProperties);
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>

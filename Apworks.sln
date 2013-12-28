@@ -1,7 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C4BB49A-A2FC-4C56-8F46-B5A42EAD3A2F}"
+	ProjectSection(SolutionItems) = preProject
+		UnitTestEnvSetup.txt = UnitTestEnvSetup.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{52B6236B-AEC5-4AF1-B2E1-8B0C85075D3E}"
 	ProjectSection(SolutionItems) = preProject

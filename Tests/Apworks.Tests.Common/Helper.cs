@@ -36,18 +36,17 @@ namespace Apworks.Tests.Common
     public static class Helper
     {
         #region Constants
-        public const string CQRSTestDB_SQLExpress_ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=ApworksCQRSArchEventStoreTestDB;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;";
-        //public const string CQRSTestDB_SQLExpress_ConnectionString = @"Server=localhost;Database=ApworksCQRSArchEventStoreTestDB;Integrated Security=SSPI;";
+        //public const string CQRSTestDB_SQLExpress_ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=ApworksCQRSArchEventStoreTestDB;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;";
+        public const string CQRSTestDB_SQLExpress_ConnectionString = @"Server=localhost;Database=ApworksCQRSArchEventStoreTestDB;Integrated Security=SSPI;";
         public const string CQRSTestDB_MySql_ConnectionString = @"server=localhost;database=apworkscqrsarcheventstoretestdb;uid=root;pwd=P@ssw0rd";
-        public const string ClassicTestDB_SQLExpress_ConnectionString = @"Data Source=(local)\SQLEXPRESS;Initial Catalog=ApworksClassicArchTestDB;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;";
-        //public const string ClassicTestDB_SQLExpress_ConnectionString = @"Server=localhost;Database=ApworksCQRSArchEventStoreTestDB;Integrated Security=SSPI;";
+        public const string ClassicTestDB_SQLExpress_ConnectionString = @"Data Source=localhost;Initial Catalog=ApworksClassicArchTestDB;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;";
         public const string CQRSTestDB_Table_DomainEvents = @"DomainEvents";
         public const string CQRSTestDB_Table_Snapshots = @"Snapshots";
         public const string CQRSTestDB_Table_SourcedCustomer = @"SourcedCustomer";
         public const string EventBus_MessageQueue = @"EventBusMQ";
         public const string CommandBus_MessageQueue = @"CommandBusMQ";
         //public const string EF_SQL_ConnectionString = "Server=localhost; Database=EFTestContext; Integrated Security=True; MultipleActiveResultSets=True;";
-        public const string EF_SQL_ConnectionString = @"Server=.\SQLEXPRESS; Database=EFTestContext; Integrated Security=True; MultipleActiveResultSets=True;";
+        public const string EF_SQL_ConnectionString = @"Server=localhost; Database=EFTestContext; Integrated Security=True; MultipleActiveResultSets=True;";
         public const string EF_Table_EFCustomers = @"EFCustomers";
         public const string EF_Table_EFNotes = @"EFNotes";
         public const string EF_Table_EFCustomerNotes = @"EFCustomerNotes";

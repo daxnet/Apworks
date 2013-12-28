@@ -79,7 +79,7 @@ namespace Apworks.Repositories.NHibernate
         /// </summary>
         protected NHibernateContext()
         {
-            
+
         }
         /// <summary>
         /// Initializes a new instance of <c>NHibernateContext</c> class.
@@ -88,7 +88,7 @@ namespace Apworks.Repositories.NHibernate
         public NHibernateContext(Configuration nhibernateConfig)
             : this()
         {
-            
+            this.sessionFactory = nhibernateConfig.BuildSessionFactory();
         }
 
         public NHibernateContext(ISessionFactory sessionFactory)
@@ -198,6 +198,7 @@ namespace Apworks.Repositories.NHibernate
         /// </summary>
         public override void Commit()
         {
+            EnsureSession();
             transaction.Commit();
         }
         /// <summary>
@@ -205,6 +206,7 @@ namespace Apworks.Repositories.NHibernate
         /// </summary>
         public override void Rollback()
         {
+            EnsureSession();
             transaction.Rollback();
         }
 
@@ -233,24 +235,24 @@ namespace Apworks.Repositories.NHibernate
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        public IEnumerable<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot
+        public IQueryable<TAggregateRoot> FindAll<TAggregateRoot>(ISpecification<TAggregateRoot> specification, System.Linq.Expressions.Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot
         {
             EnsureSession();
-            List<TAggregateRoot> result = null;
+            IQueryable<TAggregateRoot> result = null;
             var query = this.session.Query<TAggregateRoot>()
                 .Where(specification.GetExpression());
             switch (sortOrder)
             {
                 case Storage.SortOrder.Ascending:
                     if (sortPredicate != null)
-                        result = query.OrderBy(sortPredicate).ToList();
+                        result = query.OrderBy(sortPredicate);
                     break;
                 case Storage.SortOrder.Descending:
                     if (sortPredicate != null)
-                        result = query.OrderByDescending(sortPredicate).ToList();
+                        result = query.OrderByDescending(sortPredicate);
                     break;
                 default:
-                    result = query.ToList();
+                    result = query;
                     break;
             }
             // Use of implicit transactions is discouraged.

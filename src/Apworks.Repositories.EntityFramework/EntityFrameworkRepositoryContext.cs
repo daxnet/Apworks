@@ -92,7 +92,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterNew(object obj)
         {
-            this.efContext.Entry(obj).State = System.Data.EntityState.Added;
+            this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Added;
             Committed = false;
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterModified(object obj)
         {
-            this.efContext.Entry(obj).State = System.Data.EntityState.Modified;
+            this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Modified;
             Committed = false;
         }
         /// <summary>
@@ -110,7 +110,7 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="obj">The object to be registered.</param>
         public override void RegisterDeleted(object obj)
         {
-            this.efContext.Entry(obj).State = System.Data.EntityState.Deleted;
+            this.efContext.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
             Committed = false;
         }
         #endregion
