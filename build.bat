@@ -16,11 +16,11 @@ ECHO.
 GOTO End
 
 :BuildDebug
-msbuild /p:Configuration=CoreDebug;TargetFrameworkVersion=v4.0 Apworks.sln
+msbuild /p:Configuration=CoreDebug;TargetFrameworkVersion=v4.5 Apworks.sln
 GOTO End
 
 :BuildRelease
-msbuild /p:Configuration=CoreRelease;TargetFrameworkVersion=v4.0 Apworks.sln
+msbuild /p:Configuration=CoreRelease;TargetFrameworkVersion=v4.5 Apworks.sln
 GOTO End
 
 :End
