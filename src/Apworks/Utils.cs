@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -33,6 +33,8 @@ using System.Text;
 
 namespace Apworks
 {
+    using System.Linq.Expressions;
+
     /// <summary>
     /// Represents the utility class used by Apworks.
     /// </summary>
@@ -185,6 +187,25 @@ namespace Apworks
             }
             return result.ToString();
         }
+
+        /// <summary>
+        /// Builds the identifier equals predicate that will be used by any LINQ providers to check
+        /// if the two aggregate roots are having the same identifier.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+        /// <param name="id">The identifier value to be checked with.</param>
+        /// <returns>The generated Lambda expression.</returns>
+        public static Expression<Func<TAggregateRoot, bool>> BuildIdEqualsPredicate<TKey, TAggregateRoot>(TKey id)
+            where TAggregateRoot : IAggregateRoot<TKey>
+        {
+            var parameter = Expression.Parameter(typeof(TAggregateRoot));
+            return
+                Expression.Lambda<Func<TAggregateRoot, bool>>(
+                    Expression.Equal(Expression.Property(parameter, "ID"), Expression.Constant(id)),
+                    parameter);
+        }
+
         #endregion
     }
 }

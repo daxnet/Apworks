@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -32,12 +32,8 @@ using System.Linq.Expressions;
 
 namespace Apworks.Repositories
 {
-    /// <summary>
-    /// Represents that the implemented classes are repositories.
-    /// </summary>
-    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public interface IRepository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    public interface IRepository<TKey, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         /// <summary>
         /// Gets the instance of the repository context on which the repository was attached.
@@ -53,7 +49,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        TAggregateRoot GetByKey(object key);
+        TAggregateRoot GetByKey(TKey key);
         #region Obsolete
         /// <summary>
         /// Gets all the aggregate roots from repository.
@@ -306,5 +302,15 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="aggregateRoot">The aggregate root to be updated.</param>
         void Update(TAggregateRoot aggregateRoot);
+    }
+
+    /// <summary>
+    /// Represents that the implemented classes are repositories.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+    public interface IRepository<TAggregateRoot> : IRepository<Guid, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot
+    {
+        
     }
 }

@@ -700,7 +700,7 @@ namespace Apworks.Tests.Common
             c.RegisterInstance<NHibernate.Cfg.Configuration>(nhibernateCfg)
                 .RegisterType<IEventBus, MSMQEventBus>(new ContainerControlledLifetimeManager(), new InjectionConstructor(Helper.CreateMessageQueueName(EventBus_MessageQueue), true))
                 .RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(new ResolvedParameter<NHibernate.Cfg.Configuration>()))
-                .RegisterType<IRepository<SourcedCustomer>, NHibernateRepository<SourcedCustomer>>()
+                .RegisterType(typeof(IRepository<>), typeof(NHibernateRepository<>))
                 .RegisterType<IDomainRepository, RegularEventPublisherDomainRepository>(new InjectionConstructor(new ResolvedParameter<IRepositoryContext>(), new ResolvedParameter<IEventBus>()));
         }
 
@@ -720,7 +720,7 @@ namespace Apworks.Tests.Common
             c.RegisterInstance<NHibernate.Cfg.Configuration>(nhibernateCfg)
                 //.RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(new ResolvedParameter<NHibernate.Cfg.Configuration>()))
                 .RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(nhibernateCfg))
-                .RegisterType<IRepository<SourcedCustomer>, NHibernateRepository<SourcedCustomer>>()
+                .RegisterType(typeof(IRepository<>), typeof(NHibernateRepository<>))
                 .RegisterType<IDomainRepository, RegularDomainRepository>(new InjectionConstructor(new ResolvedParameter<IRepositoryContext>()));
         }
 
