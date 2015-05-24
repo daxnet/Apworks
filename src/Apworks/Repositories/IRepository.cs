@@ -32,6 +32,11 @@ using System.Linq.Expressions;
 
 namespace Apworks.Repositories
 {
+    /// <summary>
+    /// Represents that the implemented classes are repositories.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the key of the aggregate root which the repository manages.</typeparam>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public interface IRepository<TKey, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<TKey>
     {

@@ -38,6 +38,7 @@ namespace Apworks.Repositories.NHibernate
     /// <summary>
     /// Represents the repository which supports the NHibernate implementation.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class NHibernateRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<TKey>
@@ -264,10 +265,18 @@ namespace Apworks.Repositories.NHibernate
         #endregion
     }
 
+    /// <summary>
+    /// Represents the repository which supports the NHibernate implementation.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class NHibernateRepository<TAggregateRoot> : NHibernateRepository<Guid, TAggregateRoot>,
                                                         IRepository<TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NHibernateRepository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The instance of the repository context.</param>
         public NHibernateRepository(IRepositoryContext context)
             : base(context)
         {

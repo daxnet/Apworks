@@ -35,6 +35,7 @@ namespace Apworks.Repositories
     /// <summary>
     /// Represents the base class for repositories.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public abstract class Repository<TKey, TAggregateRoot> : IRepository<TKey, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<TKey>
@@ -746,9 +747,17 @@ namespace Apworks.Repositories
         #endregion
     }
 
+    /// <summary>
+    /// Represents that the implemented classes are repositories.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public abstract class Repository<TAggregateRoot> : Repository<Guid, TAggregateRoot>, IRepository<TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Repository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The repository context being used by the repository.</param>
         public Repository(IRepositoryContext context)
             : base(context)
         {

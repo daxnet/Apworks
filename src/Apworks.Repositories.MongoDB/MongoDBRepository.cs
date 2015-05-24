@@ -38,6 +38,7 @@ namespace Apworks.Repositories.MongoDB
     /// <summary>
     /// Represents the MongoDB repository.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class MongoDBRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<TKey>
@@ -311,10 +312,18 @@ namespace Apworks.Repositories.MongoDB
         #endregion
     }
 
+    /// <summary>
+    /// Represents the MongoDB repository.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class MongoDBRepository<TAggregateRoot> : MongoDBRepository<Guid, TAggregateRoot>,
                                                      IRepository<TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDBRepository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The <see cref="IRepositoryContext" /> object for initializing the current repository.</param>
         public MongoDBRepository(IRepositoryContext context)
             : base(context)
         {

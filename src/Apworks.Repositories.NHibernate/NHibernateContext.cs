@@ -91,6 +91,10 @@ namespace Apworks.Repositories.NHibernate
             this.sessionFactory = nhibernateConfig.BuildSessionFactory();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NHibernateContext"/> class.
+        /// </summary>
+        /// <param name="sessionFactory">The session factory.</param>
         public NHibernateContext(ISessionFactory sessionFactory)
         {
             this.sessionFactory = sessionFactory;

@@ -29,6 +29,10 @@ namespace Apworks
 {
     using System;
 
+    /// <summary>
+    /// Represents that the implemented classes are aggregate roots.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
     public interface IAggregateRoot<TKey> : IEntity<TKey>
     {
         

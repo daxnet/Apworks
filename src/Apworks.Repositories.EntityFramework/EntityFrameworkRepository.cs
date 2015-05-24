@@ -36,6 +36,7 @@ namespace Apworks.Repositories.EntityFramework
     /// <summary>
     /// Represents the Entity Framework repository.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class EntityFrameworkRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<TKey>
@@ -452,10 +453,18 @@ namespace Apworks.Repositories.EntityFramework
         #endregion
     }
 
+    /// <summary>
+    /// Represents the Entity Framework repository.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class EntityFrameworkRepository<TAggregateRoot> : EntityFrameworkRepository<Guid, TAggregateRoot>,
                                                              IRepository<TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityFrameworkRepository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The repository context.</param>
         public EntityFrameworkRepository(IRepositoryContext context)
             : base(context)
         {

@@ -98,6 +98,7 @@ namespace Apworks.Repositories.MongoDB
         /// <summary>
         /// Sorts the elements of a sequence in ascending order according to a lambda expression.
         /// </summary>
+        /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
         /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
         /// <param name="query">A sequence of values to order.</param>
         /// <param name="sortPredicate">The lambda expression which indicates the property for sorting.</param>
@@ -110,6 +111,7 @@ namespace Apworks.Repositories.MongoDB
         /// <summary>
         /// Sorts the elements of a sequence in descending order according to a lambda expression.
         /// </summary>
+        /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
         /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
         /// <param name="query">A sequence of values to order.</param>
         /// <param name="sortPredicate">The lambda expression which indicates the property for sorting.</param>
