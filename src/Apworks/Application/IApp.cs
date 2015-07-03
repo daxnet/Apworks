@@ -1,14 +1,14 @@
-﻿// ==================================================================================================================                                                                                          
-//        ,::i                                                           BBB                
-//       BBBBBi                                                         EBBB                
-//      MBBNBBU                                                         BBB,                
-//     BBB. BBB     BBB,BBBBM   BBB   UBBB   MBB,  LBBBBBO,   :BBG,BBB :BBB  .BBBU  kBBBBBF 
-//    BBB,  BBB    7BBBBS2BBBO  BBB  iBBBB  YBBJ :BBBMYNBBB:  FBBBBBB: OBB: 5BBB,  BBBi ,M, 
-//   MBBY   BBB.   8BBB   :BBB  BBB .BBUBB  BB1  BBBi   kBBB  BBBM     BBBjBBBr    BBB1     
-//  BBBBBBBBBBBu   BBB    FBBP  MBM BB. BB BBM  7BBB    MBBY .BBB     7BBGkBB1      JBBBBi  
-// PBBBFE0GkBBBB  7BBX   uBBB   MBBMBu .BBOBB   rBBB   kBBB  ZBBq     BBB: BBBJ   .   iBBB  
-//BBBB      iBBB  BBBBBBBBBE    EBBBB  ,BBBB     MBBBBBBBM   BBB,    iBBB  .BBB2 :BBBBBBB7  
-//vr7        777  BBBu8O5:      .77r    Lr7       .7EZk;     L77     .Y7r   irLY  JNMMF:    
+﻿// ==================================================================================================================
+//        ,::i                                                           BBB
+//       BBBBBi                                                         EBBB
+//      MBBNBBU                                                         BBB,
+//     BBB. BBB     BBB,BBBBM   BBB   UBBB   MBB,  LBBBBBO,   :BBG,BBB :BBB  .BBBU  kBBBBBF
+//    BBB,  BBB    7BBBBS2BBBO  BBB  iBBBB  YBBJ :BBBMYNBBB:  FBBBBBB: OBB: 5BBB,  BBBi ,M,
+//   MBBY   BBB.   8BBB   :BBB  BBB .BBUBB  BB1  BBBi   kBBB  BBBM     BBBjBBBr    BBB1
+//  BBBBBBBBBBBu   BBB    FBBP  MBM BB. BB BBM  7BBB    MBBY .BBB     7BBGkBB1      JBBBBi
+// PBBBFE0GkBBBB  7BBX   uBBB   MBBMBu .BBOBB   rBBB   kBBB  ZBBq     BBB: BBBJ   .   iBBB
+//BBBB      iBBB  BBBBBBBBBE    EBBBB  ,BBBB     MBBBBBBBM   BBB,    iBBB  .BBB2 :BBBBBBB7
+//vr7        777  BBBu8O5:      .77r    Lr7       .7EZk;     L77     .Y7r   irLY  JNMMF:
 //               LBBj
 //
 // Apworks Application Development Framework
@@ -24,39 +24,43 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using System;
-using System.Collections.Generic;
 using Apworks.Config;
 using Castle.DynamicProxy;
+using System;
+using System.Collections.Generic;
 
 namespace Apworks.Application
 {
     /// <summary>
-    /// Represents that the implemented classes are Apworks applications.
+    /// Represents that the implemented classes are Apworks applications. 
     /// </summary>
     public interface IApp
     {
         /// <summary>
-        /// Gets the <see cref="Apworks.Config.IConfigSource"/> instance that was used
-        /// for configuring the application.
+        /// Gets the <see cref="Apworks.Config.IConfigSource" /> instance that was used for
+        /// configuring the application.
         /// </summary>
         IConfigSource ConfigSource { get; }
+
         /// <summary>
-        /// Gets the <see cref="Apworks.IObjectContainer"/> instance with which the application
+        /// Gets the <see cref="Apworks.IObjectContainer" /> instance with which the application
         /// registers or resolves the object dependencies.
         /// </summary>
         ObjectContainer ObjectContainer { get; }
+
         /// <summary>
-        /// Gets a list of <see cref="Castle.DynamicProxy.IInterceptor"/> instances that are
+        /// Gets a list of <see cref="Castle.DynamicProxy.IInterceptor" /> instances that are
         /// registered on the current application.
         /// </summary>
         IEnumerable<IInterceptor> Interceptors { get; }
+
         /// <summary>
-        /// Starts the application.
+        /// Starts the application. 
         /// </summary>
         void Start();
+
         /// <summary>
-        /// The event that occurs when the application is initializing.
+        /// The event that occurs when the application is initializing. 
         /// </summary>
         event EventHandler<AppInitEventArgs> Initialize;
     }

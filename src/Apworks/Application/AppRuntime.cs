@@ -1,14 +1,14 @@
-﻿// ==================================================================================================================                                                                                          
-//        ,::i                                                           BBB                
-//       BBBBBi                                                         EBBB                
-//      MBBNBBU                                                         BBB,                
-//     BBB. BBB     BBB,BBBBM   BBB   UBBB   MBB,  LBBBBBO,   :BBG,BBB :BBB  .BBBU  kBBBBBF 
-//    BBB,  BBB    7BBBBS2BBBO  BBB  iBBBB  YBBJ :BBBMYNBBB:  FBBBBBB: OBB: 5BBB,  BBBi ,M, 
-//   MBBY   BBB.   8BBB   :BBB  BBB .BBUBB  BB1  BBBi   kBBB  BBBM     BBBjBBBr    BBB1     
-//  BBBBBBBBBBBu   BBB    FBBP  MBM BB. BB BBM  7BBB    MBBY .BBB     7BBGkBB1      JBBBBi  
-// PBBBFE0GkBBBB  7BBX   uBBB   MBBMBu .BBOBB   rBBB   kBBB  ZBBq     BBB: BBBJ   .   iBBB  
-//BBBB      iBBB  BBBBBBBBBE    EBBBB  ,BBBB     MBBBBBBBM   BBB,    iBBB  .BBB2 :BBBBBBB7  
-//vr7        777  BBBu8O5:      .77r    Lr7       .7EZk;     L77     .Y7r   irLY  JNMMF:    
+﻿// ==================================================================================================================
+//        ,::i                                                           BBB
+//       BBBBBi                                                         EBBB
+//      MBBNBBU                                                         BBB,
+//     BBB. BBB     BBB,BBBBM   BBB   UBBB   MBB,  LBBBBBO,   :BBG,BBB :BBB  .BBBU  kBBBBBF
+//    BBB,  BBB    7BBBBS2BBBO  BBB  iBBBB  YBBJ :BBBMYNBBB:  FBBBBBB: OBB: 5BBB,  BBBi ,M,
+//   MBBY   BBB.   8BBB   :BBB  BBB .BBUBB  BB1  BBBi   kBBB  BBBM     BBBjBBBr    BBB1
+//  BBBBBBBBBBBu   BBB    FBBP  MBM BB. BB BBM  7BBB    MBBY .BBB     7BBGkBB1      JBBBBi
+// PBBBFE0GkBBBB  7BBX   uBBB   MBBMBu .BBOBB   rBBB   kBBB  ZBBq     BBB: BBBJ   .   iBBB
+//BBBB      iBBB  BBBBBBBBBE    EBBBB  ,BBBB     MBBBBBBBM   BBB,    iBBB  .BBB2 :BBBBBBB7
+//vr7        777  BBBu8O5:      .77r    Lr7       .7EZk;     L77     .Y7r   irLY  JNMMF:
 //               LBBj
 //
 // Apworks Application Development Framework
@@ -24,58 +24,75 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using System;
 using Apworks.Config;
+using System;
 
 namespace Apworks.Application
 {
     /// <summary>
-    /// Represents the Application Runtime from where the application
-    /// is created, initialized and started.
+    /// Represents the Application Runtime from where the application is created, initialized and started. 
     /// </summary>
     public sealed class AppRuntime
     {
         #region Private Static Fields
+
         private static readonly AppRuntime instance = new AppRuntime();
         private static readonly object lockObj = new object();
-        #endregion
+
+        #endregion Private Static Fields
 
         #region Private Fields
+
         private IApp currentApplication = null;
-        #endregion
+
+        #endregion Private Fields
 
         #region Ctor
-        static AppRuntime() { }
-        private AppRuntime() { }
-        #endregion
+
+        static AppRuntime()
+        {
+        }
+
+        private AppRuntime()
+        {
+        }
+
+        #endregion Ctor
 
         #region Public Static Properties
+
         /// <summary>
-        /// Gets the instance of the current <c>ApplicationRuntime</c> class.
+        /// Gets the instance of the current <c> ApplicationRuntime </c> class. 
         /// </summary>
         public static AppRuntime Instance
         {
             get { return instance; }
         }
-        #endregion
+
+        #endregion Public Static Properties
 
         #region Public Properties
+
         /// <summary>
-        /// Gets the instance of the currently running application.
+        /// Gets the instance of the currently running application. 
         /// </summary>
         public IApp CurrentApplication
         {
             get { return currentApplication; }
         }
-        #endregion
+
+        #endregion Public Properties
 
         #region Public Methods
+
         /// <summary>
-        /// Creates and initializes a new application instance.
+        /// Creates and initializes a new application instance. 
         /// </summary>
-        /// <param name="configSource">The <see cref="Apworks.Config.IConfigSource"/> instance that
-        /// is used for initializing the application.</param>
-        /// <returns>The initialized application instance.</returns>
+        /// <param name="configSource">
+        /// The <see cref="Apworks.Config.IConfigSource" /> instance that is used for initializing
+        /// the application.
+        /// </param>
+        /// <returns> The initialized application instance. </returns>
         public static IApp Create(IConfigSource configSource)
         {
             lock (lockObj)
@@ -99,6 +116,7 @@ namespace Apworks.Application
             }
             return instance.currentApplication;
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

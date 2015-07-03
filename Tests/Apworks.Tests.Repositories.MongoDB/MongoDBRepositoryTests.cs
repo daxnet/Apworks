@@ -105,10 +105,10 @@ namespace Apworks.Tests.Repositories.MongoDB
 
             MongoClient client = new MongoClient(Helper.MongoDB_ConnectionString);
             //MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
-            MongoServer server = client.GetServer();
-            MongoDatabase database = server.GetDatabase(Helper.MongoDB_Database);
-            MongoCollection collection = database.GetCollection("Customer");
-            var count = collection.Count();
+            //MongoServer server = client.GetServer();
+            var database = client.GetDatabase(Helper.MongoDB_Database);
+            var collection = database.GetCollection<Customer>("Customer");
+            var count = collection.CountAsync(c => true).Result;
             Assert.AreEqual(100, count);
         }
 
@@ -141,11 +141,10 @@ namespace Apworks.Tests.Repositories.MongoDB
 
             MongoClient client = new MongoClient(Helper.MongoDB_ConnectionString);
             //MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
-            MongoServer server = client.GetServer();
-            MongoDatabase database = server.GetDatabase(Helper.MongoDB_Database);
-            MongoCollection collection = database.GetCollection("Customer");
-            var query = Query.EQ("Sequence", 50);
-            var modifiedCustomer = collection.FindOneAs<Customer>(query);
+            //MongoServer server = client.GetServer();
+            var database = client.GetDatabase(Helper.MongoDB_Database);
+            var collection = database.GetCollection<Customer>("Customer");
+            var modifiedCustomer = collection.Find(c => c.Sequence == 50).FirstAsync().Result;
             Assert.AreEqual<string>("daxnet", modifiedCustomer.FirstName);
         }
 
@@ -177,13 +176,13 @@ namespace Apworks.Tests.Repositories.MongoDB
 
             MongoClient client = new MongoClient(Helper.MongoDB_ConnectionString);
             //MongoServer server = MongoServer.Create(Helper.MongoDB_ConnectionString);
-            MongoServer server = client.GetServer();
-            MongoDatabase database = server.GetDatabase(Helper.MongoDB_Database);
-            MongoCollection collection = database.GetCollection("Customer");
+            //MongoServer server = client.GetServer();
+            var database = client.GetDatabase(Helper.MongoDB_Database);
+            var collection = database.GetCollection<Customer>("Customer");
             var query = Query.EQ("Sequence", 50);
-            var deletedCustomer = collection.FindOneAs<Customer>(query);
+            var deletedCustomer = collection.Find(c=>c.Sequence==50).FirstAsync().Result;
             Assert.IsNull(deletedCustomer);
-            Assert.AreEqual(99, collection.Count());
+            Assert.AreEqual(99, collection.CountAsync(c => true).Result);
         }
 
         [TestMethod]
