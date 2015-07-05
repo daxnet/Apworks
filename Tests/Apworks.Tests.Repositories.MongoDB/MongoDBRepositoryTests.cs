@@ -179,8 +179,7 @@ namespace Apworks.Tests.Repositories.MongoDB
             //MongoServer server = client.GetServer();
             var database = client.GetDatabase(Helper.MongoDB_Database);
             var collection = database.GetCollection<Customer>("Customer");
-            var query = Query.EQ("Sequence", 50);
-            var deletedCustomer = collection.Find(c=>c.Sequence==50).FirstAsync().Result;
+            var deletedCustomer = collection.Find(c => c.Sequence == 50).FirstOrDefaultAsync().Result;
             Assert.IsNull(deletedCustomer);
             Assert.AreEqual(99, collection.CountAsync(c => true).Result);
         }

@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Apworks General Event Storage")]
 [assembly: AssemblyDescription("The implementation of Domain Event Storages built with general RDBMS, such as SQL Server or OleDB databases.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("apworks.org")]
+[assembly: AssemblyCompany("daxnet")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
+[assembly: AssemblyCopyright("Copyright © 2009-2015, by daxnet.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

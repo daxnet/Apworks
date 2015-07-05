@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Apworks MySQL Event Storage")]
 [assembly: AssemblyDescription("The implementation of Domain Event Storages built with MySQL database.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("apworks.org")]
+[assembly: AssemblyCompany("daxnet")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
+[assembly: AssemblyCopyright("Copyright © 2009-2015, by daxnet.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

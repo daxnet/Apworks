@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Apworks Unity Object Container")]
 [assembly: AssemblyDescription("Apworks object container implementation of Microsoft Patterns & Practices Unity Application Block.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("apworks.org")]
+[assembly: AssemblyCompany("daxnet")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
+[assembly: AssemblyCopyright("Copyright © 2009-2015, by daxnet.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
