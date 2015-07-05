@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Apworks Direct Bus Implementation")]
 [assembly: AssemblyDescription("The message bus that uses the Message Dispatcher to implement the message publishing mechanism (Will be obsolete, please use Event Aggregator implementation instead).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("apworks.org")]
+[assembly: AssemblyCompany("daxnet")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
+[assembly: AssemblyCopyright("Copyright © 2009-2015, by daxnet.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.5.5164.37969")]
+[assembly: AssemblyVersion("2.5.5662.37915")]
 
