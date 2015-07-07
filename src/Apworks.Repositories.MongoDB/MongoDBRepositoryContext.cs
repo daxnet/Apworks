@@ -156,17 +156,17 @@ namespace Apworks.Repositories.MongoDB
         {
             lock (syncObj)
             {
-                foreach (var newObj in this.NewCollection)
+                foreach (var newObj in this.NewCollection.Keys)
                 {
                     MongoCollection collection = this.GetCollectionForType(newObj.GetType());
                     collection.Insert(newObj);
                 }
-                foreach (var modifiedObj in this.ModifiedCollection)
+                foreach (var modifiedObj in this.ModifiedCollection.Keys)
                 {
                     MongoCollection collection = this.GetCollectionForType(modifiedObj.GetType());
                     collection.Save(modifiedObj);
                 }
-                foreach (var delObj in this.DeletedCollection)
+                foreach (var delObj in this.DeletedCollection.Keys)
                 {
                     Type objType = delObj.GetType();
                     PropertyInfo propertyInfo = objType.GetProperty("ID", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
