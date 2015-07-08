@@ -28,6 +28,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Repositories
 {
@@ -198,6 +199,13 @@ namespace Apworks.Repositories
         /// Commits the transaction.
         /// </summary>
         public abstract void Commit();
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public abstract Task CommitAsync(CancellationToken cancellationToken);
         /// <summary>
         /// Rollback the transaction.
         /// </summary>

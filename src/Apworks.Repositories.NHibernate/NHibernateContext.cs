@@ -33,6 +33,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Apworks.Specifications;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Apworks.Repositories.NHibernate
 {
@@ -205,6 +207,15 @@ namespace Apworks.Repositories.NHibernate
             EnsureSession();
             transaction.Commit();
         }
+
+        public override Task CommitAsync(CancellationToken cancellationToken)
+        {
+            // TODO: This is a temp solution as the session and transaction
+            // will be handled in different thread context, will try to 
+            // find out a more robust solution.
+            return Task.Factory.StartNew(Commit, cancellationToken);
+        }
+
         /// <summary>
         /// Rollback the transaction.
         /// </summary>

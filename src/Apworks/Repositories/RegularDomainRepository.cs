@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Apworks.Specifications;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Repositories
 {
@@ -69,7 +71,24 @@ namespace Apworks.Repositories
         /// <summary>
         /// Commits the changes registered in the domain repository.
         /// </summary>
-        protected override void DoCommit()
+        //protected override void DoCommit()
+        //{
+        //    foreach (var aggregateRootObj in this.SaveHash)
+        //    {
+        //        this.context.RegisterNew(aggregateRootObj);
+        //    }
+        //    foreach (var aggregateRootObj in this.dirtyHash)
+        //    {
+        //        this.context.RegisterModified(aggregateRootObj);
+        //    }
+
+        //    this.context.Commit();
+
+        //    this.dirtyHash.ToList().ForEach(this.DelegatedUpdateAndClearAggregateRoot);
+        //    this.dirtyHash.Clear();
+        //}
+
+        protected override async Task DoCommitAsync(CancellationToken cancellationToken)
         {
             foreach (var aggregateRootObj in this.SaveHash)
             {
@@ -80,7 +99,7 @@ namespace Apworks.Repositories
                 this.context.RegisterModified(aggregateRootObj);
             }
 
-            this.context.Commit();
+            await this.context.CommitAsync(cancellationToken);
 
             this.dirtyHash.ToList().ForEach(this.DelegatedUpdateAndClearAggregateRoot);
             this.dirtyHash.Clear();

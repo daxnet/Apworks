@@ -345,7 +345,9 @@ namespace Apworks.Tests.Common
         {
             var mongoClient = new MongoClient(MongoDB_ConnectionString);
             //MongoServer server = MongoServer.Create(MongoDB_ConnectionString);
+#pragma warning disable 0618
             var server = mongoClient.GetServer();
+#pragma warning restore
             MongoDatabase database = server.GetDatabase(MongoDB_Database);
             database.Drop();
             server.Disconnect();

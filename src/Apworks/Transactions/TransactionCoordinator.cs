@@ -26,6 +26,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Transactions
 {
@@ -87,6 +89,17 @@ namespace Apworks.Transactions
         {
             foreach (var uow in managedUnitOfWorks)
                 uow.Commit();
+        }
+
+        public virtual Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public virtual async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            foreach (var uow in managedUnitOfWorks)
+                await uow.CommitAsync(cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.

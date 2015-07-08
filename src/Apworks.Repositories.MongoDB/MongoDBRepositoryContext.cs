@@ -31,6 +31,8 @@ using MongoDB.Driver.Builders;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Repositories.MongoDB
 {
@@ -180,6 +182,14 @@ namespace Apworks.Repositories.MongoDB
                 this.ClearRegistrations();
                 this.Committed = true;
             }
+        }
+
+        public override Task CommitAsync(CancellationToken cancellationToken)
+        {
+            // TODO: This is a temp solution as the session and transaction
+            // will be handled in different thread context, will try to 
+            // find out a more robust solution.
+            return Task.Factory.StartNew(Commit, cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.

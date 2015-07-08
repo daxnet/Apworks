@@ -25,6 +25,8 @@
 // ==================================================================================================================
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Snapshots.Providers
 {
@@ -122,6 +124,17 @@ namespace Apworks.Snapshots.Providers
         /// Commits the transaction.
         /// </summary>
         public abstract void Commit();
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public virtual Task CommitAsync(CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew(Commit, cancellationToken);
+        }
+
         /// <summary>
         /// Rollback the transaction.
         /// </summary>

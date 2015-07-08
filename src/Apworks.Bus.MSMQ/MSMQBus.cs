@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Bus.MSMQ
 {
@@ -266,6 +268,16 @@ namespace Apworks.Bus.MSMQ
                 }
                 committed = true;
             }
+        }
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public Task CommitAsync(CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew(Commit, cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.

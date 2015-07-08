@@ -25,6 +25,8 @@
 // ================================================================================================================== 
 
 
+using System.Threading;
+using System.Threading.Tasks;
 namespace Apworks
 {
     /// <summary>
@@ -52,6 +54,20 @@ namespace Apworks
         /// Commits the transaction.
         /// </summary>
         void Commit();
+
+        /// <summary>
+        /// Commits the transaction asynchronously.
+        /// </summary>
+        /// <returns>The task that performs the commit operation.</returns>
+        Task CommitAsync();
+
+        /// <summary>
+        /// Commits the transaction asynchronously.
+        /// </summary>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> object which propagates notification that operations should be canceled.</param>
+        /// <returns>The task that performs the commit operation.</returns>
+        Task CommitAsync(CancellationToken cancellationToken);
+
         /// <summary>
         /// Rollback the transaction.
         /// </summary>
