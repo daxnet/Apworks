@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -38,8 +38,8 @@ namespace Apworks.Repositories.MongoDB
     internal static class SortExpressionHelper
     {
         #region Private Static Methods
-        private static IOrderedQueryable<TAggregateRoot> InvokeOrderBy<TAggregateRoot>(IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
-            where TAggregateRoot : class, IAggregateRoot
+        private static IOrderedQueryable<TAggregateRoot> InvokeOrderBy<TKey, TAggregateRoot>(IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
+            where TAggregateRoot : class, IAggregateRoot<TKey>
         {
             var param = sortPredicate.Parameters[0];
             string propertyName = null;
@@ -98,26 +98,28 @@ namespace Apworks.Repositories.MongoDB
         /// <summary>
         /// Sorts the elements of a sequence in ascending order according to a lambda expression.
         /// </summary>
+        /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
         /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
         /// <param name="query">A sequence of values to order.</param>
         /// <param name="sortPredicate">The lambda expression which indicates the property for sorting.</param>
         /// <returns>An <see cref="IOrderedQueryable{T}"/> whose elements are sorted according to the lambda expression.</returns>
-        internal static IOrderedQueryable<TAggregateRoot> OrderBy<TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : class, IAggregateRoot
+        internal static IOrderedQueryable<TAggregateRoot> OrderBy<TKey, TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
+            where TAggregateRoot : class, IAggregateRoot<TKey>
         {
-            return InvokeOrderBy(query, sortPredicate, SortOrder.Ascending);
+            return InvokeOrderBy<TKey, TAggregateRoot>(query, sortPredicate, SortOrder.Ascending);
         }
         /// <summary>
         /// Sorts the elements of a sequence in descending order according to a lambda expression.
         /// </summary>
+        /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
         /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
         /// <param name="query">A sequence of values to order.</param>
         /// <param name="sortPredicate">The lambda expression which indicates the property for sorting.</param>
         /// <returns>An <see cref="IOrderedQueryable{T}"/> whose elements are sorted according to the lambda expression.</returns>
-        internal static IOrderedQueryable<TAggregateRoot> OrderByDescending<TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : class, IAggregateRoot
+        internal static IOrderedQueryable<TAggregateRoot> OrderByDescending<TKey, TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
+            where TAggregateRoot : class, IAggregateRoot<TKey>
         {
-            return InvokeOrderBy(query, sortPredicate, SortOrder.Descending);
+            return InvokeOrderBy<TKey, TAggregateRoot>(query, sortPredicate, SortOrder.Descending);
         }
         #endregion
     }

@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -25,9 +25,13 @@
 // ==================================================================================================================
 
 using Apworks.Events;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Bus.EventAggregator
 {
@@ -37,7 +41,7 @@ namespace Apworks.Bus.EventAggregator
     public abstract class EventAggregatorBus : DisposableObject, IBus
     {
         #region Private Fields
-        private readonly Queue<object> messageQueue = new Queue<object>();
+        private ConcurrentQueue<object> messageQueue = new ConcurrentQueue<object>();
         private readonly IEventAggregator eventAggregator;
         private readonly MethodInfo publishMethod;
         private readonly object sync = new object();
@@ -88,10 +92,7 @@ namespace Apworks.Bus.EventAggregator
         /// <param name="message">The message to be published.</param>
         public void Publish<TMessage>(TMessage message)
         {
-            lock (sync)
-            {
-                PublishInternal<TMessage>(message);
-            }
+            PublishInternal<TMessage>(message);
         }
         /// <summary>
         /// Publishes a collection of messages to the bus.
@@ -100,22 +101,16 @@ namespace Apworks.Bus.EventAggregator
         /// <param name="messages">The messages to be published.</param>
         public void Publish<TMessage>(IEnumerable<TMessage> messages)
         {
-            lock (sync)
-            {
-                foreach (var message in messages)
-                    PublishInternal<TMessage>(message);
-            }
+            foreach (var message in messages)
+                PublishInternal<TMessage>(message);
         }
         /// <summary>
         /// Clears the published messages waiting for commit.
         /// </summary>
         public void Clear()
         {
-            lock (sync)
-            {
-                messageQueue.Clear();
-                committed = true;
-            }
+            Interlocked.Exchange<ConcurrentQueue<object>>(ref messageQueue, new ConcurrentQueue<object>());
+            committed = true;
         }
 
         #endregion
@@ -141,6 +136,7 @@ namespace Apworks.Bus.EventAggregator
         /// <summary>
         /// Commits the transaction.
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Commit()
         {
             lock (sync)
@@ -149,31 +145,45 @@ namespace Apworks.Bus.EventAggregator
                 messageQueue.CopyTo(backupMessageArray, 0);
                 while (messageQueue.Count > 0)
                 {
-                    var @event = messageQueue.Dequeue();
-                    var @eventType = @event.GetType();
-                    var method = publishMethod.MakeGenericMethod(@eventType);
-                    method.Invoke(this.eventAggregator, new object[] { @event });
+                    object result;
+                    if (messageQueue.TryDequeue(out result))
+                    {
+                        var @event = result;
+                        var @eventType = @event.GetType();
+                        var method = publishMethod.MakeGenericMethod(@eventType);
+                        method.Invoke(this.eventAggregator, new object[] { @event });
+                    }
                 }
                 committed = true;
             }
         }
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public Task CommitAsync(CancellationToken cancellationToken)
+        {
+            // TODO: Might need to change the current implementation
+            // to use the ConcurrentQueue instead.
+            return Task.Factory.StartNew(Commit, cancellationToken);
+        }
         /// <summary>
         /// Rollback the transaction.
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Rollback()
         {
-            lock (sync)
+            if (backupMessageArray != null && backupMessageArray.Length > 0)
             {
-                if (backupMessageArray != null && backupMessageArray.Length > 0)
+                Clear();
+                foreach (var msg in backupMessageArray)
                 {
-                    messageQueue.Clear();
-                    foreach (var msg in backupMessageArray)
-                    {
-                        messageQueue.Enqueue(msg);
-                    }
+                    messageQueue.Enqueue(msg);
                 }
-                committed = false;
             }
+            committed = false;
         }
 
         #endregion

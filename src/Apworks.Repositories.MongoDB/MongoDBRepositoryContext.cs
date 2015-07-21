@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -31,6 +31,8 @@ using MongoDB.Driver.Builders;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Repositories.MongoDB
 {
@@ -156,17 +158,17 @@ namespace Apworks.Repositories.MongoDB
         {
             lock (syncObj)
             {
-                foreach (var newObj in this.NewCollection)
+                foreach (var newObj in this.NewCollection.Keys)
                 {
                     MongoCollection collection = this.GetCollectionForType(newObj.GetType());
                     collection.Insert(newObj);
                 }
-                foreach (var modifiedObj in this.ModifiedCollection)
+                foreach (var modifiedObj in this.ModifiedCollection.Keys)
                 {
                     MongoCollection collection = this.GetCollectionForType(modifiedObj.GetType());
                     collection.Save(modifiedObj);
                 }
-                foreach (var delObj in this.DeletedCollection)
+                foreach (var delObj in this.DeletedCollection.Keys)
                 {
                     Type objType = delObj.GetType();
                     PropertyInfo propertyInfo = objType.GetProperty("ID", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
@@ -180,6 +182,14 @@ namespace Apworks.Repositories.MongoDB
                 this.ClearRegistrations();
                 this.Committed = true;
             }
+        }
+
+        public override Task CommitAsync(CancellationToken cancellationToken)
+        {
+            // TODO: This is a temp solution as the session and transaction
+            // will be handled in different thread context, will try to 
+            // find out a more robust solution.
+            return Task.Factory.StartNew(Commit, cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.

@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -31,11 +31,23 @@ namespace Apworks
     /// <summary>
     /// Represents that the implemented classes are domain entities.
     /// </summary>
-    public interface IEntity
+    /// <typeparam name="TKey">The type of the key of the entity.</typeparam>
+    public interface IEntity<TKey>
     {
         /// <summary>
         /// Gets or sets the identifier of the entity.
         /// </summary>
-        Guid ID { get; set; }
+        /// <value>
+        /// The identifier of the entity.
+        /// </value>
+        TKey ID { get; set; }
+    }
+
+    /// <summary>
+    /// Represents that the implemented classes are domain entities.
+    /// </summary>
+    public interface IEntity : IEntity<Guid>
+    {
+
     }
 }

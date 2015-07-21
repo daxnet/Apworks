@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Apworks.Specifications;
 using Apworks.Storage;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Apworks.Events.Storage
 {
@@ -187,6 +189,16 @@ namespace Apworks.Events.Storage
         public virtual void Commit()
         {
             storage.Commit();
+        }
+
+        public virtual async Task CommitAsync()
+        {
+            await storage.CommitAsync();
+        }
+
+        public virtual async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            await storage.CommitAsync(cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.

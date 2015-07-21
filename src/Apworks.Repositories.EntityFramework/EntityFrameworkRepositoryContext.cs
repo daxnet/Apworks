@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -26,6 +26,8 @@
 
 using System;
 using System.Data.Entity;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Repositories.EntityFramework
 {
@@ -139,6 +141,16 @@ namespace Apworks.Repositories.EntityFramework
                 Committed = true;
             }
         }
+
+        public override async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            if (!Committed)
+            {
+                await efContext.SaveChangesAsync(cancellationToken);
+                Committed = true;
+            }
+        }
+
         /// <summary>
         /// Rollback the transaction.
         /// </summary>

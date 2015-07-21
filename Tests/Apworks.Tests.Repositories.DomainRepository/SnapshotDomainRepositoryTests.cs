@@ -5,6 +5,7 @@ using Apworks.Tests.Common;
 using Apworks.Tests.Common.AggregateRoots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading.Tasks;
 
 namespace Apworks.Tests.Repositories.DomainRepository
 {
@@ -83,6 +84,33 @@ namespace Apworks.Tests.Repositories.DomainRepository
             {
                 domainRepository.Save<SourcedCustomer>(customer);
                 domainRepository.Commit();
+            }
+            int cnt = Helper.ReadRecordCountFromSQLExpressCQRSTestDB(Helper.CQRSTestDB_Table_Snapshots);
+            Assert.AreEqual<int>(1, cnt);
+            using (IDomainRepository domainRepository = application.ObjectContainer.GetService<IDomainRepository>())
+            {
+                SourcedCustomer sourcedCustomer = null;
+                sourcedCustomer = domainRepository.Get<SourcedCustomer>(id);
+                Assert.AreEqual<string>("Qingyang", sourcedCustomer.FirstName);
+                Assert.AreEqual<string>("Chen", sourcedCustomer.LastName);
+            }
+        }
+
+        [TestMethod]
+        public async Task SnapshotDomainRepositoryTests_SaveAggregateRootAndPublishToDirectBusTestAsync()
+        {
+            IConfigSource configSource = Helper.ConfigSource_Repositories_SnapshotDomainRepository_DirectBus;
+            IApp application = AppRuntime.Create(configSource);
+            application.Initialize += new System.EventHandler<AppInitEventArgs>(Helper.AppInit_Repositories_SnapshotDomainRepository_DirectBus);
+            application.Start();
+
+            SourcedCustomer customer = new SourcedCustomer();
+            Guid id = customer.ID;
+            customer.ChangeName("Qingyang", "Chen");
+            using (IDomainRepository domainRepository = application.ObjectContainer.GetService<IDomainRepository>())
+            {
+                domainRepository.Save<SourcedCustomer>(customer);
+                await domainRepository.CommitAsync();
             }
             int cnt = Helper.ReadRecordCountFromSQLExpressCQRSTestDB(Helper.CQRSTestDB_Table_Snapshots);
             Assert.AreEqual<int>(1, cnt);

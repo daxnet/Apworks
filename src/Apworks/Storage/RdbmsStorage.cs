@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -33,6 +33,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Apworks.Specifications;
 using Apworks.Storage.Builders;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Apworks.Storage
 {
@@ -1054,6 +1056,72 @@ namespace Apworks.Storage
             deletedObjectSpecs.Clear();
             committed = true;
         }
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public virtual async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            using (DbConnection connection = this.CreateDatabaseConnection())
+            {
+                try
+                {
+                    await connection.OpenAsync(cancellationToken);
+                    using (DbTransaction transaction = connection.BeginTransaction(this.IsolationLevel))
+                    {
+                        try
+                        {
+                            // insert...
+                            foreach (var item in newObjectSpecs)
+                            {
+                                Type type = item.Item1;
+                                PropertyBag propertyBag = item.Item2;
+                                MethodInfo insertMethod = MakeGenericInsertMethod(type);
+                                insertMethod.Invoke(this, new object[] { propertyBag, connection, transaction });
+                            }
+                            // update...
+                            foreach (var item in modifiedObjectSpecs)
+                            {
+                                Type type = item.Item1;
+                                PropertyBag propertyBag = item.Item2;
+                                object specification = item.Item3;
+                                MethodInfo updateMethod = MakeGenericUpdateMethod(type);
+                                updateMethod.Invoke(this, new object[] { propertyBag, specification, connection, transaction });
+                            }
+                            // delete...
+                            foreach (var item in deletedObjectSpecs)
+                            {
+                                Type type = item.Item1;
+                                object specification = item.Item2;
+                                MethodInfo deleteMethod = MakeGenericDeleteMethod(type);
+                                deleteMethod.Invoke(this, new object[] { specification, connection, transaction });
+                            }
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            newObjectSpecs.Clear();
+            modifiedObjectSpecs.Clear();
+            deletedObjectSpecs.Clear();
+            committed = true;
+        }
+
         /// <summary>
         /// Rollback the transaction.
         /// </summary>

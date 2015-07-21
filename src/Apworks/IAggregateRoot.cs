@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -27,10 +27,21 @@
 
 namespace Apworks
 {
+    using System;
+
     /// <summary>
     /// Represents that the implemented classes are aggregate roots.
     /// </summary>
-    public interface IAggregateRoot : IEntity
+    /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
+    public interface IAggregateRoot<TKey> : IEntity<TKey>
+    {
+        
+    }
+
+    /// <summary>
+    /// Represents that the implemented classes are aggregate roots.
+    /// </summary>
+    public interface IAggregateRoot : IAggregateRoot<Guid>, IEntity
     {
 
     }

@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -24,15 +24,17 @@
 // limitations under the License.
 // ==================================================================================================================
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
 using Apworks.Bus;
 using Apworks.Events;
 using Apworks.Events.Storage;
 using Apworks.Snapshots;
 using Apworks.Snapshots.Providers;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Apworks.Repositories
 {
@@ -68,7 +70,56 @@ namespace Apworks.Repositories
         /// <summary>
         /// Commits the changes registered in the domain repository.
         /// </summary>
-        protected override void DoCommit()
+        //protected override void DoCommit()
+        //{
+        //    // firstly we save and publish the event via domain event storage
+        //    // and the event bus.
+        //    foreach (ISourcedAggregateRoot aggregateRoot in this.SaveHash)
+        //    {
+        //        if (this.snapshotProvider != null && this.snapshotProvider.Option == SnapshotProviderOption.Immediate)
+        //        {
+        //            if (this.snapshotProvider.CanCreateOrUpdateSnapshot(aggregateRoot))
+        //            {
+        //                this.snapshotProvider.CreateOrUpdateSnapshot(aggregateRoot);
+        //            }
+        //        }
+        //        IEnumerable<IDomainEvent> events = aggregateRoot.UncommittedEvents;
+        //        foreach (var evt in events)
+        //        {
+        //            domainEventStorage.SaveEvent(evt);
+        //            this.EventBus.Publish(evt);
+        //        }
+        //    }
+        //    // then commit the save/publish via UoW.
+        //    if (this.DistributedTransactionSupported)
+        //    {
+        //        // the distributed transaction is supported either by domain event storage
+        //        // or by the event bus. use the MS-DTC (Distributed Transaction Coordinator)
+        //        // to commit the transaction. This solves the 2PC for deivces that are
+        //        // distributed transaction compatible.
+        //        using (TransactionScope ts = new TransactionScope())
+        //        {
+        //            domainEventStorage.Commit();
+        //            this.EventBus.Commit();
+        //            if (this.snapshotProvider != null && this.snapshotProvider.Option == SnapshotProviderOption.Immediate)
+        //            {
+        //                this.snapshotProvider.Commit();
+        //            }
+        //            ts.Complete();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        domainEventStorage.Commit();
+        //        this.EventBus.Commit();
+        //        if (this.snapshotProvider != null && this.snapshotProvider.Option == SnapshotProviderOption.Immediate)
+        //        {
+        //            this.snapshotProvider.Commit();
+        //        }
+        //    }
+        //}
+
+        protected override async Task DoCommitAsync(CancellationToken cancellationToken)
         {
             // firstly we save and publish the event via domain event storage
             // and the event bus.
@@ -95,27 +146,28 @@ namespace Apworks.Repositories
                 // or by the event bus. use the MS-DTC (Distributed Transaction Coordinator)
                 // to commit the transaction. This solves the 2PC for deivces that are
                 // distributed transaction compatible.
-                using (TransactionScope ts = new TransactionScope())
+                using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    domainEventStorage.Commit();
-                    this.EventBus.Commit();
+                    await domainEventStorage.CommitAsync(cancellationToken);
+                    await this.EventBus.CommitAsync(cancellationToken);
                     if (this.snapshotProvider != null && this.snapshotProvider.Option == SnapshotProviderOption.Immediate)
                     {
-                        this.snapshotProvider.Commit();
+                        await this.snapshotProvider.CommitAsync(cancellationToken);
                     }
                     ts.Complete();
                 }
             }
             else
             {
-                domainEventStorage.Commit();
-                this.EventBus.Commit();
+                await domainEventStorage.CommitAsync(cancellationToken);
+                await this.EventBus.CommitAsync(cancellationToken);
                 if (this.snapshotProvider != null && this.snapshotProvider.Option == SnapshotProviderOption.Immediate)
                 {
-                    this.snapshotProvider.Commit();
+                    await this.snapshotProvider.CommitAsync(cancellationToken);
                 }
             }
         }
+
         /// <summary>
         /// Disposes the object.
         /// </summary>

@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -30,6 +30,8 @@ using Apworks.Snapshots;
 using Apworks.Specifications;
 using Apworks.Storage;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Apworks.Repositories
 {
@@ -63,7 +65,41 @@ namespace Apworks.Repositories
         /// <summary>
         /// Commits the changes registered in the domain repository.
         /// </summary>
-        protected override void DoCommit()
+        //protected override void DoCommit()
+        //{
+        //    foreach (ISourcedAggregateRoot aggregateRoot in this.SaveHash)
+        //    {
+        //        SnapshotDataObject snapshotDataObject = SnapshotDataObject.CreateFromAggregateRoot(aggregateRoot);
+        //        var aggregateRootId = aggregateRoot.ID;
+        //        var aggregateRootType = aggregateRoot.GetType().AssemblyQualifiedName;
+        //        ISpecification<SnapshotDataObject> spec = Specification<SnapshotDataObject>.Eval(p => p.AggregateRootID == aggregateRootId && p.AggregateRootType == aggregateRootType);
+        //        var firstMatch = this.storage.SelectFirstOnly<SnapshotDataObject>(spec);
+        //        if (firstMatch != null)
+        //            this.storage.Update<SnapshotDataObject>(new PropertyBag(snapshotDataObject), spec);
+        //        else
+        //            this.storage.Insert<SnapshotDataObject>(new PropertyBag(snapshotDataObject));
+        //        foreach (var evnt in aggregateRoot.UncommittedEvents)
+        //        {
+        //            this.EventBus.Publish(evnt);
+        //        }
+        //    }
+        //    if (this.DistributedTransactionSupported)
+        //    {
+        //        using (TransactionScope ts = new TransactionScope())
+        //        {
+        //            this.storage.Commit();
+        //            this.EventBus.Commit();
+        //            ts.Complete();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        this.storage.Commit();
+        //        this.EventBus.Commit();
+        //    }
+        //}
+
+        protected override async Task DoCommitAsync(CancellationToken cancellationToken)
         {
             foreach (ISourcedAggregateRoot aggregateRoot in this.SaveHash)
             {
@@ -83,19 +119,20 @@ namespace Apworks.Repositories
             }
             if (this.DistributedTransactionSupported)
             {
-                using (TransactionScope ts = new TransactionScope())
+                using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    this.storage.Commit();
-                    this.EventBus.Commit();
+                    await this.storage.CommitAsync(cancellationToken);
+                    await this.EventBus.CommitAsync(cancellationToken);
                     ts.Complete();
                 }
             }
             else
             {
-                this.storage.Commit();
-                this.EventBus.Commit();
+                await this.storage.CommitAsync(cancellationToken);
+                await this.EventBus.CommitAsync(cancellationToken);
             }
         }
+
         /// <summary>
         /// Disposes the object.
         /// </summary>

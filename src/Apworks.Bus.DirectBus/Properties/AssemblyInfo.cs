@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Apworks Direct Bus Implementation")]
 [assembly: AssemblyDescription("The message bus that uses the Message Dispatcher to implement the message publishing mechanism (Will be obsolete, please use Event Aggregator implementation instead).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("apworks.org")]
+[assembly: AssemblyCompany("daxnet")]
 [assembly: AssemblyProduct("Apworks Application Development Framework")]
-[assembly: AssemblyCopyright("Copyright © 2009-2013, apworks.org")]
+[assembly: AssemblyCopyright("Copyright © 2009-2015, by daxnet.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

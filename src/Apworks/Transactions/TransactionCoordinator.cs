@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -26,6 +26,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Transactions
 {
@@ -87,6 +89,17 @@ namespace Apworks.Transactions
         {
             foreach (var uow in managedUnitOfWorks)
                 uow.Commit();
+        }
+
+        public virtual Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public virtual async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            foreach (var uow in managedUnitOfWorks)
+                await uow.CommitAsync(cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.

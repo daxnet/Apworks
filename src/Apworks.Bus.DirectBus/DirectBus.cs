@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -24,7 +24,11 @@
 // limitations under the License.
 // ==================================================================================================================
 
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Bus.DirectBus
 {
@@ -37,7 +41,7 @@ namespace Apworks.Bus.DirectBus
         #region Private Fields
         private volatile bool committed = true;
         private readonly IMessageDispatcher dispatcher;
-        private readonly Queue<object> messageQueue = new Queue<object>();
+        private ConcurrentQueue<object> messageQueue = new ConcurrentQueue<object>();
         private readonly object queueLock = new object();
         private object[] backupMessageArray;
         #endregion
@@ -48,7 +52,7 @@ namespace Apworks.Bus.DirectBus
         /// </summary>
         /// <param name="dispatcher">The <see cref="Apworks.Bus.IMessageDispatcher"/> which
         /// dispatches messages in the bus.</param>
-        public DirectBus(IMessageDispatcher dispatcher)
+        protected DirectBus(IMessageDispatcher dispatcher)
         {
             this.dispatcher = dispatcher;
         }
@@ -72,11 +76,8 @@ namespace Apworks.Bus.DirectBus
         /// <param name="message">The message to be published.</param>
         public void Publish<TMessage>(TMessage message)
         {
-            lock (queueLock)
-            {
-                messageQueue.Enqueue(message);
-                committed = false;
-            }
+            messageQueue.Enqueue(message);
+            committed = false;
         }
         /// <summary>
         /// Publishes a collection of messages to the bus.
@@ -84,24 +85,18 @@ namespace Apworks.Bus.DirectBus
         /// <param name="messages">The messages to be published.</param>
         public void Publish<TMessage>(IEnumerable<TMessage> messages)
         {
-            lock (queueLock)
+            foreach (var message in messages)
             {
-                foreach (var message in messages)
-                {
-                    messageQueue.Enqueue(message);
-                }
-                committed = false;
+                messageQueue.Enqueue(message);
             }
+            committed = false;
         }
         /// <summary>
         /// Clears the published messages waiting for commit.
         /// </summary>
         public void Clear()
         {
-            lock (queueLock)
-            {
-                this.messageQueue.Clear();
-            }
+            Interlocked.Exchange<ConcurrentQueue<object>>(ref messageQueue, new ConcurrentQueue<object>());
         }
         #endregion
 
@@ -126,36 +121,46 @@ namespace Apworks.Bus.DirectBus
         /// <summary>
         /// Commits the transaction.
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Commit()
         {
-            lock (queueLock)
+            backupMessageArray = new object[messageQueue.Count];
+            messageQueue.CopyTo(backupMessageArray, 0);
+            while (messageQueue.Count > 0)
             {
-                backupMessageArray = new object[messageQueue.Count];
-                messageQueue.CopyTo(backupMessageArray, 0);
-                while (messageQueue.Count > 0)
+                object result;
+                if (messageQueue.TryDequeue(out result))
                 {
-                    dispatcher.DispatchMessage(messageQueue.Dequeue());
+                    dispatcher.DispatchMessage(result);
                 }
-                committed = true;
             }
+            committed = true;
+        }
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public Task CommitAsync(CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew(Commit, cancellationToken);
         }
         /// <summary>
         /// Rollback the transaction.
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Rollback()
         {
-            lock (queueLock)
+            if (backupMessageArray != null && backupMessageArray.Length > 0)
             {
-                if (backupMessageArray != null && backupMessageArray.Length > 0)
+                Clear();
+                foreach (var msg in backupMessageArray)
                 {
-                    messageQueue.Clear();
-                    foreach (var msg in backupMessageArray)
-                    {
-                        messageQueue.Enqueue(msg);
-                    }
+                    messageQueue.Enqueue(msg);
                 }
-                committed = false;
             }
+            committed = false;
         }
         #endregion
     }

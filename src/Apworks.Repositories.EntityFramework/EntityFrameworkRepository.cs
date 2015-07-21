@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -36,9 +36,10 @@ namespace Apworks.Repositories.EntityFramework
     /// <summary>
     /// Represents the Entity Framework repository.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    public class EntityFrameworkRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         #region Private Fields
         private readonly IEntityFrameworkRepositoryContext efContext;
@@ -115,9 +116,12 @@ namespace Apworks.Repositories.EntityFramework
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        protected override TAggregateRoot DoGetByKey(object key)
+        protected override TAggregateRoot DoGetByKey(TKey key)
         {
-            return efContext.Context.Set<TAggregateRoot>().Where(p => p.ID == (Guid)key).First();
+            return
+                efContext.Context.Set<TAggregateRoot>()
+                    .Where(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>((TKey)key))
+                    .First();
         }
         /// <summary>
         /// Gets all the aggregate roots from repository.
@@ -185,6 +189,7 @@ namespace Apworks.Repositories.EntityFramework
                 throw new ArgumentException("Aggregate not found.");
             return results;
         }
+
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -192,24 +197,27 @@ namespace Apworks.Repositories.EntityFramework
         /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
         /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
         /// <returns>The aggregate roots.</returns>
-        protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder)
+        protected override IQueryable<TAggregateRoot> DoFindAll(
+            ISpecification<TAggregateRoot> specification,
+            Expression<Func<TAggregateRoot, dynamic>> sortPredicate,
+            SortOrder sortOrder)
         {
-            var query = efContext.Context.Set<TAggregateRoot>()
-                .Where(specification.GetExpression());
+            var query = efContext.Context.Set<TAggregateRoot>().Where(specification.GetExpression());
             if (sortPredicate != null)
             {
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return query.SortBy(sortPredicate);
+                        return query.SortBy<TKey, TAggregateRoot>(sortPredicate);
                     case SortOrder.Descending:
-                        return query.SortByDescending(sortPredicate);
+                        return query.SortByDescending<TKey, TAggregateRoot>(sortPredicate);
                     default:
                         break;
                 }
             }
             return query;
         }
+
         /// <summary>
         /// Finds all the aggregate roots from repository.
         /// </summary>
@@ -236,12 +244,12 @@ namespace Apworks.Repositories.EntityFramework
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
-                    var pagedGroupAscending = query.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                    var pagedGroupAscending = query.SortBy<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                         if (pagedGroupAscending == null)
                             return null;
                         return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
-                    var pagedGroupDescending = query.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                    var pagedGroupDescending = query.SortByDescending<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                         if (pagedGroupDescending == null)
                             return null;
                         return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
@@ -285,9 +293,9 @@ namespace Apworks.Repositories.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return queryable.SortBy(sortPredicate);
+                        return queryable.SortBy<TKey, TAggregateRoot>(sortPredicate);
                     case SortOrder.Descending:
-                        return queryable.SortByDescending(sortPredicate);
+                        return queryable.SortByDescending<TKey, TAggregateRoot>(sortPredicate);
                     default:
                         break;
                 }
@@ -339,12 +347,12 @@ namespace Apworks.Repositories.EntityFramework
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
-                    var pagedGroupAscending = queryable.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    var pagedGroupAscending = queryable.SortBy<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
                     if (pagedGroupAscending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
-                    var pagedGroupDescending = queryable.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    var pagedGroupDescending = queryable.SortByDescending<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
                     if (pagedGroupDescending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
@@ -443,5 +451,23 @@ namespace Apworks.Repositories.EntityFramework
             efContext.RegisterModified(aggregateRoot);
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Represents the Entity Framework repository.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+    public class EntityFrameworkRepository<TAggregateRoot> : EntityFrameworkRepository<Guid, TAggregateRoot>,
+                                                             IRepository<TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityFrameworkRepository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The repository context.</param>
+        public EntityFrameworkRepository(IRepositoryContext context)
+            : base(context)
+        {
+        }
     }
 }

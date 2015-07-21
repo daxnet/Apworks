@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C4BB49A-A2FC-4C56-8F46-B5A42EAD3A2F}"
 	ProjectSection(SolutionItems) = preProject
@@ -66,6 +66,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks.Tests.Repositories.NHibernateRepository", "tests\Apworks.Tests.Repositories.NHibernateRepository\Apworks.Tests.Repositories.NHibernateRepository.csproj", "{22E69AC0-13E4-4934-BA2E-612093BF7ABC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apworks.Bus.EventAggregator", "src\Apworks.Bus.EventAggregator\Apworks.Bus.EventAggregator.csproj", "{8589C2F6-6D22-4F40-B55E-5A2E7C740874}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C23C2C3D-D626-4BAE-AC82-5C0EBEAD52F0}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

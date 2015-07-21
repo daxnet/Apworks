@@ -6,6 +6,7 @@ using Apworks.Repositories;
 using Apworks.Tests.Common;
 using Apworks.Tests.Common.AggregateRoots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace Apworks.Tests.Repositories.DomainRepository
 {
@@ -81,6 +82,29 @@ namespace Apworks.Tests.Repositories.DomainRepository
             {
                 domainRepository.Save<SourcedCustomer>(customer);
                 domainRepository.Commit();
+            }
+            Assert.AreEqual<long>(2, customer.Version);
+            int recordCnt = Helper.ReadRecordCountFromSQLExpressCQRSTestDB(Helper.CQRSTestDB_Table_DomainEvents);
+            Assert.AreEqual<int>(2, recordCnt);
+            int msgCnt = Helper.GetMessageQueueCount(Helper.EventBus_MessageQueue);
+            Assert.AreEqual<int>(2, msgCnt);
+        }
+
+        [TestMethod]
+        public async Task EventSourcedDomainRepositoryTests_SaveAggregateRootTestAsync()
+        {
+            IConfigSource configSource = Helper.ConfigSource_Repositories_EventSourcedDomainRepositoryWithMSMQBusButWithoutSnapshotProvider;
+            IApp app = AppRuntime.Create(configSource);
+            app.Initialize += Helper.AppInit_Repositories_EventSourcedDomainRepositoryWithMSMQBusButWithoutSnapshotProvider;
+            app.Start();
+
+            SourcedCustomer customer = new SourcedCustomer();
+            customer.ChangeName("sunny", "chen");
+            Assert.AreEqual<long>(2, customer.Version);
+            using (IDomainRepository domainRepository = app.ObjectContainer.GetService<IDomainRepository>())
+            {
+                domainRepository.Save<SourcedCustomer>(customer);
+                await domainRepository.CommitAsync();
             }
             Assert.AreEqual<long>(2, customer.Version);
             int recordCnt = Helper.ReadRecordCountFromSQLExpressCQRSTestDB(Helper.CQRSTestDB_Table_DomainEvents);

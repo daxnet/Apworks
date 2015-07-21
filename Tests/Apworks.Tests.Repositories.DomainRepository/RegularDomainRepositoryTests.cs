@@ -6,6 +6,7 @@ using Apworks.Repositories;
 using Apworks.Tests.Common;
 using Apworks.Tests.Common.AggregateRoots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace Apworks.Tests.Repositories.DomainRepository
 {
@@ -83,6 +84,29 @@ namespace Apworks.Tests.Repositories.DomainRepository
             {
                 domainRepository.Save<SourcedCustomer>(customer);
                 domainRepository.Commit();
+
+                int cnt = Helper.ReadRecordCountFromSQLExpressCQRSTestDB(Helper.CQRSTestDB_Table_SourcedCustomer);
+                Assert.AreEqual<int>(1, cnt);
+                SourcedCustomer customer2 = null;
+
+                customer2 = domainRepository.Get<SourcedCustomer>(id);
+                Assert.IsNotNull(customer2);
+                Assert.AreEqual<string>("Sunny", customer2.FirstName);
+                Assert.AreEqual<string>("Chen", customer2.LastName);
+                Assert.AreEqual<string>("daxnet@live.com", customer2.Email);
+            }
+        }
+
+        [TestMethod]
+        public async Task RegularDomainRepositoryTests_SaveAggregateRootTestAsync()
+        {
+            SourcedCustomer customer = new SourcedCustomer();
+            Guid id = customer.ID;
+            customer.ChangeEmail("daxnet@live.com");
+            using (IDomainRepository domainRepository = application.ObjectContainer.GetService<IDomainRepository>())
+            {
+                domainRepository.Save<SourcedCustomer>(customer);
+                await domainRepository.CommitAsync();
 
                 int cnt = Helper.ReadRecordCountFromSQLExpressCQRSTestDB(Helper.CQRSTestDB_Table_SourcedCustomer);
                 Assert.AreEqual<int>(1, cnt);

@@ -9,6 +9,7 @@ using Apworks.Tests.Common;
 using Apworks.Tests.Common.AggregateRoots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Apworks.Generators;
+using System.Threading.Tasks;
 
 namespace Apworks.Tests.Repositories.NHibernateRepository
 {
@@ -106,6 +107,17 @@ namespace Apworks.Tests.Repositories.NHibernateRepository
             IRepository<Customer> customerRepository = ServiceLocator.Instance.GetService<IRepository<Customer>>();
             customerRepository.Add(customer);
             customerRepository.Context.Commit();
+            customerRepository.Context.Dispose();
+            Assert.IsNotNull(customer.ID);
+        }
+
+        [TestMethod]
+        [Description("Test the adding of an aggregate root to the repository.")]
+        public async Task NHibernateRepositoryTests_AddAggregateRootToRepositoryTestAsync()
+        {
+            IRepository<Customer> customerRepository = ServiceLocator.Instance.GetService<IRepository<Customer>>();
+            customerRepository.Add(customer);
+            await customerRepository.Context.CommitAsync();
             customerRepository.Context.Dispose();
             Assert.IsNotNull(customer.ID);
         }

@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -38,23 +38,29 @@ namespace Apworks.Repositories.EntityFramework
     internal static class SortByExtension
     {
         #region Internal Methods
-        internal static IOrderedQueryable<TAggregateRoot> SortBy<TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : class, IAggregateRoot
+
+        internal static IOrderedQueryable<TAggregateRoot> SortBy<TKey, TAggregateRoot>(
+            this IQueryable<TAggregateRoot> query,
+            Expression<Func<TAggregateRoot, dynamic>> sortPredicate) where TAggregateRoot : class, IAggregateRoot<TKey>
         {
-            return InvokeSortBy(query, sortPredicate, SortOrder.Ascending);
+            return InvokeSortBy<TKey, TAggregateRoot>(query, sortPredicate, SortOrder.Ascending);
         }
 
-        internal static IOrderedQueryable<TAggregateRoot> SortByDescending<TAggregateRoot>(this IQueryable<TAggregateRoot> query, Expression<Func<TAggregateRoot, dynamic>> sortPredicate)
-            where TAggregateRoot : class, IAggregateRoot
+        internal static IOrderedQueryable<TAggregateRoot> SortByDescending<TKey, TAggregateRoot>(
+            this IQueryable<TAggregateRoot> query,
+            Expression<Func<TAggregateRoot, dynamic>> sortPredicate) where TAggregateRoot : class, IAggregateRoot<TKey>
         {
-            return InvokeSortBy(query, sortPredicate, SortOrder.Descending);
+            return InvokeSortBy<TKey, TAggregateRoot>(query, sortPredicate, SortOrder.Descending);
         }
+
         #endregion
 
         #region Private Methods
-        private static IOrderedQueryable<TAggregateRoot> InvokeSortBy<TAggregateRoot>(IQueryable<TAggregateRoot> query,
-            Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
-            where TAggregateRoot : class, IAggregateRoot
+
+        private static IOrderedQueryable<TAggregateRoot> InvokeSortBy<TKey, TAggregateRoot>(
+            IQueryable<TAggregateRoot> query,
+            Expression<Func<TAggregateRoot, dynamic>> sortPredicate,
+            SortOrder sortOrder) where TAggregateRoot : class, IAggregateRoot<TKey>
         {
             var param = sortPredicate.Parameters[0];
             string propertyName = null;
@@ -69,8 +75,7 @@ namespace Apworks.Repositories.EntityFramework
             {
                 bodyExpression = sortPredicate.Body;
             }
-            else
-                throw new ArgumentException(@"The body of the sort predicate expression should be 
+            else throw new ArgumentException(@"The body of the sort predicate expression should be 
                 either UnaryExpression or MemberExpression.", "sortPredicate");
             MemberExpression memberExpression = (MemberExpression)bodyExpression;
             propertyName = memberExpression.Member.Name;
@@ -79,22 +84,25 @@ namespace Apworks.Repositories.EntityFramework
                 PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;
                 propertyType = propertyInfo.PropertyType;
             }
-            else
-                throw new InvalidOperationException(@"Cannot evaluate the type of property since the member expression 
+            else throw new InvalidOperationException(@"Cannot evaluate the type of property since the member expression 
                 represented by the sort predicate expression does not contain a PropertyInfo object.");
 
             Type funcType = typeof(Func<,>).MakeGenericType(typeof(TAggregateRoot), propertyType);
-            LambdaExpression convertedExpression = Expression.Lambda(funcType,
-                Expression.Convert(Expression.Property(param, propertyName), propertyType), param);
+            LambdaExpression convertedExpression = Expression.Lambda(
+                funcType,
+                Expression.Convert(Expression.Property(param, propertyName), propertyType),
+                param);
 
             var sortingMethods = typeof(Queryable).GetMethods(BindingFlags.Public | BindingFlags.Static);
             var sortingMethodName = GetSortingMethodName(sortOrder);
-            var sortingMethod = sortingMethods.Where(sm => sm.Name == sortingMethodName &&
-                sm.GetParameters() != null &&
-                sm.GetParameters().Length == 2).First();
-            return (IOrderedQueryable<TAggregateRoot>)sortingMethod
-                .MakeGenericMethod(typeof(TAggregateRoot), propertyType)
-                .Invoke(null, new object[] { query, convertedExpression });
+            var sortingMethod =
+                sortingMethods.Where(
+                    sm => sm.Name == sortingMethodName && sm.GetParameters() != null && sm.GetParameters().Length == 2)
+                    .First();
+            return
+                (IOrderedQueryable<TAggregateRoot>)
+                sortingMethod.MakeGenericMethod(typeof(TAggregateRoot), propertyType)
+                    .Invoke(null, new object[] { query, convertedExpression });
         }
 
         private static string GetSortingMethodName(SortOrder sortOrder)
@@ -106,10 +114,12 @@ namespace Apworks.Repositories.EntityFramework
                 case SortOrder.Descending:
                     return "OrderByDescending";
                 default:
-                    throw new ArgumentException("Sort Order must be specified as either Ascending or Descending.",
-            "sortOrder");
+                    throw new ArgumentException(
+                        "Sort Order must be specified as either Ascending or Descending.",
+                        "sortOrder");
             }
         }
+
         #endregion
     }
 }

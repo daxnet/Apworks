@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -28,6 +28,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Apworks.Repositories
 {
@@ -78,7 +80,9 @@ namespace Apworks.Repositories
         /// <summary>
         /// Commits the changes registered in the domain repository.
         /// </summary>
-        protected abstract void DoCommit();
+        //protected abstract void DoCommit();
+
+        protected abstract Task DoCommitAsync(CancellationToken cancellationToken);
         /// <summary>
         /// Disposes the object.
         /// </summary>
@@ -150,7 +154,22 @@ namespace Apworks.Repositories
         /// </summary>
         public void Commit()
         {
-            this.DoCommit();
+            //this.DoCommit();
+            //this.saveHash.ToList().ForEach(this.delegatedUpdateAndClearAggregateRoot);
+            //this.saveHash.Clear();
+            //this.committed = true;
+
+            Task.WaitAll(CommitAsync());
+        }
+
+        public Task CommitAsync()
+        {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            await this.DoCommitAsync(cancellationToken);
             this.saveHash.ToList().ForEach(this.delegatedUpdateAndClearAggregateRoot);
             this.saveHash.Clear();
             this.committed = true;

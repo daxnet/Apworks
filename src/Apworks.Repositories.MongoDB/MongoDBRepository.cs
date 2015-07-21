@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -38,9 +38,10 @@ namespace Apworks.Repositories.MongoDB
     /// <summary>
     /// Represents the MongoDB repository.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    public class MongoDBRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         #region Private Fields
         private readonly IMongoDBRepositoryContext mongoDBRepositoryContext;
@@ -74,11 +75,10 @@ namespace Apworks.Repositories.MongoDB
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        protected override TAggregateRoot DoGetByKey(object key)
+        protected override TAggregateRoot DoGetByKey(TKey key)
         {
             MongoCollection collection = mongoDBRepositoryContext.GetCollectionForType(typeof(TAggregateRoot));
-            Guid id = (Guid)key;
-            return collection.AsQueryable<TAggregateRoot>().Where(p => p.ID == id).First();
+            return collection.AsQueryable<TAggregateRoot>().Where(p => p.ID.Equals(key)).First();
         }
         /// <summary>
         /// Gets all the aggregate roots from repository.
@@ -310,5 +310,23 @@ namespace Apworks.Repositories.MongoDB
             mongoDBRepositoryContext.RegisterModified(aggregateRoot);
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Represents the MongoDB repository.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+    public class MongoDBRepository<TAggregateRoot> : MongoDBRepository<Guid, TAggregateRoot>,
+                                                     IRepository<TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDBRepository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The <see cref="IRepositoryContext" /> object for initializing the current repository.</param>
+        public MongoDBRepository(IRepositoryContext context)
+            : base(context)
+        {
+        }
     }
 }

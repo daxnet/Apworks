@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -25,6 +25,8 @@
 // ================================================================================================================== 
 
 
+using System.Threading;
+using System.Threading.Tasks;
 namespace Apworks
 {
     /// <summary>
@@ -52,6 +54,20 @@ namespace Apworks
         /// Commits the transaction.
         /// </summary>
         void Commit();
+
+        /// <summary>
+        /// Commits the transaction asynchronously.
+        /// </summary>
+        /// <returns>The task that performs the commit operation.</returns>
+        Task CommitAsync();
+
+        /// <summary>
+        /// Commits the transaction asynchronously.
+        /// </summary>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> object which propagates notification that operations should be canceled.</param>
+        /// <returns>The task that performs the commit operation.</returns>
+        Task CommitAsync(CancellationToken cancellationToken);
+
         /// <summary>
         /// Rollback the transaction.
         /// </summary>

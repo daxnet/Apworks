@@ -6,7 +6,17 @@
         <Property Name="ID" MapTo="Id" Identity="true" AutoGenerate="false"/>
       </Properties>
     </DataType>
+    <DataType FullName="Apworks.Events.Storage.DomainEventDataObject`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" MapTo="DomainEvents">
+      <Properties>
+        <Property Name="ID" MapTo="Id" Identity="true" AutoGenerate="false"/>
+      </Properties>
+    </DataType>
     <DataType FullName="Apworks.Snapshots.SnapshotDataObject" MapTo="Snapshots">
+      <Properties>
+        <Property Name="ID" MapTo="Id" Identity="true" AutoGenerate="false"/>
+      </Properties>
+    </DataType>
+    <DataType FullName="Apworks.Snapshots.SnapshotDataObject`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" MapTo="Snapshots">
       <Properties>
         <Property Name="ID" MapTo="Id" Identity="true" AutoGenerate="false"/>
       </Properties>

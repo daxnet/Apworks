@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -27,6 +27,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Options;
+using MongoDB.Bson.Serialization.Serializers;
 using System;
 using System.Reflection;
 
@@ -45,25 +46,32 @@ namespace Apworks.Repositories.MongoDB.Conventions
         /// <param name="memberMap">The member map convention.</param>
         public void Apply(BsonMemberMap memberMap)
         {
-            IBsonSerializationOptions options = null;
+            Func<Type, IBsonSerializer> converter = t =>
+                {
+                    if (t == typeof(DateTime))
+                        return new DateTimeSerializer(DateTimeKind.Local);
+                    else if (t == typeof(DateTime?))
+                        return new NullableSerializer<DateTime>(new DateTimeSerializer(DateTimeKind.Local));
+                    return null;
+                };
+
+            IBsonSerializer serializer = null;
             switch (memberMap.MemberInfo.MemberType)
             {
                 case MemberTypes.Property:
                     PropertyInfo propertyInfo = (PropertyInfo)memberMap.MemberInfo;
-                    if (propertyInfo.PropertyType == typeof(DateTime) ||
-                        propertyInfo.PropertyType == typeof(DateTime?))
-                        options = new DateTimeSerializationOptions(DateTimeKind.Local);
+                    serializer = converter(propertyInfo.PropertyType);
                     break;
                 case MemberTypes.Field:
                     FieldInfo fieldInfo = (FieldInfo)memberMap.MemberInfo;
-                    if (fieldInfo.FieldType == typeof(DateTime) ||
-                        fieldInfo.FieldType == typeof(DateTime?))
-                        options = new DateTimeSerializationOptions(DateTimeKind.Local);
+                    serializer = converter(fieldInfo.FieldType);
                     break;
                 default:
                     break;
             }
-            memberMap.SetSerializationOptions(options);
+
+            if (serializer != null)
+                memberMap.SetSerializer(serializer);
         }
 
         #endregion

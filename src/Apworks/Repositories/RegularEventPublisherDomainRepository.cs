@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -30,6 +30,8 @@ using System.Transactions;
 using Apworks.Bus;
 using Apworks.Specifications;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Apworks.Repositories
 {
@@ -73,7 +75,37 @@ namespace Apworks.Repositories
         /// <summary>
         /// Commits the changes registered in the domain repository.
         /// </summary>
-        protected override void DoCommit()
+        //protected override void DoCommit()
+        //{
+        //    foreach (var aggregateRootObj in this.SaveHash)
+        //    {
+        //        this.context.RegisterNew(aggregateRootObj);
+        //        this.PublishAggregateRootEvents(aggregateRootObj);
+        //    }
+        //    foreach (var aggregateRootObj in this.dirtyHash)
+        //    {
+        //        this.context.RegisterModified(aggregateRootObj);
+        //        this.PublishAggregateRootEvents(aggregateRootObj);
+        //    }
+        //    if (this.DistributedTransactionSupported)
+        //    {
+        //        using (TransactionScope ts = new TransactionScope())
+        //        {
+        //            this.context.Commit();
+        //            this.EventBus.Commit();
+        //            ts.Complete();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        this.context.Commit();
+        //        this.EventBus.Commit();
+        //    }
+        //    this.dirtyHash.ToList().ForEach(this.DelegatedUpdateAndClearAggregateRoot);
+        //    this.dirtyHash.Clear();
+        //}
+
+        protected override async Task DoCommitAsync(CancellationToken cancellationToken)
         {
             foreach (var aggregateRootObj in this.SaveHash)
             {
@@ -87,21 +119,22 @@ namespace Apworks.Repositories
             }
             if (this.DistributedTransactionSupported)
             {
-                using (TransactionScope ts = new TransactionScope())
+                using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    this.context.Commit();
-                    this.EventBus.Commit();
+                    await this.context.CommitAsync(cancellationToken);
+                    await this.EventBus.CommitAsync(cancellationToken);
                     ts.Complete();
                 }
             }
             else
             {
-                this.context.Commit();
-                this.EventBus.Commit();
+                await this.context.CommitAsync(cancellationToken);
+                await this.EventBus.CommitAsync(cancellationToken);
             }
             this.dirtyHash.ToList().ForEach(this.DelegatedUpdateAndClearAggregateRoot);
             this.dirtyHash.Clear();
         }
+
         /// <summary>
         /// Disposes the object.
         /// </summary>

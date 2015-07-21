@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -35,9 +35,10 @@ namespace Apworks.Repositories
     /// <summary>
     /// Represents the base class for repositories.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key of the aggregate root.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public abstract class Repository<TAggregateRoot> : IRepository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    public abstract class Repository<TKey, TAggregateRoot> : IRepository<TKey, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         #region Private Fields
         private readonly IRepositoryContext context;
@@ -65,7 +66,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        protected abstract TAggregateRoot DoGetByKey(object key);
+        protected abstract TAggregateRoot DoGetByKey(TKey key);
         /// <summary>
         /// Gets all the aggregate roots from repository.
         /// </summary>
@@ -394,7 +395,7 @@ namespace Apworks.Repositories
         /// </summary>
         /// <param name="key">The key of the aggregate root.</param>
         /// <returns>The instance of the aggregate root.</returns>
-        public TAggregateRoot GetByKey(object key)
+        public TAggregateRoot GetByKey(TKey key)
         {
             return this.DoGetByKey(key);
         }
@@ -744,5 +745,23 @@ namespace Apworks.Repositories
             return this.DoExists(specification);
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Represents that the implemented classes are repositories.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+    public abstract class Repository<TAggregateRoot> : Repository<Guid, TAggregateRoot>, IRepository<TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Repository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The repository context being used by the repository.</param>
+        public Repository(IRepositoryContext context)
+            : base(context)
+        {
+            
+        }
     }
 }

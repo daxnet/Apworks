@@ -12,7 +12,7 @@
 //               LBBj
 //
 // Apworks Application Development Framework
-// Copyright (C) 2010-2013 apworks.org.
+// Copyright (C) 2010-2015 by daxnet.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -38,9 +38,10 @@ namespace Apworks.Repositories.NHibernate
     /// <summary>
     /// Represents the repository which supports the NHibernate implementation.
     /// </summary>
+    /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-    public class NHibernateRepository<TAggregateRoot> : Repository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    public class NHibernateRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         #region Private Fields
         //private readonly ISession session = null;
@@ -75,9 +76,9 @@ namespace Apworks.Repositories.NHibernate
         /// </summary>
         /// <param name="key">The key of the entity.</param>
         /// <returns>The instance of the entity.</returns>
-        protected override TAggregateRoot DoGetByKey(object key)
+        protected override TAggregateRoot DoGetByKey(TKey key)
         {
-            return nhContext.GetByKey<TAggregateRoot>(key);
+            return nhContext.GetByKey<TKey, TAggregateRoot>(key);
         }
         /// <summary>
         /// Gets all the aggregate roots that match the given specification, and sorts the aggregate roots
@@ -139,7 +140,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
         protected override IQueryable<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, SortOrder sortOrder)
         {
-            return nhContext.FindAll<TAggregateRoot>(specification, sortPredicate, sortOrder);
+            return nhContext.FindAll<TKey, TAggregateRoot>(specification, sortPredicate, sortOrder);
         }
         /// <summary>
         /// Finds all the aggregate roots that match the given specification with paging enabled, and sorts the aggregate roots
@@ -153,7 +154,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>All the aggregate roots that match the given specification and were sorted by using the given sort predicate and the sort order.</returns>
         protected override PagedResult<TAggregateRoot> DoFindAll(ISpecification<TAggregateRoot> specification, Expression<Func<TAggregateRoot, dynamic>> sortPredicate, Storage.SortOrder sortOrder, int pageNumber, int pageSize)
         {
-            return nhContext.FindAll<TAggregateRoot>(specification, sortPredicate, sortOrder, pageNumber, pageSize);
+            return nhContext.FindAll<TKey, TAggregateRoot>(specification, sortPredicate, sortOrder, pageNumber, pageSize);
         }
         /// <summary>
         /// Gets a single entity instance from repository by using the given specification.
@@ -175,7 +176,7 @@ namespace Apworks.Repositories.NHibernate
         /// <returns>The instance of the aggregate root.</returns>
         protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
         {
-            return nhContext.Find<TAggregateRoot>(specification);
+            return nhContext.Find<TKey, TAggregateRoot>(specification);
         }
         /// <summary>
         /// Checkes whether the aggregate root which matches the given specification exists.
@@ -262,5 +263,23 @@ namespace Apworks.Repositories.NHibernate
             return this.DoFind(specification, eagerLoadingProperties);
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Represents the repository which supports the NHibernate implementation.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+    public class NHibernateRepository<TAggregateRoot> : NHibernateRepository<Guid, TAggregateRoot>,
+                                                        IRepository<TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NHibernateRepository{TAggregateRoot}"/> class.
+        /// </summary>
+        /// <param name="context">The instance of the repository context.</param>
+        public NHibernateRepository(IRepositoryContext context)
+            : base(context)
+        {
+        }
     }
 }
