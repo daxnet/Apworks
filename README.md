@@ -1,5 +1,5 @@
-#### Out of Date Announcement
-**Please refer to https://github.com/daxnet/apworks-core for the new, modern and latest version of Apworks. Apworks Core is the rewrite of Apworks framework, supporting Microsoft .NET Core.**
+### Out of Date Announcement
+**This repo is out of date and will no longer be maintained. Please refer to https://github.com/daxnet/apworks-core for the new, modern and latest version of Apworks. Apworks Core is the rewrite of Apworks framework, supporting Microsoft .NET Core.**
 
 
 Project Description
