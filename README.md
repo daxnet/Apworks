@@ -1,5 +1,8 @@
 Project Description
 ===================
+
+**Please refer to https://github.com/daxnet/apworks-core for the new, modern and latest version of Apworks. Apworks Core is the rewrite of Apworks framework, supporting Microsoft .NET Core.**
+
 Apworks is a flexible, scalable, configurable and efficient .NET based application development framework that helps software developers to easily build enterprise applications by applying either Classic Layering or Command-Query Responsibility Segregation (CQRS) architectural patterns. Apworks provides the fundamental libraries and tools for practicing and implementing Domain-Driven Design concepts such as entities, value objects, repositories, factories, specifications, event sourcing, snapshots, domain repositories, message dispatching and synchronization, etc. It also provides the utilities from infrastructure level such as Inversion of Control/Dependency Injection (IoC/DI) components, AOP interception, exception handling & logging, so that architects and developers can focus on the business domain and communicate with domain experts via ubiquitous language without any concern of technical implementations.
 
 Followings are the highlights of current implementation of Apworks framework:
